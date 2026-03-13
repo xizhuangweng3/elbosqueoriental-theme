@@ -1,0 +1,46 @@
+/* ============================================================
+   Bosque Natural — Header overrides
+   bn-header.css
+   Prefix: bn-
+   ============================================================ */
+
+/* --- Logo: show desktop (long) by default, hide mobile stamp --- */
+.bn-logo--mobile {
+  display: none;
+}
+
+.bn-logo--desktop {
+  display: block;
+}
+
+/* --- On mobile (< 750px): show stamp only --- */
+@media screen and (max-width: 749px) {
+  .bn-logo--mobile {
+    display: block;
+  }
+
+  .bn-logo--desktop {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Sticky header
+   Dawn's StickyHeader web component already provides:
+     position: sticky; top: 0; background-color on .shopify-section-header-sticky
+   We add only what Dawn doesn't: shadow and mobile min-height.
+   ============================================================ */
+
+/* Bottom border/shadow to visually separate header from page content */
+.header-wrapper {
+  box-shadow: 0 1px 0 rgba(var(--color-foreground), 0.08);
+}
+
+/* Minimum header height on mobile: 56px */
+@media screen and (max-width: 749px) {
+  .header {
+    min-height: 5.6rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+  }
+}

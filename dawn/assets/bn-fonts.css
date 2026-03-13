@@ -1,0 +1,32 @@
+/* ============================================================
+   Bosque Natural — Typography overrides
+   bn-fonts.css
+   Fonts: Nunito (headings), Gabarito (body)
+   ============================================================ */
+
+/* Heading elements */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+}
+
+/* Body text */
+body,
+p,
+li,
+blockquote,
+figcaption,
+.rte {
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-size: 1.6rem; /* 16px — prevents iOS auto-zoom on inputs */
+}
+
+/* Ensure inputs and buttons inherit brand font */
+input,
+textarea,
+select,
+button {
+  font-family: var(--font-body-family);
+}

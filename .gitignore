@@ -1,0 +1,9 @@
+# Claude Code session memory — private, not for repo
+.claude/
+
+# Node modules (if any tooling added later)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
