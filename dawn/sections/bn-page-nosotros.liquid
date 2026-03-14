@@ -1,0 +1,268 @@
+{{ 'bn-page-nosotros.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- assign hero_image = section.settings.hero_image -%}
+{%- assign section1_image = section.settings.section1_image -%}
+{%- assign section2_image = section.settings.section2_image -%}
+{%- assign section3_image = section.settings.section3_image -%}
+
+{%- comment -%} ─── HERO ─── {%- endcomment -%}
+<div class="bn-nosotros__hero">
+  {%- if hero_image != blank -%}
+    <div class="bn-nosotros__hero-image">
+      {{
+        hero_image
+        | image_url: width: 1920
+        | image_tag: loading: 'eager', widths: '750, 990, 1200, 1920', class: 'bn-nosotros__hero-img'
+      }}
+    </div>
+  {%- else -%}
+    <div class="bn-nosotros__hero-image bn-nosotros__hero-image--placeholder">
+      <img
+        src="{{ 'store-exterior.jpg' | asset_url }}"
+        alt="{{ 'pages.nosotros.hero_heading' | t }}"
+        width="1920"
+        height="800"
+        loading="eager"
+        class="bn-nosotros__hero-img"
+      >
+    </div>
+  {%- endif -%}
+  <div class="bn-nosotros__hero-overlay"></div>
+  <div class="bn-nosotros__hero-content page-width">
+    <h1 class="bn-nosotros__hero-heading">{{ 'pages.nosotros.hero_heading' | t }}</h1>
+    <p class="bn-nosotros__hero-subheading">{{ 'pages.nosotros.hero_subheading' | t }}</p>
+  </div>
+</div>
+
+{%- comment -%} ─── SECTION 1: FOUNDING STORY ─── {%- endcomment -%}
+<div class="bn-nosotros__row page-width section-{{ section.id }}-padding">
+  <div class="bn-nosotros__row-text">
+    <p class="bn-nosotros__body-text">{{ 'pages.nosotros.section1_body_1' | t }}</p>
+    <p class="bn-nosotros__body-text">{{ 'pages.nosotros.section1_body_2' | t }}</p>
+  </div>
+  <div class="bn-nosotros__row-image">
+    {%- if section1_image != blank -%}
+      {{
+        section1_image
+        | image_url: width: 900
+        | image_tag: loading: 'lazy', widths: '450, 600, 900', class: 'bn-nosotros__photo'
+      }}
+    {%- else -%}
+      <img
+        src="{{ 'store-exterior.jpg' | asset_url }}"
+        alt="{{ 'pages.nosotros.section1_image_alt' | t }}"
+        width="900"
+        height="675"
+        loading="lazy"
+        class="bn-nosotros__photo"
+      >
+    {%- endif -%}
+  </div>
+</div>
+
+{%- comment -%} ─── SECTION 2: TRADITION MEETS INNOVATION ─── {%- endcomment -%}
+<div class="bn-nosotros__row bn-nosotros__row--reversed color-scheme-2 gradient">
+  <div class="bn-nosotros__row-inner page-width">
+    <div class="bn-nosotros__row-image">
+      {%- if section2_image != blank -%}
+        {{
+          section2_image
+          | image_url: width: 900
+          | image_tag: loading: 'lazy', widths: '450, 600, 900', class: 'bn-nosotros__photo'
+        }}
+      {%- else -%}
+        <img
+          src="{{ 'store-interior-1.jpg' | asset_url }}"
+          alt="{{ 'pages.nosotros.section2_image_alt' | t }}"
+          width="900"
+          height="675"
+          loading="lazy"
+          class="bn-nosotros__photo"
+        >
+      {%- endif -%}
+    </div>
+    <div class="bn-nosotros__row-text">
+      <h2 class="bn-nosotros__section-heading">{{ 'pages.nosotros.section2_heading' | t }}</h2>
+      <p class="bn-nosotros__body-text">{{ 'pages.nosotros.section2_body_1' | t }}</p>
+      <p class="bn-nosotros__body-text">{{ 'pages.nosotros.section2_body_2' | t }}</p>
+    </div>
+  </div>
+</div>
+
+{%- comment -%} ─── SECTION 3: YOUR HEALTH OUR HERITAGE ─── {%- endcomment -%}
+<div class="bn-nosotros__row page-width">
+  <div class="bn-nosotros__row-text">
+    <h2 class="bn-nosotros__section-heading">{{ 'pages.nosotros.section3_heading' | t }}</h2>
+    <p class="bn-nosotros__body-text">{{ 'pages.nosotros.section3_body_1' | t }}</p>
+    <p class="bn-nosotros__body-text">{{ 'pages.nosotros.section3_body_2' | t }}</p>
+  </div>
+  <div class="bn-nosotros__row-image">
+    {%- if section3_image != blank -%}
+      {{
+        section3_image
+        | image_url: width: 900
+        | image_tag: loading: 'lazy', widths: '450, 600, 900', class: 'bn-nosotros__photo'
+      }}
+    {%- else -%}
+      <img
+        src="{{ 'store-interior-2.jpg' | asset_url }}"
+        alt="{{ 'pages.nosotros.section3_image_alt' | t }}"
+        width="900"
+        height="675"
+        loading="lazy"
+        class="bn-nosotros__photo"
+      >
+    {%- endif -%}
+  </div>
+</div>
+
+{%- comment -%} ─── VALUES GRID ─── {%- endcomment -%}
+<div class="bn-nosotros__values color-{{ section.settings.values_color_scheme }} gradient">
+  <div class="page-width">
+    <h2 class="bn-nosotros__values-heading">{{ 'pages.nosotros.values_heading' | t }}</h2>
+    <div class="bn-nosotros__values-grid">
+      <div class="bn-nosotros__value-card">
+        <span class="bn-nosotros__value-icon" aria-hidden="true">🌿</span>
+        <h3 class="bn-nosotros__value-title">{{ 'pages.nosotros.value1_heading' | t }}</h3>
+        <p class="bn-nosotros__value-body">{{ 'pages.nosotros.value1_body' | t }}</p>
+      </div>
+      <div class="bn-nosotros__value-card">
+        <span class="bn-nosotros__value-icon" aria-hidden="true">👨‍👩‍👧</span>
+        <h3 class="bn-nosotros__value-title">{{ 'pages.nosotros.value2_heading' | t }}</h3>
+        <p class="bn-nosotros__value-body">{{ 'pages.nosotros.value2_body' | t }}</p>
+      </div>
+      <div class="bn-nosotros__value-card">
+        <span class="bn-nosotros__value-icon" aria-hidden="true">🧭</span>
+        <h3 class="bn-nosotros__value-title">{{ 'pages.nosotros.value3_heading' | t }}</h3>
+        <p class="bn-nosotros__value-body">{{ 'pages.nosotros.value3_body' | t }}</p>
+      </div>
+      <div class="bn-nosotros__value-card">
+        <span class="bn-nosotros__value-icon" aria-hidden="true">💬</span>
+        <h3 class="bn-nosotros__value-title">{{ 'pages.nosotros.value4_heading' | t }}</h3>
+        <p class="bn-nosotros__value-body">{{ 'pages.nosotros.value4_body' | t }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- comment -%} ─── ACUPUNCTURE MENTION ─── {%- endcomment -%}
+<div class="bn-nosotros__acupuncture page-width">
+  <div class="bn-nosotros__acupuncture-inner">
+    <div class="bn-nosotros__acupuncture-text">
+      <h2 class="bn-nosotros__section-heading">{{ 'pages.nosotros.acupuncture_heading' | t }}</h2>
+      <p class="bn-nosotros__body-text">{{ 'pages.nosotros.acupuncture_body' | t }}</p>
+      <a href="tel:952584736" class="button button--secondary">{{ 'pages.nosotros.acupuncture_cta' | t }}</a>
+    </div>
+    {%- if section.settings.acupuncture_image != blank -%}
+      <div class="bn-nosotros__acupuncture-image">
+        {{
+          section.settings.acupuncture_image
+          | image_url: width: 900
+          | image_tag: loading: 'lazy', widths: '450, 600, 900', class: 'bn-nosotros__photo'
+        }}
+      </div>
+    {%- else -%}
+      <div class="bn-nosotros__acupuncture-image">
+        <img
+          src="{{ 'store-waiting-room.jpg' | asset_url }}"
+          alt="{{ 'pages.nosotros.acupuncture_image_alt' | t }}"
+          width="900"
+          height="675"
+          loading="lazy"
+          class="bn-nosotros__photo"
+        >
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Página Nosotros",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Imágenes"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Imagen hero (fondo)"
+    },
+    {
+      "type": "image_picker",
+      "id": "section1_image",
+      "label": "Imagen sección 1 — Historia fundacional"
+    },
+    {
+      "type": "image_picker",
+      "id": "section2_image",
+      "label": "Imagen sección 2 — Interior tienda"
+    },
+    {
+      "type": "image_picker",
+      "id": "section3_image",
+      "label": "Imagen sección 3 — Interior amplio"
+    },
+    {
+      "type": "image_picker",
+      "id": "acupuncture_image",
+      "label": "Imagen sala de espera acupuntura"
+    },
+    {
+      "type": "header",
+      "content": "Colores y espaciado"
+    },
+    {
+      "type": "select",
+      "id": "values_color_scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1" },
+        { "value": "scheme-2", "label": "Scheme 2" }
+      ],
+      "default": "scheme-2",
+      "label": "Color de fondo — sección valores"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding superior",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding inferior",
+      "default": 52
+    }
+  ],
+  "presets": [
+    {
+      "name": "Página Nosotros"
+    }
+  ]
+}
+{% endschema %}

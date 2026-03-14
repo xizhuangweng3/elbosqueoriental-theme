@@ -1,0 +1,244 @@
+/* ═══════════════════════════════════════════════
+   BN — Página Nosotros
+   ═══════════════════════════════════════════════ */
+
+/* ─── Hero ─── */
+.bn-nosotros__hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+}
+
+.bn-nosotros__hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.bn-nosotros__hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.bn-nosotros__hero-image--placeholder {
+  background-color: rgb(var(--color-foreground) / 0.1);
+}
+
+.bn-nosotros__hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(17 17 17 / 0.55) 0%,
+    rgb(17 17 17 / 0.65) 100%
+  );
+}
+
+.bn-nosotros__hero-content {
+  position: relative;
+  z-index: 1;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+.bn-nosotros__hero-heading {
+  font-family: var(--font-heading-family);
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #ffffff;
+  margin-bottom: 1.6rem;
+}
+
+.bn-nosotros__hero-subheading {
+  font-size: clamp(1.5rem, 2vw, 1.8rem);
+  color: rgb(255 255 255 / 0.88);
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ─── Alternating rows ─── */
+.bn-nosotros__row {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding-top: 5.2rem;
+  padding-bottom: 5.2rem;
+}
+
+.bn-nosotros__row--reversed .bn-nosotros__row-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding-top: 5.2rem;
+  padding-bottom: 5.2rem;
+}
+
+.bn-nosotros__row-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.6rem;
+}
+
+.bn-nosotros__section-heading {
+  font-family: var(--font-heading-family);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  color: rgb(var(--color-foreground));
+  margin-bottom: 0.8rem;
+  line-height: 1.25;
+}
+
+.bn-nosotros__body-text {
+  font-size: 1.6rem;
+  line-height: 1.75;
+  color: rgb(var(--color-foreground) / 0.85);
+  margin: 0;
+}
+
+.bn-nosotros__row-image {
+  width: 100%;
+}
+
+.bn-nosotros__photo {
+  width: 100%;
+  height: auto;
+  border-radius: 0.8rem;
+  display: block;
+  object-fit: cover;
+}
+
+/* Desktop: two columns */
+@media screen and (min-width: 750px) {
+  .bn-nosotros__row {
+    flex-direction: row;
+    align-items: center;
+    gap: 6rem;
+  }
+
+  .bn-nosotros__row > .bn-nosotros__row-text,
+  .bn-nosotros__row > .bn-nosotros__row-image {
+    flex: 1;
+  }
+
+  .bn-nosotros__row--reversed .bn-nosotros__row-inner {
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 6rem;
+  }
+
+  .bn-nosotros__row--reversed .bn-nosotros__row-inner > .bn-nosotros__row-text,
+  .bn-nosotros__row--reversed .bn-nosotros__row-inner > .bn-nosotros__row-image {
+    flex: 1;
+  }
+}
+
+/* ─── Values grid ─── */
+.bn-nosotros__values {
+  padding: 5.2rem 0;
+}
+
+.bn-nosotros__values-heading {
+  font-family: var(--font-heading-family);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 4rem;
+  color: rgb(var(--color-foreground));
+}
+
+.bn-nosotros__values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.4rem;
+}
+
+@media screen and (min-width: 750px) {
+  .bn-nosotros__values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .bn-nosotros__values-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.bn-nosotros__value-card {
+  background-color: rgb(var(--color-background));
+  border: 0.1rem solid rgb(var(--color-foreground) / 0.1);
+  border-radius: 1.2rem;
+  padding: 3.2rem 2.4rem;
+  text-align: center;
+  transition: box-shadow 0.2s ease;
+}
+
+.bn-nosotros__value-card:hover {
+  box-shadow: 0 4px 20px rgb(0 0 0 / 0.08);
+}
+
+.bn-nosotros__value-icon {
+  font-size: 3.6rem;
+  display: block;
+  margin-bottom: 1.6rem;
+}
+
+.bn-nosotros__value-title {
+  font-family: var(--font-heading-family);
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: rgb(var(--color-foreground));
+}
+
+.bn-nosotros__value-body {
+  font-size: 1.5rem;
+  line-height: 1.7;
+  color: rgb(var(--color-foreground) / 0.75);
+  margin: 0;
+}
+
+/* ─── Acupuncture section ─── */
+.bn-nosotros__acupuncture {
+  padding-top: 5.2rem;
+  padding-bottom: 5.2rem;
+}
+
+.bn-nosotros__acupuncture-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  align-items: center;
+}
+
+.bn-nosotros__acupuncture-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.bn-nosotros__acupuncture-image {
+  width: 100%;
+}
+
+@media screen and (min-width: 750px) {
+  .bn-nosotros__acupuncture-inner {
+    flex-direction: row;
+    gap: 6rem;
+  }
+
+  .bn-nosotros__acupuncture-text,
+  .bn-nosotros__acupuncture-image {
+    flex: 1;
+  }
+}

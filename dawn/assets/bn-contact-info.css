@@ -1,0 +1,162 @@
+/* ═══════════════════════════════════════════════
+   BN — Contact Info + Form
+   ═══════════════════════════════════════════════ */
+
+.bn-contact {
+  padding: 5.2rem 0;
+}
+
+.bn-contact__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4.8rem;
+}
+
+@media screen and (min-width: 750px) {
+  .bn-contact__inner {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 6rem;
+  }
+
+  .bn-contact__details {
+    flex: 0 0 32rem;
+  }
+
+  .bn-contact__form-wrapper {
+    flex: 1;
+  }
+}
+
+/* ─── Details column ─── */
+.bn-contact__heading {
+  font-family: var(--font-heading-family);
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-weight: 700;
+  margin-bottom: 1.6rem;
+  color: rgb(var(--color-foreground));
+}
+
+.bn-contact__intro {
+  font-size: 1.6rem;
+  line-height: 1.75;
+  color: rgb(var(--color-foreground) / 0.8);
+  margin-bottom: 3.2rem;
+}
+
+.bn-contact__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.bn-contact__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.6rem;
+}
+
+.bn-contact__item-icon {
+  font-size: 2.4rem;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.bn-contact__item-label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgb(var(--color-foreground) / 0.55);
+  margin-bottom: 0.4rem;
+}
+
+.bn-contact__item-value {
+  display: block;
+  font-size: 1.6rem;
+  color: rgb(var(--color-foreground));
+}
+
+.bn-contact__phone {
+  color: rgba(var(--color-button), 1);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.bn-contact__phone:hover {
+  text-decoration: underline;
+}
+
+/* ─── Form ─── */
+.bn-contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.bn-contact__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.bn-contact__label {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
+}
+
+.bn-contact__input,
+.bn-contact__textarea {
+  width: 100%;
+  padding: 1.2rem 1.6rem;
+  font-size: 1.6rem;
+  font-family: var(--font-body-family);
+  color: rgb(var(--color-foreground));
+  background-color: rgb(var(--color-background));
+  border: 0.1rem solid rgb(var(--color-foreground) / 0.2);
+  border-radius: 0.4rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.bn-contact__input:focus,
+.bn-contact__textarea:focus {
+  outline: none;
+  border-color: rgb(var(--color-foreground));
+}
+
+.bn-contact__textarea {
+  resize: vertical;
+  min-height: 16rem;
+}
+
+.bn-contact__submit {
+  align-self: flex-start;
+  min-width: 18rem;
+}
+
+.bn-contact__success {
+  padding: 1.6rem 2rem;
+  background-color: #e8f5e9;
+  border: 0.1rem solid #00592e;
+  border-radius: 0.4rem;
+  color: #00592e;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+.bn-contact__errors {
+  padding: 1.6rem 2rem;
+  background-color: #fdecea;
+  border: 0.1rem solid #d60036;
+  border-radius: 0.4rem;
+  color: #d60036;
+  font-size: 1.5rem;
+}

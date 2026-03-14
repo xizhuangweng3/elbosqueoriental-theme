@@ -527,5 +527,51 @@
       "send_on": "YYYY-MM-DD",
       "send_on_label": "Send on (optional)"
     }
+  },
+  "pages": {
+    "nosotros": {
+      "hero_heading": "Caring for you with tradition and science since 1985.",
+      "hero_subheading": "From the heart of Fuengirola, caring for your health for over 40 years.",
+      "hero_image_alt": "El Bosque Oriental storefront",
+      "section1_body_1": "Located in the vibrant heart of Fuengirola, our story began over 40 years ago with a simple conviction: true wellbeing is born when ancestral wisdom meets modern science.",
+      "section1_body_2": "What started as a small family project has become a trusted refuge where East meets West. Over four decades, we have watched children grow into adults, welcomed new generations, and woven ourselves into the fabric of our community's health journey.",
+      "section1_image_alt": "El Bosque Oriental storefront exterior",
+      "section2_heading": "Where Tradition Meets Innovation",
+      "section2_body_1": "Our shelves tell a story of careful selection. From small artisan producers who share our values to trusted global brands at the forefront of scientific innovation, every supplement is hand-picked with the same care we would put into choosing for our own family.",
+      "section2_body_2": "In our acupuncture clinic, the ancient practices of Chinese medicine combine naturally with contemporary health knowledge. We listen with the patience of tradition and recommend with the precision of modern knowledge.",
+      "section2_image_alt": "El Bosque Oriental store interior — product shelves",
+      "section3_heading": "Your Health, Our Heritage",
+      "section3_body_1": "We are not just a shop or a clinic — we are guardians of a philosophy: that your path to wellbeing deserves both time-tested wisdom and the most advanced solutions.",
+      "section3_body_2": "Welcome to the place where your health story meets ours.",
+      "section3_image_alt": "El Bosque Oriental store interior — wide view",
+      "values_heading": "Our Values",
+      "value1_heading": "Selection with Purpose",
+      "value1_body": "Every product on our shelves has passed through decades of expert criteria. If it's here, it's because we trust it.",
+      "value2_heading": "Family Heritage",
+      "value2_body": "We are a family that cares for other families. That bond guides every decision we make.",
+      "value3_heading": "East and West",
+      "value3_body": "We combine the best of traditional Chinese medicine with the advances of modern science to offer you a complete vision of health.",
+      "value4_heading": "Always Available",
+      "value4_body": "Behind every order there are real people. Call us, write to us, visit us — we are always here.",
+      "acupuncture_heading": "We also offer traditional Chinese acupuncture",
+      "acupuncture_body": "In addition to our natural supplements shop, we have an acupuncture clinic where we apply ancient techniques of traditional Chinese medicine. For more information or appointments, call us at 952 584 736.",
+      "acupuncture_cta": "Call 952 584 736",
+      "acupuncture_image_alt": "El Bosque Oriental acupuncture clinic waiting room"
+    },
+    "contact": {
+      "heading": "We are here to help you",
+      "intro": "Behind this store there are real people with over 40 years of experience in natural health. If you have a question about a product, need personalised advice, or simply want to know more about what we do, do not hesitate to contact us.",
+      "phone_label": "Phone",
+      "location_label": "Location",
+      "location_value": "Fuengirola, Málaga, Spain",
+      "hours_label": "Opening hours",
+      "hours_value": "Please call for current hours",
+      "name_label": "Name",
+      "email_label": "Email",
+      "subject_label": "Subject",
+      "message_label": "Message",
+      "submit_label": "Send message",
+      "success_message": "Thank you for your message! We will reply as soon as possible. If you need an urgent response, call us at 952 584 736."
+    }
   }
 }
