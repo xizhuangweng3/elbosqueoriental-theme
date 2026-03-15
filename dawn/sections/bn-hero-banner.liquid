@@ -1,210 +1,284 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+
 {%- style -%}
-  .bn-hero-banner {
+  :root {
     --bn-hero-bg: {{ section.settings.background_color }};
+    --bn-hero-text: {{ section.settings.text_color }};
+  }
+
+  .bn-hero {
     position: relative;
     width: 100%;
     background-color: var(--bn-hero-bg);
     overflow: hidden;
-    animation: bn-hero-fadein 0.9s ease both;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    animation: bn-fadein 0.8s ease both;
   }
 
-  @keyframes bn-hero-fadein {
+  @keyframes bn-fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
   }
 
-  /* ── Static design image (default) ── */
-  .bn-hero-banner__static-img {
-    display: block;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    object-position: center;
+  /* ── Stamp — top right ── */
+  .bn-hero__stamp {
+    position: absolute;
+    top: 1.6rem;
+    right: 1.6rem;
+    z-index: 4;
+    width: 5.2rem;
+    height: 5.2rem;
+    border: 1.5px solid var(--bn-hero-text);
+    opacity: 0.55;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3px;
+    padding: 0.8rem;
+    box-sizing: border-box;
   }
 
-  /* ── Custom-built layout (when custom image uploaded) ── */
-  .bn-hero-banner__custom {
+  .bn-hero__stamp-line {
+    width: 100%;
+    height: 1.5px;
+    background-color: var(--bn-hero-text);
+    display: block;
+  }
+
+  .bn-hero__stamp-row {
+    display: flex;
+    gap: 3px;
+    width: 100%;
+  }
+
+  .bn-hero__stamp-cell {
+    flex: 1;
+    height: 1.5px;
+    background-color: var(--bn-hero-text);
+  }
+
+  /* ── Main composition ── */
+  .bn-hero__composition {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3.2rem 2rem 3.2rem;
+    width: 100%;
+    max-width: 56rem;
+  }
+
+  /* ── "40" + leaf overlap container ── */
+  .bn-hero__visual {
     position: relative;
     display: flex;
     align-items: center;
-    min-height: 320px;
-    overflow: hidden;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1.2rem;
   }
 
-  .bn-hero-banner__leaf {
+  /* ── The "40" number — sits BEHIND the leaf ── */
+  .bn-hero__number {
+    position: relative;
+    z-index: 1;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(9rem, 26vw, 16rem);
+    font-weight: 300;
+    line-height: 0.9;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255,255,255,0.85);
+    text-stroke: 1.5px rgba(255,255,255,0.85);
+    letter-spacing: -0.04em;
+    user-select: none;
+    margin: 0;
+  }
+
+  /* ── Ginkgo leaf — sits IN FRONT of "40" ── */
+  .bn-hero__leaf {
     position: absolute;
-    left: -3rem;
+    z-index: 2;
     top: 50%;
-    transform: translateY(-50%);
-    height: 115%;
+    left: 50%;
+    transform: translate(-48%, -54%);
+    height: clamp(18rem, 40vw, 30rem);
     width: auto;
     pointer-events: none;
   }
 
-  .bn-hero-banner__leaf img {
+  .bn-hero__leaf img {
     height: 100%;
     width: auto;
     display: block;
     object-fit: contain;
   }
 
-  .bn-hero-banner__content {
+  /* ── Leaf placeholder (no image uploaded) ── */
+  .bn-hero__leaf--placeholder {
+    opacity: 0.2;
+  }
+
+  .bn-hero__leaf--placeholder svg {
+    height: 100%;
+    width: auto;
+  }
+
+  /* ── Water droplet accents ── */
+  .bn-hero__drops {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .bn-hero__drop {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.55);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  /* ── Text block — below leaf/number ── */
+  .bn-hero__text {
     position: relative;
-    z-index: 2;
-    width: 100%;
+    z-index: 4;
     text-align: center;
-    padding: 4rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.3rem;
   }
 
-  .bn-hero-banner__number {
-    font-family: var(--font-heading-family, 'Nunito', sans-serif);
-    font-size: clamp(7rem, 20vw, 13rem);
-    font-weight: 800;
-    line-height: 1;
-    color: transparent;
-    -webkit-text-stroke: 3px #ffffff;
-    text-stroke: 3px #ffffff;
-    letter-spacing: -0.02em;
-    margin: 0;
-  }
-
-  .bn-hero-banner__line1 {
-    font-family: var(--font-heading-family, 'Nunito', sans-serif);
-    font-size: clamp(1.1rem, 2.5vw, 1.7rem);
-    font-weight: 600;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: #ffffff;
-    margin: 0;
-  }
-
-  .bn-hero-banner__line2 {
-    font-family: var(--font-heading-family, 'Nunito', sans-serif);
-    font-size: clamp(1.6rem, 4vw, 2.6rem);
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #ffffff;
-    margin: 0.4rem 0 0;
-  }
-
-  .bn-hero-banner__tagline {
+  .bn-hero__line1 {
     font-family: var(--font-body-family, 'Gabarito', sans-serif);
-    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bn-hero-text);
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .bn-hero__line2 {
+    font-family: var(--font-heading-family, 'Nunito', sans-serif);
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bn-hero-text);
+    margin: 0.2rem 0 0;
+    line-height: 1.1;
+  }
+
+  .bn-hero__tagline {
+    font-family: var(--font-body-family, 'Gabarito', sans-serif);
+    font-size: clamp(1rem, 2vw, 1.25rem);
     font-style: italic;
-    color: rgba(255, 255, 255, 0.88);
-    margin: 0.6rem 0 0;
-    max-width: 40rem;
-    line-height: 1.6;
+    color: var(--bn-hero-text);
+    margin: 0.4rem 0 0;
+    opacity: 0.8;
+    line-height: 1.5;
   }
 
-  .bn-hero-banner__east {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    z-index: 3;
-    width: 5.6rem;
-    height: 5.6rem;
-    background: rgba(0, 0, 0, 0.28);
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .bn-hero-banner__east-char {
-    font-size: 2.6rem;
-    color: #ffffff;
-    line-height: 1;
-    font-family: serif;
-  }
-
+  /* ── Desktop ── */
   @media screen and (min-width: 750px) {
-    .bn-hero-banner__custom {
-      min-height: 450px;
+    .bn-hero {
+      min-height: 420px;
     }
 
-    .bn-hero-banner__content {
-      padding-left: max(28rem, 36%);
-      padding-right: 10rem;
-      text-align: left;
-      align-items: flex-start;
+    .bn-hero__stamp {
+      top: 2.4rem;
+      right: 2.4rem;
+      width: 6rem;
+      height: 6rem;
     }
 
-    .bn-hero-banner__leaf {
-      left: -1rem;
-      height: 120%;
+    .bn-hero__number {
+      -webkit-text-stroke: 2px rgba(255,255,255,0.85);
     }
   }
 {%- endstyle -%}
 
-{%- if section.settings.ginkgo_image != blank -%}
+<div class="bn-hero">
 
-  {%- comment -%} Custom layout when user uploads a ginkgo leaf image {%- endcomment -%}
-  <div class="bn-hero-banner">
-    <div class="bn-hero-banner__custom">
-      <div class="bn-hero-banner__leaf">
-        {{
-          section.settings.ginkgo_image
-          | image_url: width: 800
-          | image_tag:
-            loading: 'eager',
-            widths: '400, 600, 800',
-            alt: 'Hoja de ginkgo biloba'
-        }}
-      </div>
-
-      <div class="bn-hero-banner__content">
-        <p class="bn-hero-banner__number">{{ section.settings.heading_number }}</p>
-        <p class="bn-hero-banner__line1">{{ section.settings.heading_line1 }}</p>
-        <p class="bn-hero-banner__line2">{{ section.settings.heading_line2 }}</p>
-        <p class="bn-hero-banner__tagline">{{ section.settings.tagline }}</p>
-      </div>
-
-      <div class="bn-hero-banner__east" aria-hidden="true">
-        <span class="bn-hero-banner__east-char">東</span>
-      </div>
+  {%- comment -%} Stamp — top right {%- endcomment -%}
+  <div class="bn-hero__stamp" aria-hidden="true">
+    <span class="bn-hero__stamp-line"></span>
+    <div class="bn-hero__stamp-row">
+      <span class="bn-hero__stamp-cell"></span>
+      <span class="bn-hero__stamp-cell"></span>
+      <span class="bn-hero__stamp-cell"></span>
     </div>
+    <span class="bn-hero__stamp-line"></span>
+    <div class="bn-hero__stamp-row">
+      <span class="bn-hero__stamp-cell"></span>
+      <span class="bn-hero__stamp-cell"></span>
+      <span class="bn-hero__stamp-cell"></span>
+    </div>
+    <span class="bn-hero__stamp-line"></span>
   </div>
 
-{%- else -%}
+  <div class="bn-hero__composition">
 
-  {%- comment -%} Default: use the pre-designed banner PNG {%- endcomment -%}
-  <div class="bn-hero-banner">
-    <img
-      src="{{ 'bn-hero-40years.png' | asset_url }}"
-      alt="{{ section.settings.heading_line2 }} — {{ section.settings.heading_line1 }}"
-      width="1200"
-      height="400"
-      loading="eager"
-      class="bn-hero-banner__static-img"
-    >
+    {%- comment -%} Visual: "40" behind, leaf in front {%- endcomment -%}
+    <div class="bn-hero__visual">
+
+      <p class="bn-hero__number" aria-hidden="true">{{ section.settings.heading_number }}</p>
+
+      <div class="bn-hero__leaf{% if section.settings.ginkgo_image == blank %} bn-hero__leaf--placeholder{% endif %}">
+        {%- if section.settings.ginkgo_image != blank -%}
+          {{
+            section.settings.ginkgo_image
+            | image_url: width: 700
+            | image_tag:
+              loading: 'eager',
+              widths: '350, 500, 700',
+              alt: 'Hoja de ginkgo biloba'
+          }}
+        {%- else -%}
+          <svg viewBox="0 0 220 340" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M110 320 C110 320 30 230 22 155 C14 80 50 38 75 16 C90 5 102 0 110 0
+                     C118 0 130 5 145 16 C170 38 206 80 198 155 C190 230 110 320 110 320Z"
+                  fill="rgba(120,160,90,0.7)"/>
+            <path d="M110 320 L110 80" stroke="rgba(80,120,60,0.5)" stroke-width="2.5"/>
+            <path d="M110 260 C85 240 45 235 22 225" stroke="rgba(80,120,60,0.35)" stroke-width="1.5"/>
+            <path d="M110 210 C135 192 170 187 195 178" stroke="rgba(80,120,60,0.35)" stroke-width="1.5"/>
+            <path d="M110 165 C88 148 55 143 35 135" stroke="rgba(80,120,60,0.35)" stroke-width="1.5"/>
+            <path d="M110 120 C130 105 158 100 175 93" stroke="rgba(80,120,60,0.35)" stroke-width="1.5"/>
+          </svg>
+        {%- endif -%}
+      </div>
+
+    </div>
+
+    {%- comment -%} Text block {%- endcomment -%}
+    <div class="bn-hero__text">
+      <p class="bn-hero__line1">{{ section.settings.heading_line1 }}</p>
+      <p class="bn-hero__line2">{{ section.settings.heading_line2 }}</p>
+      <p class="bn-hero__tagline">{{ section.settings.tagline }}</p>
+    </div>
+
   </div>
 
-{%- endif -%}
+</div>
 
 {% schema %}
 {
-  "name": "Hero Banner",
+  "name": "Hero Banner 40 años",
   "tag": "section",
   "class": "section",
   "settings": [
     {
-      "type": "header",
-      "content": "Imagen de fondo"
-    },
-    {
-      "type": "paragraph",
-      "content": "Por defecto se muestra el banner de diseño. Sube una hoja de ginkgo para usar el layout dinámico."
-    },
-    {
       "type": "image_picker",
       "id": "ginkgo_image",
-      "label": "Hoja ginkgo (activa el layout dinámico)"
+      "label": "Imagen hoja ginkgo biloba"
     },
     {
       "type": "color",
@@ -213,8 +287,14 @@
       "default": "#D4B896"
     },
     {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color del texto",
+      "default": "#2C2416"
+    },
+    {
       "type": "header",
-      "content": "Texto (solo layout dinámico)"
+      "content": "Texto"
     },
     {
       "type": "text",
@@ -231,7 +311,7 @@
     {
       "type": "text",
       "id": "heading_line2",
-      "label": "Línea 2 — nombre",
+      "label": "Nombre tienda",
       "default": "EL BOSQUE ORIENTAL"
     },
     {
@@ -243,7 +323,7 @@
   ],
   "presets": [
     {
-      "name": "Hero Banner"
+      "name": "Hero Banner 40 años"
     }
   ]
 }
