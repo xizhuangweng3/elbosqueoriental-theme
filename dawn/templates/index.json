@@ -1,5 +1,15 @@
 {
   "sections": {
+    "hero_banner": {
+      "type": "bn-hero-banner",
+      "settings": {
+        "background_color": "#D4B896",
+        "heading_number": "40",
+        "heading_line1": "AÑOS CUIDANDO",
+        "heading_line2": "EL BOSQUE ORIENTAL",
+        "tagline": "Cuidando de ti con tradición y ciencia desde 1985"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -168,6 +178,7 @@
     }
   },
   "order": [
+    "hero_banner",
     "image_banner",
     "featured_collection",
     "brand_story",
