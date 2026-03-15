@@ -9,6 +9,8 @@ h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: var(--font-heading-family);
   font-style: var(--font-heading-style);
+  /* Prevent typographic orphans — balances text across lines */
+  text-wrap: balance;
 }
 
 /* Body text */
@@ -21,6 +23,8 @@ figcaption,
   font-family: var(--font-body-family);
   font-style: var(--font-body-style);
   font-size: 1.6rem; /* 16px — prevents iOS auto-zoom on inputs */
+  /* Prevent orphaned words at end of paragraphs */
+  text-wrap: pretty;
 }
 
 /* Ensure inputs and buttons inherit brand font */
