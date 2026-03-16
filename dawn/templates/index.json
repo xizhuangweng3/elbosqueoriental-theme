@@ -165,12 +165,94 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "brand_showcase": {
+      "type": "bn-brand-showcase",
+      "blocks": {
+        "solgar": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Solgar",
+            "logo": "logo-Solgar.png",
+            "background_color": "#E8F5E8"
+          }
+        },
+        "lamberts": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Lamberts",
+            "logo": "logo-Lamberts.png",
+            "background_color": "#F5E6D3"
+          }
+        },
+        "marnys": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Marnys",
+            "logo": "logo-Marnys.svg",
+            "background_color": "#F5DDD3"
+          }
+        },
+        "solaray": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Solaray",
+            "logo": "logo-Solaray.png",
+            "background_color": "#E3F2FD"
+          }
+        },
+        "soria_natural": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Soria Natural",
+            "logo": "logo-Soria-Natural.svg",
+            "background_color": "#F3E8FF"
+          }
+        },
+        "natysal": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Natysal",
+            "logo": "logo-Natysal.svg",
+            "background_color": "#FFF9E6"
+          }
+        },
+        "equisalud": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Equisalud",
+            "logo": "logo-Equisalud.webp",
+            "background_color": "#FAE5E3"
+          }
+        },
+        "sura_vitasan": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Sura Vitasan",
+            "logo": "logo-Sura-Vitasan.svg",
+            "background_color": "#E0F7F4"
+          }
+        }
+      },
+      "block_order": [
+        "solgar", "lamberts", "marnys", "solaray",
+        "soria_natural", "natysal", "equisalud", "sura_vitasan"
+      ],
+      "settings": {
+        "title": "Marcas de Confianza",
+        "subtitle": "Seleccionadas por nuestros expertos durante más de 40 años",
+        "columns_desktop": 4,
+        "columns_tablet": 3,
+        "hover_effects": true,
+        "color_scheme": "scheme-1"
+      }
     }
   },
   "order": [
     "image_banner",
     "featured_collection",
     "brand_story",
-    "trust_bar"
+    "trust_bar",
+    "brand_showcase"
   ]
 }
