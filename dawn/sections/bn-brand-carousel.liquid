@@ -1,0 +1,564 @@
+{%- comment -%}
+  bn-brand-carousel.liquid
+  Premium brand logo carousel powered by Swiper.js
+  BN naming convention — do not rename.
+{%- endcomment -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  /* ── Section ── */
+  .bn-carousel {
+    padding-top: var(--section-padding-top);
+    padding-bottom: var(--section-padding-bottom);
+  }
+
+  /* ── Header ── */
+  .bn-carousel__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0 2rem 2.8rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .bn-carousel__header {
+      padding: 0 4rem 3.2rem;
+    }
+  }
+
+  .bn-carousel__title {
+    font-family: var(--font-heading-family);
+    font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+    font-weight: 700;
+    color: var(--color-foreground);
+    margin: 0;
+  }
+
+  .bn-carousel__view-all {
+    font-family: var(--font-body-family);
+    font-size: 1.4rem;
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+    white-space: nowrap;
+    margin-left: 1.6rem;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+
+  .bn-carousel__view-all:hover {
+    opacity: 1;
+  }
+
+  /* ── Outer (positions arrows) ── */
+  .bn-carousel__outer {
+    position: relative;
+    padding: 0 2rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .bn-carousel__outer {
+      padding: 0 5.6rem;
+    }
+  }
+
+  /* ── Swiper overrides ── */
+  .bn-carousel__swiper {
+    overflow: hidden;
+  }
+
+  .bn-carousel__swiper .swiper-wrapper {
+    align-items: stretch;
+  }
+
+  .bn-carousel__slide {
+    height: auto !important;
+    list-style: none;
+  }
+
+  /* ── Card ── */
+  .bn-carousel__card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    padding: 2.4rem 2rem;
+    aspect-ratio: 1;
+    width: 100%;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+
+  {% if section.settings.hover_effects %}
+  .bn-carousel__card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.10);
+    z-index: 2;
+  }
+  {% endif %}
+
+  /* ── Logo wrap ── */
+  .bn-carousel__logo-wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bn-carousel__logo-wrap img {
+    max-width: 12rem;
+    max-height: 8rem;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .bn-carousel__name-fallback {
+    font-family: var(--font-heading-family);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.4);
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── Navigation arrows ── */
+  .bn-carousel__nav {
+    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0, 0, 0, 0.12);
+    background: var(--color-background);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    opacity: 0;
+    transition: background 0.2s, border-color 0.2s, opacity 0.25s;
+  }
+
+  @media screen and (min-width: 750px) {
+    .bn-carousel__nav { display: flex; }
+    .bn-carousel__outer:hover .bn-carousel__nav { opacity: 1; }
+  }
+
+  .bn-carousel__nav.swiper-button-disabled {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+
+  .bn-carousel__nav:hover {
+    background: var(--color-foreground);
+    border-color: var(--color-foreground);
+    color: var(--color-background);
+  }
+
+  .bn-carousel__nav svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .bn-carousel__nav--prev { left: 0.8rem; }
+  .bn-carousel__nav--next { right: 0.8rem; }
+  .bn-carousel__nav--prev svg { transform: rotate(180deg); }
+
+  /* ── Pagination dots ── */
+  .bn-carousel__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    padding-top: 2.4rem;
+  }
+
+  .bn-carousel__dots .swiper-pagination-bullet {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background: var(--color-foreground);
+    opacity: 0.2;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .bn-carousel__dots .swiper-pagination-bullet-active {
+    opacity: 0.65;
+    transform: scale(1.4);
+  }
+{%- endstyle -%}
+
+{%- assign default_colors = '#E8F5E8,#F4E4D3,#FFE4E9,#D4F4E8,#E3F2FD,#FFE8DC,#F0E6FF,#FFF9E6' | split: ',' -%}
+
+<div
+  class="bn-carousel color-{{ section.settings.color_scheme }} gradient"
+  id="BnCarousel-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+>
+
+  {%- if section.settings.title != blank or section.settings.view_all_link != blank -%}
+    <div class="bn-carousel__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="bn-carousel__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.view_all_link != blank -%}
+        <a href="{{ section.settings.view_all_link }}" class="bn-carousel__view-all">Ver todas →</a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="bn-carousel__outer" id="BnCarouselOuter-{{ section.id }}">
+
+      <button
+        class="bn-carousel__nav bn-brands__arrow--prev bn-carousel__nav--prev"
+        aria-label="Marca anterior"
+        id="BnCarouselPrev-{{ section.id }}"
+      >
+        <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M4.5 2L8.5 6L4.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="swiper bn-carousel__swiper" id="BnCarouselSwiper-{{ section.id }}">
+        <ul class="swiper-wrapper" role="list" aria-label="{{ section.settings.title | default: 'Marcas de confianza' }}">
+          {%- for block in section.blocks -%}
+            {%- assign color_index = forloop.index0 | modulo: 8 -%}
+            {%- assign bg = block.settings.background_color -%}
+            {%- if bg == blank or bg == 'rgba(0,0,0,0)' -%}
+              {%- assign bg = default_colors[color_index] -%}
+            {%- endif -%}
+
+            <li class="swiper-slide bn-carousel__slide" {{ block.shopify_attributes }}>
+              {%- if block.settings.link != blank -%}
+                <a
+                  href="{{ block.settings.link }}"
+                  class="bn-carousel__card"
+                  style="background-color: {{ bg }};"
+                  aria-label="{{ block.settings.brand_name }}"
+                  {% if block.settings.new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+                >
+              {%- else -%}
+                <div class="bn-carousel__card" style="background-color: {{ bg }};">
+              {%- endif -%}
+
+                <div class="bn-carousel__logo-wrap">
+                  {%- if block.settings.logo != blank -%}
+                    {{
+                      block.settings.logo
+                      | image_url: width: 300
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '150, 200, 300',
+                        alt: block.settings.brand_name
+                    }}
+                  {%- else -%}
+                    <span class="bn-carousel__name-fallback">{{ block.settings.brand_name }}</span>
+                  {%- endif -%}
+                </div>
+
+              {%- if block.settings.link != blank -%}
+                </a>
+              {%- else -%}
+                </div>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <button
+        class="bn-carousel__nav bn-carousel__nav--next"
+        aria-label="Marca siguiente"
+        id="BnCarouselNext-{{ section.id }}"
+      >
+        <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M4.5 2L8.5 6L4.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+    </div>
+
+    {%- if section.settings.show_pagination -%}
+      <div class="bn-carousel__dots" id="BnCarouselDots-{{ section.id }}"></div>
+    {%- endif -%}
+
+  {%- endif -%}
+
+</div>
+
+<script>
+  (function () {
+    var SECTION_ID    = '{{ section.id }}';
+    var AUTOPLAY      = {{ section.settings.autoplay }};
+    var SPEED         = {{ section.settings.autoplay_speed | default: 3500 }};
+    var SLIDES_DESK   = {{ section.settings.slides_desktop | default: 6 }};
+    var SLIDES_TAB    = {{ section.settings.slides_tablet  | default: 4 }};
+    var SLIDES_MOB    = {{ section.settings.slides_mobile  | default: 2 }};
+    var SHOW_DOTS     = {{ section.settings.show_pagination }};
+
+    function initCarousel() {
+      if (typeof Swiper === 'undefined') return;
+      var el = document.getElementById('BnCarouselSwiper-' + SECTION_ID);
+      if (!el || el._bnSwiper) return;
+
+      var opts = {
+        slidesPerView: SLIDES_MOB,
+        spaceBetween: 12,
+        loop: true,
+        loopAdditionalSlides: 4,
+        grabCursor: true,
+        watchSlidesProgress: true,
+        navigation: {
+          prevEl: '#BnCarouselPrev-' + SECTION_ID,
+          nextEl: '#BnCarouselNext-' + SECTION_ID,
+        },
+        a11y: {
+          prevSlideMessage: 'Marca anterior',
+          nextSlideMessage: 'Marca siguiente',
+        },
+        breakpoints: {
+          600: { slidesPerView: SLIDES_TAB, spaceBetween: 16 },
+          750: { slidesPerView: SLIDES_DESK, spaceBetween: 20 },
+        },
+      };
+
+      if (AUTOPLAY) {
+        opts.autoplay = {
+          delay: SPEED,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        };
+      }
+
+      if (SHOW_DOTS) {
+        opts.pagination = {
+          el: '#BnCarouselDots-' + SECTION_ID,
+          clickable: true,
+        };
+      }
+
+      el._bnSwiper = new Swiper('#BnCarouselSwiper-' + SECTION_ID, opts);
+    }
+
+    function loadSwiper(cb) {
+      // Only load once across all carousel instances on the page
+      if (typeof Swiper !== 'undefined') { cb(); return; }
+      if (!document.getElementById('bn-swiper-css')) {
+        var link = document.createElement('link');
+        link.id  = 'bn-swiper-css';
+        link.rel = 'stylesheet';
+        link.href = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
+        document.head.appendChild(link);
+      }
+      if (!document.getElementById('bn-swiper-js')) {
+        var s = document.createElement('script');
+        s.id  = 'bn-swiper-js';
+        s.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+        s.onload = cb;
+        document.head.appendChild(s);
+      } else {
+        // Script tag exists but Swiper not yet defined — wait for it
+        var poll = setInterval(function () {
+          if (typeof Swiper !== 'undefined') { clearInterval(poll); cb(); }
+        }, 50);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { loadSwiper(initCarousel); });
+    } else {
+      loadSwiper(initCarousel);
+    }
+
+    // Re-init after Theme Editor reloads the section
+    document.addEventListener('shopify:section:load', function (e) {
+      if (e.detail && e.detail.sectionId === SECTION_ID) {
+        var el = document.getElementById('BnCarouselSwiper-' + SECTION_ID);
+        if (el) el._bnSwiper = null;
+        loadSwiper(initCarousel);
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Carrusel de marcas",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título de la sección",
+      "default": "Nuestras Marcas de Confianza"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "Enlace 'Ver todas' (opcional)"
+    },
+    {
+      "type": "header",
+      "content": "Diapositivas visibles"
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "label": "Escritorio",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "slides_tablet",
+      "label": "Tablet",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "slides_mobile",
+      "label": "Móvil",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Reproducción automática"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Activar reproducción automática",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Velocidad (ms)",
+      "min": 1000,
+      "max": 8000,
+      "step": 500,
+      "default": 3500
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_effects",
+      "label": "Efecto hover en las tarjetas",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Mostrar puntos de paginación",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de color",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Relleno superior",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Relleno inferior",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Marca",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo de la marca"
+        },
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Nombre de la marca",
+          "default": "Marca"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace (colección o página)"
+        },
+        {
+          "type": "checkbox",
+          "id": "new_tab",
+          "label": "Abrir en nueva pestaña",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Color de fondo de la tarjeta"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carrusel de marcas",
+      "blocks": [
+        { "type": "brand", "settings": { "brand_name": "Solgar",        "background_color": "#E8F5E8" } },
+        { "type": "brand", "settings": { "brand_name": "Lamberts",      "background_color": "#F4E4D3" } },
+        { "type": "brand", "settings": { "brand_name": "Marnys",        "background_color": "#FFE4E9" } },
+        { "type": "brand", "settings": { "brand_name": "Solaray",       "background_color": "#E3F2FD" } },
+        { "type": "brand", "settings": { "brand_name": "Soria Natural", "background_color": "#F0E6FF" } },
+        { "type": "brand", "settings": { "brand_name": "Natysal",       "background_color": "#FFF9E6" } },
+        { "type": "brand", "settings": { "brand_name": "Equisalud",     "background_color": "#FFE8DC" } },
+        { "type": "brand", "settings": { "brand_name": "Sura Vitasan",  "background_color": "#D4F4E8" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -166,77 +166,34 @@
         "padding_bottom": 36
       }
     },
-    "brand_showcase": {
-      "type": "bn-brand-showcase",
+    "brand_carousel": {
+      "type": "bn-brand-carousel",
       "blocks": {
-        "solgar": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Solgar",
-            "background_color": "#E8F5E8"
-          }
-        },
-        "lamberts": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Lamberts",
-            "background_color": "#F5E6D3"
-          }
-        },
-        "marnys": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Marnys",
-            "background_color": "#F5DDD3"
-          }
-        },
-        "solaray": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Solaray",
-            "background_color": "#E3F2FD"
-          }
-        },
-        "soria_natural": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Soria Natural",
-            "background_color": "#F3E8FF"
-          }
-        },
-        "natysal": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Natysal",
-            "background_color": "#FFF9E6"
-          }
-        },
-        "equisalud": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Equisalud",
-            "background_color": "#FAE5E3"
-          }
-        },
-        "sura_vitasan": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Sura Vitasan",
-            "background_color": "#E0F7F4"
-          }
-        }
+        "solgar":        { "type": "brand", "settings": { "brand_name": "Solgar",        "background_color": "#E8F5E8" } },
+        "lamberts":      { "type": "brand", "settings": { "brand_name": "Lamberts",      "background_color": "#F4E4D3" } },
+        "marnys":        { "type": "brand", "settings": { "brand_name": "Marnys",        "background_color": "#FFE4E9" } },
+        "solaray":       { "type": "brand", "settings": { "brand_name": "Solaray",       "background_color": "#E3F2FD" } },
+        "soria_natural": { "type": "brand", "settings": { "brand_name": "Soria Natural", "background_color": "#F0E6FF" } },
+        "natysal":       { "type": "brand", "settings": { "brand_name": "Natysal",       "background_color": "#FFF9E6" } },
+        "equisalud":     { "type": "brand", "settings": { "brand_name": "Equisalud",     "background_color": "#FFE8DC" } },
+        "sura_vitasan":  { "type": "brand", "settings": { "brand_name": "Sura Vitasan",  "background_color": "#D4F4E8" } }
       },
       "block_order": [
         "solgar", "lamberts", "marnys", "solaray",
         "soria_natural", "natysal", "equisalud", "sura_vitasan"
       ],
       "settings": {
-        "title": "Marcas de Confianza",
-        "subtitle": "Seleccionadas por nuestros expertos durante más de 40 años",
-        "columns_desktop": 4,
-        "columns_tablet": 3,
+        "title": "Nuestras Marcas de Confianza",
+        "slides_desktop": 6,
+        "slides_tablet": 4,
+        "slides_mobile": 2,
+        "autoplay": true,
+        "autoplay_speed": 3500,
         "hover_effects": true,
-        "color_scheme": "scheme-1"
+        "show_pagination": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 52,
+        "padding_bottom": 52
       }
     }
   },
@@ -245,6 +202,6 @@
     "featured_collection",
     "brand_story",
     "trust_bar",
-    "brand_showcase"
+    "brand_carousel"
   ]
 }
