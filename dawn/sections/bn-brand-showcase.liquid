@@ -1,11 +1,15 @@
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+
 {%- style -%}
   .bn-brands {
     padding: var(--section-padding-top, 5.2rem) 0 var(--section-padding-bottom, 5.2rem);
+    overflow: hidden;
   }
 
   .bn-brands__header {
     text-align: center;
     margin-bottom: 3.6rem;
+    padding: 0 2rem;
   }
 
   .bn-brands__title {
@@ -25,36 +29,27 @@
     margin: 0;
   }
 
-  .bn-brands__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+  /* ── Carousel track ── */
+  .bn-brands__track {
+    display: flex;
     gap: 1.6rem;
-    list-style: none;
+    padding: 0.4rem 2rem 1.6rem;
     margin: 0;
-    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
 
-  @media screen and (min-width: 600px) {
-    .bn-brands__grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media screen and (min-width: 750px) {
-    .bn-brands__grid {
-      grid-template-columns: repeat({{ section.settings.columns_tablet }}, 1fr);
-      gap: 2rem;
-    }
-  }
-
-  @media screen and (min-width: 990px) {
-    .bn-brands__grid {
-      grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
-      gap: 2.4rem;
-    }
+  .bn-brands__track::-webkit-scrollbar {
+    display: none;
   }
 
   .bn-brands__item {
+    flex: 0 0 auto;
+    width: 17rem;
+    scroll-snap-align: start;
     list-style: none;
   }
 
@@ -62,26 +57,27 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 1.2rem;
-    padding: 2.8rem 2rem;
+    border-radius: 1.4rem;
+    padding: 2.8rem 1.6rem;
     height: 14rem;
+    width: 100%;
     box-sizing: border-box;
     text-decoration: none;
     transition: transform 0.22s ease, box-shadow 0.22s ease;
-    position: relative;
-    overflow: hidden;
+    cursor: default;
   }
 
   {% if section.settings.hover_effects %}
-  .bn-brands__card:hover {
+  a.bn-brands__card:hover,
+  div.bn-brands__card:hover {
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
   }
   {% endif %}
 
   .bn-brands__logo-wrap {
-    width: 15rem;
-    height: 9rem;
+    width: 13rem;
+    height: 8rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,26 +90,90 @@
     display: block;
   }
 
-  /* Fallback name pill when no logo is uploaded */
   .bn-brands__name-fallback {
     font-family: var(--font-heading-family);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 700;
-    color: rgba(0,0,0,0.5);
+    color: rgba(0, 0, 0, 0.45);
     text-align: center;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
+  /* ── Nav buttons ── */
+  .bn-brands__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 2.4rem;
+  }
+
+  .bn-brands__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0, 0, 0, 0.15);
+    background: var(--color-background);
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s;
+    padding: 0;
+  }
+
+  .bn-brands__btn:hover {
+    background: var(--color-foreground);
+    border-color: var(--color-foreground);
+  }
+
+  .bn-brands__btn:hover svg path {
+    stroke: var(--color-background);
+  }
+
+  .bn-brands__btn svg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .bn-brands__btn--prev svg {
+    transform: rotate(180deg);
+  }
+
+  .bn-brands__btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
   @media screen and (min-width: 750px) {
+    .bn-brands__item {
+      width: 20rem;
+    }
+
     .bn-brands__card {
       height: 16rem;
-      padding: 3.2rem 2.4rem;
     }
 
     .bn-brands__logo-wrap {
-      width: 17rem;
-      height: 10rem;
+      width: 15rem;
+      height: 9rem;
+    }
+
+    .bn-brands__track {
+      gap: 2rem;
+      padding: 0.4rem 3.2rem 2rem;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .bn-brands__item {
+      width: 22rem;
+    }
+
+    .bn-brands__track {
+      gap: 2.4rem;
+      padding: 0.4rem 4rem 2rem;
     }
   }
 {%- endstyle -%}
@@ -121,70 +181,123 @@
 {%- assign default_colors = '#E8F5E8,#F5E6D3,#F5DDD3,#E3F2FD,#F3E8FF,#FFF9E6,#FAE5E3,#E0F7F4' | split: ',' -%}
 
 <div class="bn-brands color-{{ section.settings.color_scheme }} gradient">
-  <div class="page-width">
 
-    {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
-      <div class="bn-brands__header">
-        {%- if section.settings.title != blank -%}
-          <h2 class="bn-brands__title">{{ section.settings.title }}</h2>
-        {%- endif -%}
-        {%- if section.settings.subtitle != blank -%}
-          <p class="bn-brands__subtitle">{{ section.settings.subtitle }}</p>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
+  {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
+    <div class="bn-brands__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="bn-brands__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="bn-brands__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
 
-    {%- if section.blocks.size > 0 -%}
-      <ul class="bn-brands__grid" role="list">
-        {%- for block in section.blocks -%}
-          {%- assign color_index = forloop.index0 | modulo: 8 -%}
-          {%- assign bg_color = block.settings.background_color -%}
-          {%- if bg_color == blank or bg_color == 'rgba(0,0,0,0)' -%}
-            {%- assign bg_color = default_colors[color_index] -%}
+  {%- if section.blocks.size > 0 -%}
+    <ul
+      id="BnBrandsTrack-{{ section.id }}"
+      class="bn-brands__track"
+      role="list"
+      aria-label="Marcas de confianza"
+    >
+      {%- for block in section.blocks -%}
+        {%- assign color_index = forloop.index0 | modulo: 8 -%}
+        {%- assign bg_color = block.settings.background_color -%}
+        {%- if bg_color == blank or bg_color == 'rgba(0,0,0,0)' -%}
+          {%- assign bg_color = default_colors[color_index] -%}
+        {%- endif -%}
+
+        <li class="bn-brands__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.link != blank -%}
+            <a
+              href="{{ block.settings.link }}"
+              class="bn-brands__card"
+              style="background-color: {{ bg_color }};"
+              aria-label="{{ block.settings.brand_name }}"
+            >
+          {%- else -%}
+            <div
+              class="bn-brands__card"
+              style="background-color: {{ bg_color }};"
+            >
           {%- endif -%}
 
-          <li class="bn-brands__item" {{ block.shopify_attributes }}>
-            {%- if block.settings.link != blank -%}
-              <a
-                href="{{ block.settings.link }}"
-                class="bn-brands__card"
-                style="background-color: {{ bg_color }};"
-                aria-label="{{ block.settings.brand_name }}"
-              >
-            {%- else -%}
-              <div
-                class="bn-brands__card"
-                style="background-color: {{ bg_color }};"
-              >
-            {%- endif -%}
+            <div class="bn-brands__logo-wrap">
+              {%- if block.settings.logo != blank -%}
+                {{
+                  block.settings.logo
+                  | image_url: width: 400
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '200, 300, 400',
+                    alt: block.settings.brand_name
+                }}
+              {%- else -%}
+                <span class="bn-brands__name-fallback">{{ block.settings.brand_name }}</span>
+              {%- endif -%}
+            </div>
 
-              <div class="bn-brands__logo-wrap">
-                {%- if block.settings.logo != blank -%}
-                  {{
-                    block.settings.logo
-                    | image_url: width: 400
-                    | image_tag:
-                      loading: 'lazy',
-                      widths: '200, 300, 400',
-                      alt: block.settings.brand_name
-                  }}
-                {%- else -%}
-                  <span class="bn-brands__name-fallback">{{ block.settings.brand_name }}</span>
-                {%- endif -%}
-              </div>
+          {%- if block.settings.link != blank -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
 
-            {%- if block.settings.link != blank -%}
-              </a>
-            {%- else -%}
-              </div>
-            {%- endif -%}
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
+    <div class="bn-brands__nav">
+      <button
+        class="bn-brands__btn bn-brands__btn--prev"
+        aria-label="Anterior"
+        data-target="BnBrandsTrack-{{ section.id }}"
+        disabled
+      >
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button
+        class="bn-brands__btn bn-brands__btn--next"
+        aria-label="Siguiente"
+        data-target="BnBrandsTrack-{{ section.id }}"
+      >
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  {%- endif -%}
 
-  </div>
 </div>
+
+<script>
+  (function () {
+    document.querySelectorAll('.bn-brands__btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var trackId = btn.getAttribute('data-target');
+        var track = document.getElementById(trackId);
+        if (!track) return;
+        var cardWidth = track.querySelector('.bn-brands__item').offsetWidth + 24;
+        var direction = btn.classList.contains('bn-brands__btn--prev') ? -1 : 1;
+        track.scrollBy({ left: direction * cardWidth * 2, behavior: 'smooth' });
+      });
+    });
+
+    document.querySelectorAll('.bn-brands__track').forEach(function (track) {
+      var prevBtn = document.querySelector('[data-target="' + track.id + '"].bn-brands__btn--prev');
+      var nextBtn = document.querySelector('[data-target="' + track.id + '"].bn-brands__btn--next');
+
+      function updateButtons() {
+        if (prevBtn) prevBtn.disabled = track.scrollLeft <= 4;
+        if (nextBtn) nextBtn.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+      }
+
+      track.addEventListener('scroll', updateButtons, { passive: true });
+      updateButtons();
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -206,24 +319,6 @@
       "id": "subtitle",
       "label": "Subtítulo",
       "default": "Seleccionadas por nuestros expertos durante más de 40 años"
-    },
-    {
-      "type": "range",
-      "id": "columns_desktop",
-      "min": 3,
-      "max": 6,
-      "step": 1,
-      "default": 4,
-      "label": "Columnas en escritorio"
-    },
-    {
-      "type": "range",
-      "id": "columns_tablet",
-      "min": 2,
-      "max": 4,
-      "step": 1,
-      "default": 3,
-      "label": "Columnas en tablet"
     },
     {
       "type": "checkbox",

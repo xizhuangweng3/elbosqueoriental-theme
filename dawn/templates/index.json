@@ -173,7 +173,6 @@
           "type": "brand",
           "settings": {
             "brand_name": "Solgar",
-            "logo": "logo-Solgar.png",
             "background_color": "#E8F5E8"
           }
         },
@@ -181,7 +180,6 @@
           "type": "brand",
           "settings": {
             "brand_name": "Lamberts",
-            "logo": "logo-Lamberts.png",
             "background_color": "#F5E6D3"
           }
         },
@@ -189,7 +187,6 @@
           "type": "brand",
           "settings": {
             "brand_name": "Marnys",
-            "logo": "logo-Marnys.svg",
             "background_color": "#F5DDD3"
           }
         },
@@ -197,7 +194,6 @@
           "type": "brand",
           "settings": {
             "brand_name": "Solaray",
-            "logo": "logo-Solaray.png",
             "background_color": "#E3F2FD"
           }
         },
@@ -205,7 +201,6 @@
           "type": "brand",
           "settings": {
             "brand_name": "Soria Natural",
-            "logo": "logo-Soria-Natural.svg",
             "background_color": "#F3E8FF"
           }
         },
@@ -213,7 +208,6 @@
           "type": "brand",
           "settings": {
             "brand_name": "Natysal",
-            "logo": "logo-Natysal.svg",
             "background_color": "#FFF9E6"
           }
         },
@@ -221,7 +215,6 @@
           "type": "brand",
           "settings": {
             "brand_name": "Equisalud",
-            "logo": "logo-Equisalud.webp",
             "background_color": "#FAE5E3"
           }
         },
@@ -229,7 +222,6 @@
           "type": "brand",
           "settings": {
             "brand_name": "Sura Vitasan",
-            "logo": "logo-Sura-Vitasan.svg",
             "background_color": "#E0F7F4"
           }
         }
