@@ -1,39 +1,38 @@
-{{ 'component-slider.css' | asset_url | stylesheet_tag }}
-
 {%- style -%}
   .bn-brands {
     padding: var(--section-padding-top, 5.2rem) 0 var(--section-padding-bottom, 5.2rem);
-    overflow: hidden;
   }
 
   .bn-brands__header {
-    text-align: center;
-    margin-bottom: 3.6rem;
+    text-align: left;
+    margin-bottom: 2.8rem;
     padding: 0 2rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .bn-brands__header {
+      padding: 0 4rem;
+    }
   }
 
   .bn-brands__title {
     font-family: var(--font-heading-family);
-    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-size: clamp(1.8rem, 2.5vw, 2.4rem);
     font-weight: 700;
     color: var(--color-foreground);
-    margin: 0 0 0.8rem;
-    letter-spacing: 0.02em;
-  }
-
-  .bn-brands__subtitle {
-    font-family: var(--font-body-family);
-    font-size: 1.6rem;
-    color: var(--color-foreground);
-    opacity: 0.65;
     margin: 0;
   }
 
-  /* ── Carousel track ── */
+  /* ── Carousel wrapper — contains arrows + track ── */
+  .bn-brands__carousel {
+    position: relative;
+  }
+
+  /* ── Track ── */
   .bn-brands__track {
     display: flex;
-    gap: 1.6rem;
-    padding: 0.4rem 2rem 1.6rem;
+    gap: 1.2rem;
+    padding: 0.4rem 2rem 0.8rem;
     margin: 0;
     list-style: none;
     overflow-x: auto;
@@ -46,226 +45,237 @@
     display: none;
   }
 
+  /* Mobile: show ~2.3 cards */
   .bn-brands__item {
-    flex: 0 0 auto;
-    width: 17rem;
+    flex: 0 0 calc((100% - 2rem - 1.2rem * 1.3) / 2.3);
+    min-width: 0;
     scroll-snap-align: start;
     list-style: none;
   }
 
+  /* Tablet: show ~3.5 cards */
+  @media screen and (min-width: 600px) {
+    .bn-brands__item {
+      flex: 0 0 calc((100% - 4rem - 1.2rem * 2.5) / 3.5);
+    }
+  }
+
+  /* Desktop: show ~5.3 cards */
+  @media screen and (min-width: 750px) {
+    .bn-brands__track {
+      gap: 1.6rem;
+      padding: 0.4rem 5.6rem 1.2rem;
+    }
+
+    .bn-brands__item {
+      flex: 0 0 calc((100% - 11.2rem - 1.6rem * 4.3) / 5.3);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .bn-brands__track {
+      gap: 2rem;
+      padding: 0.4rem 6rem 1.2rem;
+    }
+
+    .bn-brands__item {
+      flex: 0 0 calc((100% - 12rem - 2rem * 4.3) / 5.3);
+    }
+  }
+
+  /* ── Card ── */
   .bn-brands__card {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 1.4rem;
-    padding: 2.8rem 1.6rem;
-    height: 14rem;
+    border-radius: 1rem;
+    padding: 2.8rem 1.4rem;
+    aspect-ratio: 3 / 4;
     width: 100%;
     box-sizing: border-box;
     text-decoration: none;
-    transition: transform 0.22s ease, box-shadow 0.22s ease;
-    cursor: default;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   {% if section.settings.hover_effects %}
-  a.bn-brands__card:hover,
-  div.bn-brands__card:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+  .bn-brands__card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   }
   {% endif %}
 
   .bn-brands__logo-wrap {
-    width: 13rem;
-    height: 8rem;
+    width: 100%;
+    height: 7rem;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .bn-brands__logo-wrap img {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
     object-fit: contain;
     display: block;
   }
 
   .bn-brands__name-fallback {
     font-family: var(--font-heading-family);
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 700;
-    color: rgba(0, 0, 0, 0.45);
+    color: rgba(0, 0, 0, 0.4);
     text-align: center;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
-  /* ── Nav buttons ── */
-  .bn-brands__nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.2rem;
-    margin-top: 2.4rem;
+  @media screen and (min-width: 750px) {
+    .bn-brands__logo-wrap {
+      height: 8rem;
+    }
   }
 
-  .bn-brands__btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 4rem;
-    height: 4rem;
+  /* ── Side arrow buttons ── */
+  .bn-brands__arrow {
+    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 3.6rem;
+    height: 3.6rem;
     border-radius: 50%;
-    border: 1.5px solid rgba(0, 0, 0, 0.15);
+    border: 1.5px solid rgba(0, 0, 0, 0.14);
     background: var(--color-background);
     cursor: pointer;
-    transition: background 0.18s, border-color 0.18s;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.18s, border-color 0.18s, opacity 0.18s;
     padding: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
 
-  .bn-brands__btn:hover {
+  .bn-brands__arrow:disabled {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .bn-brands__arrow:hover:not(:disabled) {
     background: var(--color-foreground);
     border-color: var(--color-foreground);
+    color: var(--color-background);
   }
 
-  .bn-brands__btn:hover svg path {
-    stroke: var(--color-background);
+  .bn-brands__arrow svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    flex-shrink: 0;
   }
 
-  .bn-brands__btn svg {
-    width: 1.4rem;
-    height: 1.4rem;
+  .bn-brands__arrow--prev {
+    left: 0.8rem;
   }
 
-  .bn-brands__btn--prev svg {
+  .bn-brands__arrow--next {
+    right: 0.8rem;
+  }
+
+  .bn-brands__arrow--prev svg {
     transform: rotate(180deg);
   }
 
-  .bn-brands__btn:disabled {
-    opacity: 0.3;
-    cursor: default;
-  }
-
   @media screen and (min-width: 750px) {
-    .bn-brands__item {
-      width: 20rem;
-    }
-
-    .bn-brands__card {
-      height: 16rem;
-    }
-
-    .bn-brands__logo-wrap {
-      width: 15rem;
-      height: 9rem;
-    }
-
-    .bn-brands__track {
-      gap: 2rem;
-      padding: 0.4rem 3.2rem 2rem;
-    }
-  }
-
-  @media screen and (min-width: 990px) {
-    .bn-brands__item {
-      width: 22rem;
-    }
-
-    .bn-brands__track {
-      gap: 2.4rem;
-      padding: 0.4rem 4rem 2rem;
+    .bn-brands__arrow {
+      display: flex;
     }
   }
 {%- endstyle -%}
 
-{%- assign default_colors = '#E8F5E8,#F5E6D3,#F5DDD3,#E3F2FD,#F3E8FF,#FFF9E6,#FAE5E3,#E0F7F4' | split: ',' -%}
+{%- assign default_colors = '#F5E6D3,#E8F5E8,#E3F2FD,#F5DDD3,#F3E8FF,#FFF9E6,#FAE5E3,#E0F7F4' | split: ',' -%}
 
 <div class="bn-brands color-{{ section.settings.color_scheme }} gradient">
 
-  {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
+  {%- if section.settings.title != blank -%}
     <div class="bn-brands__header">
-      {%- if section.settings.title != blank -%}
-        <h2 class="bn-brands__title">{{ section.settings.title }}</h2>
-      {%- endif -%}
-      {%- if section.settings.subtitle != blank -%}
-        <p class="bn-brands__subtitle">{{ section.settings.subtitle }}</p>
-      {%- endif -%}
+      <h2 class="bn-brands__title">{{ section.settings.title }}</h2>
     </div>
   {%- endif -%}
 
   {%- if section.blocks.size > 0 -%}
-    <ul
-      id="BnBrandsTrack-{{ section.id }}"
-      class="bn-brands__track"
-      role="list"
-      aria-label="Marcas de confianza"
-    >
-      {%- for block in section.blocks -%}
-        {%- assign color_index = forloop.index0 | modulo: 8 -%}
-        {%- assign bg_color = block.settings.background_color -%}
-        {%- if bg_color == blank or bg_color == 'rgba(0,0,0,0)' -%}
-          {%- assign bg_color = default_colors[color_index] -%}
-        {%- endif -%}
+    <div class="bn-brands__carousel">
 
-        <li class="bn-brands__item" {{ block.shopify_attributes }}>
-          {%- if block.settings.link != blank -%}
-            <a
-              href="{{ block.settings.link }}"
-              class="bn-brands__card"
-              style="background-color: {{ bg_color }};"
-              aria-label="{{ block.settings.brand_name }}"
-            >
-          {%- else -%}
-            <div
-              class="bn-brands__card"
-              style="background-color: {{ bg_color }};"
-            >
-          {%- endif -%}
-
-            <div class="bn-brands__logo-wrap">
-              {%- if block.settings.logo != blank -%}
-                {{
-                  block.settings.logo
-                  | image_url: width: 400
-                  | image_tag:
-                    loading: 'lazy',
-                    widths: '200, 300, 400',
-                    alt: block.settings.brand_name
-                }}
-              {%- else -%}
-                <span class="bn-brands__name-fallback">{{ block.settings.brand_name }}</span>
-              {%- endif -%}
-            </div>
-
-          {%- if block.settings.link != blank -%}
-            </a>
-          {%- else -%}
-            </div>
-          {%- endif -%}
-        </li>
-      {%- endfor -%}
-    </ul>
-
-    <div class="bn-brands__nav">
       <button
-        class="bn-brands__btn bn-brands__btn--prev"
+        class="bn-brands__arrow bn-brands__arrow--prev"
         aria-label="Anterior"
         data-target="BnBrandsTrack-{{ section.id }}"
         disabled
       >
-        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M4.5 2L8.5 6L4.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
+
+      <ul
+        id="BnBrandsTrack-{{ section.id }}"
+        class="bn-brands__track"
+        role="list"
+        aria-label="Marcas de confianza"
+      >
+        {%- for block in section.blocks -%}
+          {%- assign color_index = forloop.index0 | modulo: 8 -%}
+          {%- assign bg_color = block.settings.background_color -%}
+          {%- if bg_color == blank or bg_color == 'rgba(0,0,0,0)' -%}
+            {%- assign bg_color = default_colors[color_index] -%}
+          {%- endif -%}
+
+          <li class="bn-brands__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.link != blank -%}
+              <a
+                href="{{ block.settings.link }}"
+                class="bn-brands__card"
+                style="background-color: {{ bg_color }};"
+                aria-label="{{ block.settings.brand_name }}"
+              >
+            {%- else -%}
+              <div class="bn-brands__card" style="background-color: {{ bg_color }};">
+            {%- endif -%}
+
+              <div class="bn-brands__logo-wrap">
+                {%- if block.settings.logo != blank -%}
+                  {{
+                    block.settings.logo
+                    | image_url: width: 400
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '200, 300, 400',
+                      alt: block.settings.brand_name
+                  }}
+                {%- else -%}
+                  <span class="bn-brands__name-fallback">{{ block.settings.brand_name }}</span>
+                {%- endif -%}
+              </div>
+
+            {%- if block.settings.link != blank -%}
+              </a>
+            {%- else -%}
+              </div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+
       <button
-        class="bn-brands__btn bn-brands__btn--next"
+        class="bn-brands__arrow bn-brands__arrow--next"
         aria-label="Siguiente"
         data-target="BnBrandsTrack-{{ section.id }}"
       >
-        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M4.5 2L8.5 6L4.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
+
     </div>
   {%- endif -%}
 
@@ -273,28 +283,36 @@
 
 <script>
   (function () {
-    document.querySelectorAll('.bn-brands__btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var trackId = btn.getAttribute('data-target');
+    var allArrows = document.querySelectorAll('.bn-brands__arrow');
+
+    allArrows.forEach(function (arrow) {
+      arrow.addEventListener('click', function () {
+        var trackId = arrow.getAttribute('data-target');
         var track = document.getElementById(trackId);
         if (!track) return;
-        var cardWidth = track.querySelector('.bn-brands__item').offsetWidth + 24;
-        var direction = btn.classList.contains('bn-brands__btn--prev') ? -1 : 1;
-        track.scrollBy({ left: direction * cardWidth * 2, behavior: 'smooth' });
+        var firstItem = track.querySelector('.bn-brands__item');
+        if (!firstItem) return;
+        var style = window.getComputedStyle(track);
+        var gap = parseFloat(style.gap) || 16;
+        var scrollAmount = (firstItem.offsetWidth + gap) * 2;
+        var dir = arrow.classList.contains('bn-brands__arrow--prev') ? -1 : 1;
+        track.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
       });
     });
 
     document.querySelectorAll('.bn-brands__track').forEach(function (track) {
-      var prevBtn = document.querySelector('[data-target="' + track.id + '"].bn-brands__btn--prev');
-      var nextBtn = document.querySelector('[data-target="' + track.id + '"].bn-brands__btn--next');
+      var id = track.id;
+      var prev = document.querySelector('[data-target="' + id + '"].bn-brands__arrow--prev');
+      var next = document.querySelector('[data-target="' + id + '"].bn-brands__arrow--next');
 
-      function updateButtons() {
-        if (prevBtn) prevBtn.disabled = track.scrollLeft <= 4;
-        if (nextBtn) nextBtn.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+      function update() {
+        if (prev) prev.disabled = track.scrollLeft <= 2;
+        if (next) next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
       }
 
-      track.addEventListener('scroll', updateButtons, { passive: true });
-      updateButtons();
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+      update();
     });
   })();
 </script>
@@ -313,12 +331,6 @@
       "id": "title",
       "label": "Título de la sección",
       "default": "Marcas de Confianza"
-    },
-    {
-      "type": "text",
-      "id": "subtitle",
-      "label": "Subtítulo",
-      "default": "Seleccionadas por nuestros expertos durante más de 40 años"
     },
     {
       "type": "checkbox",
