@@ -21,12 +21,12 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    padding: 0 2rem 2.8rem;
+    padding-bottom: 2.8rem;
   }
 
   @media screen and (min-width: 750px) {
     .bn-carousel__header {
-      padding: 0 4rem 3.2rem;
+      padding-bottom: 3.2rem;
     }
   }
 
@@ -57,12 +57,12 @@
   /* ── Outer (positions arrows) ── */
   .bn-carousel__outer {
     position: relative;
-    padding: 0 2rem;
+    padding: 0;
   }
 
   @media screen and (min-width: 750px) {
     .bn-carousel__outer {
-      padding: 0 5.6rem;
+      padding: 0 4.4rem;
     }
   }
 
@@ -157,11 +157,6 @@
     .bn-carousel__outer:hover .bn-carousel__nav { opacity: 1; }
   }
 
-  .bn-carousel__nav.swiper-button-disabled {
-    opacity: 0 !important;
-    pointer-events: none;
-  }
-
   .bn-carousel__nav:hover {
     background: var(--color-foreground);
     border-color: var(--color-foreground);
@@ -174,8 +169,8 @@
     flex-shrink: 0;
   }
 
-  .bn-carousel__nav--prev { left: 0.8rem; }
-  .bn-carousel__nav--next { right: 0.8rem; }
+  .bn-carousel__nav--prev { left: 0; }
+  .bn-carousel__nav--next { right: 0; }
   .bn-carousel__nav--prev svg { transform: rotate(180deg); }
 
   /* ── Pagination dots ── */
@@ -210,6 +205,7 @@
   id="BnCarousel-{{ section.id }}"
   data-section-id="{{ section.id }}"
 >
+  <div class="page-width">
 
   {%- if section.settings.title != blank or section.settings.view_all_link != blank -%}
     <div class="bn-carousel__header">
@@ -226,7 +222,7 @@
     <div class="bn-carousel__outer" id="BnCarouselOuter-{{ section.id }}">
 
       <button
-        class="bn-carousel__nav bn-brands__arrow--prev bn-carousel__nav--prev"
+        class="bn-carousel__nav bn-carousel__nav--prev"
         aria-label="Marca anterior"
         id="BnCarouselPrev-{{ section.id }}"
       >
@@ -300,6 +296,7 @@
 
   {%- endif -%}
 
+  </div>{%- comment -%} /page-width {%- endcomment -%}
 </div>
 
 <script>
@@ -317,16 +314,20 @@
       var el = document.getElementById('BnCarouselSwiper-' + SECTION_ID);
       if (!el || el._bnSwiper) return;
 
+      var prevBtn = document.getElementById('BnCarouselPrev-' + SECTION_ID);
+      var nextBtn = document.getElementById('BnCarouselNext-' + SECTION_ID);
+
       var opts = {
         slidesPerView: SLIDES_MOB,
         spaceBetween: 12,
         loop: true,
-        loopAdditionalSlides: 4,
+        loopAdditionalSlides: 8,
         grabCursor: true,
         watchSlidesProgress: true,
         navigation: {
-          prevEl: '#BnCarouselPrev-' + SECTION_ID,
-          nextEl: '#BnCarouselNext-' + SECTION_ID,
+          prevEl: prevBtn,
+          nextEl: nextBtn,
+          disabledClass: 'bn-carousel__nav--hidden',
         },
         a11y: {
           prevSlideMessage: 'Marca anterior',
