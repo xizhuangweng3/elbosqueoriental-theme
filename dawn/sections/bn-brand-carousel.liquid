@@ -1,6 +1,7 @@
 {%- comment -%}
   bn-brand-carousel.liquid
-  Compact brand logo carousel powered by Swiper.js
+  Compact brand logo carousel — CSS scroll-snap + vanilla JS
+  No autoplay, no infinite loop. Arrows disable at edges.
 {%- endcomment -%}
 
 {%- style -%}
@@ -55,7 +56,7 @@
     color: var(--color-background);
   }
 
-  /* ── Outer wrapper — contains arrows + swiper ── */
+  /* ── Outer wrapper — contains arrows + track ── */
   .bn-carousel__wrap {
     position: relative;
   }
@@ -66,18 +67,49 @@
     }
   }
 
-  /* ── Swiper ── */
-  .bn-carousel__swiper {
-    overflow: hidden;
-  }
-
-  .bn-carousel__swiper .swiper-wrapper {
-    align-items: stretch;
-  }
-
-  .bn-carousel__slide {
-    height: auto !important;
+  /* ── Scrollable track ── */
+  .bn-carousel__track {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0.2rem 0 0.4rem;
+    margin: 0;
     list-style: none;
+  }
+
+  .bn-carousel__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media screen and (min-width: 600px) {
+    .bn-carousel__track { gap: 14px; }
+  }
+
+  @media screen and (min-width: 750px) {
+    .bn-carousel__track { gap: 16px; }
+  }
+
+  /* ── Slide sizing — driven by schema settings ── */
+  .bn-carousel__slide {
+    flex: 0 0 calc((100% - ({{ section.settings.slides_mobile }} - 1) * 12px) / {{ section.settings.slides_mobile }});
+    scroll-snap-align: start;
+    list-style: none;
+    min-width: 0;
+  }
+
+  @media screen and (min-width: 600px) {
+    .bn-carousel__slide {
+      flex: 0 0 calc((100% - ({{ section.settings.slides_tablet }} - 1) * 14px) / {{ section.settings.slides_tablet }});
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .bn-carousel__slide {
+      flex: 0 0 calc((100% - ({{ section.settings.slides_desktop }} - 1) * 16px) / {{ section.settings.slides_desktop }});
+    }
   }
 
   /* ── Card ── */
@@ -148,16 +180,28 @@
     align-items: center;
     justify-content: center;
     padding: 0;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, opacity 0.2s;
     opacity: 0;
-    transition: background 0.2s, border-color 0.2s, color 0.2s, opacity 0.25s;
   }
 
   @media screen and (min-width: 750px) {
-    .bn-carousel__nav { display: flex; }
-    .bn-carousel__wrap:hover .bn-carousel__nav { opacity: 1; }
+    .bn-carousel__nav {
+      display: flex;
+    }
+
+    /* Show arrows when track is hoverable and not disabled */
+    .bn-carousel__wrap:hover .bn-carousel__nav:not(:disabled) {
+      opacity: 1;
+    }
   }
 
-  .bn-carousel__nav:hover {
+  .bn-carousel__nav:disabled {
+    opacity: 0 !important;
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .bn-carousel__nav:hover:not(:disabled) {
     background: var(--color-foreground);
     border-color: var(--color-foreground);
     color: var(--color-background);
@@ -172,30 +216,6 @@
   .bn-carousel__nav--prev { left: 0; }
   .bn-carousel__nav--next { right: 0; }
   .bn-carousel__nav--prev svg { transform: rotate(180deg); }
-
-  /* ── Dots ── */
-  .bn-carousel__dots {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    padding-top: 1.6rem;
-  }
-
-  .bn-carousel__dots .swiper-pagination-bullet {
-    width: 0.6rem;
-    height: 0.6rem;
-    border-radius: 50%;
-    background: var(--color-foreground);
-    opacity: 0.2;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.2s;
-    display: inline-block;
-  }
-
-  .bn-carousel__dots .swiper-pagination-bullet-active {
-    opacity: 0.6;
-    transform: scale(1.4);
-  }
 {%- endstyle -%}
 
 {%- assign default_colors = '#E8F5E8,#F4E4D3,#FFE4E9,#D4F4E8,#E3F2FD,#FFE8DC,#F0E6FF,#FFF9E6' | split: ',' -%}
@@ -203,7 +223,6 @@
 <div
   class="bn-carousel color-{{ section.settings.color_scheme }} gradient"
   id="BnCarousel-{{ section.id }}"
-  data-section-id="{{ section.id }}"
 >
   <div class="page-width">
 
@@ -213,78 +232,80 @@
           <h2 class="bn-carousel__title">{{ section.settings.title }}</h2>
         {%- endif -%}
         {%- if section.settings.btn_link != blank -%}
-          <a
-            href="{{ section.settings.btn_link }}"
-            class="bn-carousel__btn"
-          >{{ section.settings.btn_label | default: 'Ver todas' }}</a>
+          <a href="{{ section.settings.btn_link }}" class="bn-carousel__btn">
+            {{- section.settings.btn_label | default: 'Ver todas' -}}
+          </a>
         {%- endif -%}
       </div>
     {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
-      <div class="bn-carousel__wrap" id="BnCarouselWrap-{{ section.id }}">
+      <div class="bn-carousel__wrap">
 
         <button
           class="bn-carousel__nav bn-carousel__nav--prev"
           aria-label="Marca anterior"
-          id="BnCarouselPrev-{{ section.id }}"
+          id="BnPrev-{{ section.id }}"
+          disabled
         >
           <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
             <path d="M4.5 2L8.5 6L4.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
 
-        <div class="swiper bn-carousel__swiper" id="BnCarouselSwiper-{{ section.id }}">
-          <ul class="swiper-wrapper" role="list" aria-label="{{ section.settings.title | default: 'Marcas de confianza' }}">
-            {%- for block in section.blocks -%}
-              {%- assign color_index = forloop.index0 | modulo: 8 -%}
-              {%- assign bg = block.settings.background_color -%}
-              {%- if bg == blank or bg == 'rgba(0,0,0,0)' -%}
-                {%- assign bg = default_colors[color_index] -%}
+        <ul
+          class="bn-carousel__track"
+          id="BnTrack-{{ section.id }}"
+          aria-label="{{ section.settings.title | default: 'Marcas de confianza' }}"
+        >
+          {%- for block in section.blocks -%}
+            {%- assign color_index = forloop.index0 | modulo: 8 -%}
+            {%- assign bg = block.settings.background_color -%}
+            {%- if bg == blank or bg == 'rgba(0,0,0,0)' -%}
+              {%- assign bg = default_colors[color_index] -%}
+            {%- endif -%}
+
+            <li class="bn-carousel__slide" {{ block.shopify_attributes }}>
+              {%- if block.settings.link != blank -%}
+                <a
+                  href="{{ block.settings.link }}"
+                  class="bn-carousel__card"
+                  style="background-color: {{ bg }};"
+                  aria-label="{{ block.settings.brand_name }}"
+                  {% if block.settings.new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+                >
+              {%- else -%}
+                <div class="bn-carousel__card" style="background-color: {{ bg }};">
               {%- endif -%}
 
-              <li class="swiper-slide bn-carousel__slide" {{ block.shopify_attributes }}>
-                {%- if block.settings.link != blank -%}
-                  <a
-                    href="{{ block.settings.link }}"
-                    class="bn-carousel__card"
-                    style="background-color: {{ bg }};"
-                    aria-label="{{ block.settings.brand_name }}"
-                    {% if block.settings.new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
-                  >
-                {%- else -%}
-                  <div class="bn-carousel__card" style="background-color: {{ bg }};">
-                {%- endif -%}
+                <div class="bn-carousel__logo-wrap">
+                  {%- if block.settings.logo != blank -%}
+                    {{
+                      block.settings.logo
+                      | image_url: width: 300
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '120, 200, 300',
+                        alt: block.settings.brand_name
+                    }}
+                  {%- else -%}
+                    <span class="bn-carousel__name-fallback">{{ block.settings.brand_name }}</span>
+                  {%- endif -%}
+                </div>
 
-                  <div class="bn-carousel__logo-wrap">
-                    {%- if block.settings.logo != blank -%}
-                      {{
-                        block.settings.logo
-                        | image_url: width: 300
-                        | image_tag:
-                          loading: 'lazy',
-                          widths: '120, 200, 300',
-                          alt: block.settings.brand_name
-                      }}
-                    {%- else -%}
-                      <span class="bn-carousel__name-fallback">{{ block.settings.brand_name }}</span>
-                    {%- endif -%}
-                  </div>
-
-                {%- if block.settings.link != blank -%}
-                  </a>
-                {%- else -%}
-                  </div>
-                {%- endif -%}
-              </li>
-            {%- endfor -%}
-          </ul>
-        </div>
+              {%- if block.settings.link != blank -%}
+                </a>
+              {%- else -%}
+                </div>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
 
         <button
           class="bn-carousel__nav bn-carousel__nav--next"
           aria-label="Marca siguiente"
-          id="BnCarouselNext-{{ section.id }}"
+          id="BnNext-{{ section.id }}"
         >
           <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
             <path d="M4.5 2L8.5 6L4.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -292,11 +313,6 @@
         </button>
 
       </div>
-
-      {%- if section.settings.show_pagination -%}
-        <div class="bn-carousel__dots" id="BnCarouselDots-{{ section.id }}"></div>
-      {%- endif -%}
-
     {%- endif -%}
 
   </div>
@@ -304,96 +320,36 @@
 
 <script>
   (function () {
-    var SECTION_ID  = '{{ section.id }}';
-    var AUTOPLAY    = {{ section.settings.autoplay }};
-    var SPEED       = {{ section.settings.autoplay_speed | default: 3500 }};
-    var SLIDES_DESK = {{ section.settings.slides_desktop | default: 6 }};
-    var SLIDES_TAB  = {{ section.settings.slides_tablet  | default: 4 }};
-    var SLIDES_MOB  = {{ section.settings.slides_mobile  | default: 2 }};
-    var SHOW_DOTS   = {{ section.settings.show_pagination }};
+    var track = document.getElementById('BnTrack-{{ section.id }}');
+    var prev  = document.getElementById('BnPrev-{{ section.id }}');
+    var next  = document.getElementById('BnNext-{{ section.id }}');
+    if (!track || !prev || !next) return;
 
-    function initCarousel() {
-      if (typeof Swiper === 'undefined') return;
-      var el = document.getElementById('BnCarouselSwiper-' + SECTION_ID);
-      if (!el || el._bnSwiper) return;
-
-      var prevBtn = document.getElementById('BnCarouselPrev-' + SECTION_ID);
-      var nextBtn = document.getElementById('BnCarouselNext-' + SECTION_ID);
-
-      var opts = {
-        slidesPerView: SLIDES_MOB,
-        spaceBetween: 12,
-        loop: true,
-        loopAdditionalSlides: 8,
-        grabCursor: true,
-        navigation: {
-          prevEl: prevBtn,
-          nextEl: nextBtn,
-          disabledClass: 'bn-carousel__nav--off',
-        },
-        a11y: {
-          prevSlideMessage: 'Marca anterior',
-          nextSlideMessage: 'Marca siguiente',
-        },
-        breakpoints: {
-          600: { slidesPerView: SLIDES_TAB, spaceBetween: 14 },
-          750: { slidesPerView: SLIDES_DESK, spaceBetween: 16 },
-        },
-      };
-
-      if (AUTOPLAY) {
-        opts.autoplay = {
-          delay: SPEED,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        };
-      }
-
-      if (SHOW_DOTS) {
-        opts.pagination = {
-          el: '#BnCarouselDots-' + SECTION_ID,
-          clickable: true,
-        };
-      }
-
-      el._bnSwiper = new Swiper('#BnCarouselSwiper-' + SECTION_ID, opts);
+    function scrollAmount() {
+      var first = track.querySelector('.bn-carousel__slide');
+      if (!first) return 240;
+      var gap = parseFloat(window.getComputedStyle(track).gap) || 16;
+      return first.offsetWidth + gap;
     }
 
-    function loadSwiper(cb) {
-      if (typeof Swiper !== 'undefined') { cb(); return; }
-      if (!document.getElementById('bn-swiper-css')) {
-        var link = document.createElement('link');
-        link.id = 'bn-swiper-css';
-        link.rel = 'stylesheet';
-        link.href = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
-        document.head.appendChild(link);
-      }
-      if (!document.getElementById('bn-swiper-js')) {
-        var s = document.createElement('script');
-        s.id = 'bn-swiper-js';
-        s.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
-        s.onload = cb;
-        document.head.appendChild(s);
-      } else {
-        var poll = setInterval(function () {
-          if (typeof Swiper !== 'undefined') { clearInterval(poll); cb(); }
-        }, 50);
-      }
+    function updateArrows() {
+      var atStart = track.scrollLeft <= 2;
+      var atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+      prev.disabled = atStart;
+      next.disabled = atEnd;
     }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function () { loadSwiper(initCarousel); });
-    } else {
-      loadSwiper(initCarousel);
-    }
-
-    document.addEventListener('shopify:section:load', function (e) {
-      if (e.detail && e.detail.sectionId === SECTION_ID) {
-        var el = document.getElementById('BnCarouselSwiper-' + SECTION_ID);
-        if (el) el._bnSwiper = null;
-        loadSwiper(initCarousel);
-      }
+    prev.addEventListener('click', function () {
+      track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
     });
+
+    next.addEventListener('click', function () {
+      track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+    });
+
+    track.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows, { passive: true });
+    updateArrows();
   })();
 </script>
 
@@ -425,7 +381,7 @@
     },
     {
       "type": "header",
-      "content": "Diapositivas visibles"
+      "content": "Marcas visibles por fila"
     },
     {
       "type": "range",
@@ -456,25 +412,6 @@
     },
     {
       "type": "header",
-      "content": "Reproducción automática"
-    },
-    {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "Activar reproducción automática",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "autoplay_speed",
-      "label": "Velocidad (ms)",
-      "min": 1000,
-      "max": 8000,
-      "step": 500,
-      "default": 3500
-    },
-    {
-      "type": "header",
       "content": "Estilo"
     },
     {
@@ -482,12 +419,6 @@
       "id": "hover_effects",
       "label": "Efecto hover en las tarjetas",
       "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_pagination",
-      "label": "Mostrar puntos de paginación",
-      "default": false
     },
     {
       "type": "color_scheme",
