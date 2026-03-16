@@ -325,7 +325,43 @@
     var next  = document.getElementById('BnNext-{{ section.id }}');
     if (!track || !prev || !next) return;
 
-    function scrollAmount() {
+    var animating = false;
+
+    /* Ease-in-out cubic — smooth acceleration and deceleration */
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function animateScroll(targetLeft, duration) {
+      if (animating) return;
+      animating = true;
+
+      var startLeft  = track.scrollLeft;
+      var distance   = targetLeft - startLeft;
+      var startTime  = performance.now();
+
+      /* Lift snap during animation so it doesn't fight the easing */
+      track.style.scrollSnapType = 'none';
+
+      function tick(now) {
+        var elapsed  = now - startTime;
+        var progress = Math.min(elapsed / duration, 1);
+        track.scrollLeft = startLeft + distance * easeInOutCubic(progress);
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          track.scrollLeft = targetLeft;
+          track.style.scrollSnapType = '';
+          animating = false;
+          updateArrows();
+        }
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    function slideWidth() {
       var first = track.querySelector('.bn-carousel__slide');
       if (!first) return 240;
       var gap = parseFloat(window.getComputedStyle(track).gap) || 16;
@@ -333,18 +369,16 @@
     }
 
     function updateArrows() {
-      var atStart = track.scrollLeft <= 2;
-      var atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
-      prev.disabled = atStart;
-      next.disabled = atEnd;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
     }
 
     prev.addEventListener('click', function () {
-      track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+      animateScroll(track.scrollLeft - slideWidth(), 420);
     });
 
     next.addEventListener('click', function () {
-      track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+      animateScroll(track.scrollLeft + slideWidth(), 420);
     });
 
     track.addEventListener('scroll', updateArrows, { passive: true });
