@@ -1,9 +1,76 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "nosotros": {
       "type": "bn-page-nosotros",
+      "blocks": {
+        "value-1": {
+          "type": "value",
+          "settings": {
+            "icon": "🌿",
+            "heading": "Selección con propósito",
+            "body": "Cada producto en nuestras estanterías ha pasado por décadas de criterio experto. Si está aquí, es porque confiamos en él."
+          }
+        },
+        "value-2": {
+          "type": "value",
+          "settings": {
+            "icon": "👨‍👩‍👧",
+            "heading": "Herencia familiar",
+            "body": "Somos una familia que cuida a otras familias. Ese vínculo guía cada decisión que tomamos."
+          }
+        },
+        "value-3": {
+          "type": "value",
+          "settings": {
+            "icon": "🧭",
+            "heading": "Oriente y Occidente",
+            "body": "Combinamos lo mejor de la medicina tradicional china con los avances de la ciencia moderna para ofrecerte una visión completa de la salud."
+          }
+        },
+        "value-4": {
+          "type": "value",
+          "settings": {
+            "icon": "💬",
+            "heading": "Siempre disponibles",
+            "body": "Detrás de cada pedido hay personas reales. Llámanos, escríbenos, visítanos — siempre estamos aquí."
+          }
+        }
+      },
+      "block_order": [
+        "value-1",
+        "value-2",
+        "value-3",
+        "value-4"
+      ],
       "settings": {
+        "hero_heading": "Cuidando de ti con tradición y ciencia desde 1985.",
+        "hero_subheading": "Desde el corazón de Fuengirola, cuidando tu salud desde hace más de 40 años.",
+        "overlay_opacity": 60,
+        "hero_image": "shopify://shop_images/unnamed.jpg",
+        "section1_body_1": "Ubicados en el vibrante corazón de Fuengirola, nuestra historia comenzó hace más de 40 años con una convicción sencilla: el verdadero bienestar nace cuando la sabiduría ancestral se une a la ciencia moderna.",
+        "section1_body_2": "Lo que empezó como un pequeño proyecto familiar se ha convertido en un refugio de confianza donde Oriente encuentra Occidente. A lo largo de cuatro décadas, hemos visto crecer a niños hasta convertirse en adultos, hemos dado la bienvenida a nuevas generaciones y nos hemos tejido en el entramado del camino de salud de nuestra comunidad.",
+        "section2_heading": "Donde la Tradición Encuentra la Innovación",
+        "section2_body_1": "Nuestras estanterías cuentan una historia de selección cuidadosa. Desde pequeños productores artesanales que comparten nuestros valores hasta marcas globales de confianza que lideran la innovación científica, cada suplemento es elegido a mano con el mismo cuidado que pondríamos al elegir para nuestra propia familia. Porque después de 40 años, eso es lo que nuestros clientes se han convertido — familia.",
+        "section2_body_2": "En nuestra clínica de acupuntura, las prácticas milenarias de la medicina china se combinan de forma natural con los conocimientos contemporáneos sobre la salud. Escuchamos con la paciencia de la tradición y recomendamos con la precisión del conocimiento moderno.",
+        "section3_heading": "Tu Salud, Nuestra Herencia",
+        "section3_body_1": "No somos solo una tienda o una clínica — somos guardianes de una filosofía: que tu camino hacia el bienestar merece tanto la sabiduría probada por el tiempo como las soluciones más avanzadas. Nuestra experiencia no solo se aprende; se vive, refinada a través de miles de conversaciones, consultas y conexiones genuinas.",
+        "section3_body_2": "Bienvenido al lugar donde tu historia de salud se encuentra con la nuestra.",
+        "values_heading": "Nuestros valores",
         "values_color_scheme": "scheme-2",
+        "acupuncture_heading": "También ofrecemos acupuntura tradicional china",
+        "acupuncture_body": "Además de nuestra tienda de suplementos naturales, contamos con una clínica de acupuntura donde aplicamos técnicas milenarias de la medicina tradicional china. Para más información o citas, llámanos al 952 584 736.",
+        "acupuncture_cta": "Llamar al 952 584 736",
+        "acupuncture_phone": "952584736",
+        "acupuncture_image": "shopify://shop_images/Gemini_Generated_Image_1eotia1eotia1eot.png",
         "padding_top": 52,
         "padding_bottom": 52
       }

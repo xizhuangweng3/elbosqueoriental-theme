@@ -13,10 +13,11 @@
   }
 {%- endstyle -%}
 
-{%- assign hero_image = section.settings.hero_image -%}
+{%- assign hero_image    = section.settings.hero_image -%}
 {%- assign section1_image = section.settings.section1_image -%}
 {%- assign section2_image = section.settings.section2_image -%}
 {%- assign section3_image = section.settings.section3_image -%}
+{%- assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0 -%}
 
 {%- comment -%} ─── HERO ─── {%- endcomment -%}
 <div class="bn-nosotros__hero">
@@ -32,7 +33,7 @@
     <div class="bn-nosotros__hero-image bn-nosotros__hero-image--placeholder">
       <img
         src="{{ 'store-exterior.jpg' | asset_url }}"
-        alt="{{ 'pages.nosotros.hero_heading' | t }}"
+        alt="{{ section.settings.hero_heading | escape }}"
         width="1920"
         height="800"
         loading="eager"
@@ -40,154 +41,184 @@
       >
     </div>
   {%- endif -%}
-  <div class="bn-nosotros__hero-overlay"></div>
-  <div class="bn-nosotros__hero-content page-width">
-    <h1 class="bn-nosotros__hero-heading">{{ 'pages.nosotros.hero_heading' | t }}</h1>
-    <p class="bn-nosotros__hero-subheading">{{ 'pages.nosotros.hero_subheading' | t }}</p>
-  </div>
-</div>
 
-{%- comment -%} ─── SECTION 1: FOUNDING STORY ─── {%- endcomment -%}
-<div class="bn-nosotros__row page-width section-{{ section.id }}-padding">
-  <div class="bn-nosotros__row-text">
-    <p class="bn-nosotros__body-text">{{ 'pages.nosotros.section1_body_1' | t }}</p>
-    <p class="bn-nosotros__body-text">{{ 'pages.nosotros.section1_body_2' | t }}</p>
-  </div>
-  <div class="bn-nosotros__row-image">
-    {%- if section1_image != blank -%}
-      {{
-        section1_image
-        | image_url: width: 900
-        | image_tag: loading: 'lazy', widths: '450, 600, 900', class: 'bn-nosotros__photo'
-      }}
-    {%- else -%}
-      <img
-        src="{{ 'store-exterior.jpg' | asset_url }}"
-        alt="{{ 'pages.nosotros.section1_image_alt' | t }}"
-        width="900"
-        height="675"
-        loading="lazy"
-        class="bn-nosotros__photo"
-      >
+  <div
+    class="bn-nosotros__hero-overlay"
+    style="background: rgba(17,17,17,{{ overlay_opacity }});"
+  ></div>
+
+  <div class="bn-nosotros__hero-content page-width">
+    {%- if section.settings.hero_heading != blank -%}
+      <h1 class="bn-nosotros__hero-heading">{{ section.settings.hero_heading }}</h1>
+    {%- endif -%}
+    {%- if section.settings.hero_subheading != blank -%}
+      <p class="bn-nosotros__hero-subheading">{{ section.settings.hero_subheading }}</p>
     {%- endif -%}
   </div>
 </div>
 
-{%- comment -%} ─── SECTION 2: TRADITION MEETS INNOVATION ─── {%- endcomment -%}
-<div class="bn-nosotros__row bn-nosotros__row--reversed color-scheme-2 gradient">
-  <div class="bn-nosotros__row-inner page-width">
+{%- comment -%} ─── SECTION 1: FOUNDING STORY ─── {%- endcomment -%}
+{%- if section.settings.section1_body_1 != blank or section.settings.section1_body_2 != blank or section1_image != blank -%}
+  <div class="bn-nosotros__row page-width section-{{ section.id }}-padding">
+    <div class="bn-nosotros__row-text">
+      {%- if section.settings.section1_body_1 != blank -%}
+        <p class="bn-nosotros__body-text">{{ section.settings.section1_body_1 }}</p>
+      {%- endif -%}
+      {%- if section.settings.section1_body_2 != blank -%}
+        <p class="bn-nosotros__body-text">{{ section.settings.section1_body_2 }}</p>
+      {%- endif -%}
+    </div>
     <div class="bn-nosotros__row-image">
-      {%- if section2_image != blank -%}
+      {%- if section1_image != blank -%}
         {{
-          section2_image
+          section1_image
           | image_url: width: 900
           | image_tag: loading: 'lazy', widths: '450, 600, 900', class: 'bn-nosotros__photo'
         }}
       {%- else -%}
         <img
-          src="{{ 'store-interior-1.jpg' | asset_url }}"
-          alt="{{ 'pages.nosotros.section2_image_alt' | t }}"
-          width="900"
-          height="675"
-          loading="lazy"
+          src="{{ 'store-exterior.jpg' | asset_url }}"
+          alt="Fachada exterior de El Bosque Oriental"
+          width="900" height="675" loading="lazy"
           class="bn-nosotros__photo"
         >
       {%- endif -%}
     </div>
-    <div class="bn-nosotros__row-text">
-      <h2 class="bn-nosotros__section-heading">{{ 'pages.nosotros.section2_heading' | t }}</h2>
-      <p class="bn-nosotros__body-text">{{ 'pages.nosotros.section2_body_1' | t }}</p>
-      <p class="bn-nosotros__body-text">{{ 'pages.nosotros.section2_body_2' | t }}</p>
+  </div>
+{%- endif -%}
+
+{%- comment -%} ─── SECTION 2: TRADITION MEETS INNOVATION ─── {%- endcomment -%}
+{%- if section.settings.section2_heading != blank or section.settings.section2_body_1 != blank or section2_image != blank -%}
+  <div class="bn-nosotros__row bn-nosotros__row--reversed color-scheme-2 gradient">
+    <div class="bn-nosotros__row-inner page-width">
+      <div class="bn-nosotros__row-image">
+        {%- if section2_image != blank -%}
+          {{
+            section2_image
+            | image_url: width: 900
+            | image_tag: loading: 'lazy', widths: '450, 600, 900', class: 'bn-nosotros__photo'
+          }}
+        {%- else -%}
+          <img
+            src="{{ 'store-interior-1.jpg' | asset_url }}"
+            alt="Interior de El Bosque Oriental — estanterías de productos"
+            width="900" height="675" loading="lazy"
+            class="bn-nosotros__photo"
+          >
+        {%- endif -%}
+      </div>
+      <div class="bn-nosotros__row-text">
+        {%- if section.settings.section2_heading != blank -%}
+          <h2 class="bn-nosotros__section-heading">{{ section.settings.section2_heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.section2_body_1 != blank -%}
+          <p class="bn-nosotros__body-text">{{ section.settings.section2_body_1 }}</p>
+        {%- endif -%}
+        {%- if section.settings.section2_body_2 != blank -%}
+          <p class="bn-nosotros__body-text">{{ section.settings.section2_body_2 }}</p>
+        {%- endif -%}
+      </div>
     </div>
   </div>
-</div>
+{%- endif -%}
 
 {%- comment -%} ─── SECTION 3: YOUR HEALTH OUR HERITAGE ─── {%- endcomment -%}
-<div class="bn-nosotros__row page-width">
-  <div class="bn-nosotros__row-text">
-    <h2 class="bn-nosotros__section-heading">{{ 'pages.nosotros.section3_heading' | t }}</h2>
-    <p class="bn-nosotros__body-text">{{ 'pages.nosotros.section3_body_1' | t }}</p>
-    <p class="bn-nosotros__body-text">{{ 'pages.nosotros.section3_body_2' | t }}</p>
-  </div>
-  <div class="bn-nosotros__row-image">
-    {%- if section3_image != blank -%}
-      {{
-        section3_image
-        | image_url: width: 900
-        | image_tag: loading: 'lazy', widths: '450, 600, 900', class: 'bn-nosotros__photo'
-      }}
-    {%- else -%}
-      <img
-        src="{{ 'store-interior-2.jpg' | asset_url }}"
-        alt="{{ 'pages.nosotros.section3_image_alt' | t }}"
-        width="900"
-        height="675"
-        loading="lazy"
-        class="bn-nosotros__photo"
-      >
-    {%- endif -%}
-  </div>
-</div>
-
-{%- comment -%} ─── VALUES GRID ─── {%- endcomment -%}
-<div class="bn-nosotros__values color-{{ section.settings.values_color_scheme }} gradient">
-  <div class="page-width">
-    <h2 class="bn-nosotros__values-heading">{{ 'pages.nosotros.values_heading' | t }}</h2>
-    <div class="bn-nosotros__values-grid">
-      <div class="bn-nosotros__value-card">
-        <span class="bn-nosotros__value-icon" aria-hidden="true">🌿</span>
-        <h3 class="bn-nosotros__value-title">{{ 'pages.nosotros.value1_heading' | t }}</h3>
-        <p class="bn-nosotros__value-body">{{ 'pages.nosotros.value1_body' | t }}</p>
-      </div>
-      <div class="bn-nosotros__value-card">
-        <span class="bn-nosotros__value-icon" aria-hidden="true">👨‍👩‍👧</span>
-        <h3 class="bn-nosotros__value-title">{{ 'pages.nosotros.value2_heading' | t }}</h3>
-        <p class="bn-nosotros__value-body">{{ 'pages.nosotros.value2_body' | t }}</p>
-      </div>
-      <div class="bn-nosotros__value-card">
-        <span class="bn-nosotros__value-icon" aria-hidden="true">🧭</span>
-        <h3 class="bn-nosotros__value-title">{{ 'pages.nosotros.value3_heading' | t }}</h3>
-        <p class="bn-nosotros__value-body">{{ 'pages.nosotros.value3_body' | t }}</p>
-      </div>
-      <div class="bn-nosotros__value-card">
-        <span class="bn-nosotros__value-icon" aria-hidden="true">💬</span>
-        <h3 class="bn-nosotros__value-title">{{ 'pages.nosotros.value4_heading' | t }}</h3>
-        <p class="bn-nosotros__value-body">{{ 'pages.nosotros.value4_body' | t }}</p>
-      </div>
+{%- if section.settings.section3_heading != blank or section.settings.section3_body_1 != blank or section3_image != blank -%}
+  <div class="bn-nosotros__row page-width">
+    <div class="bn-nosotros__row-text">
+      {%- if section.settings.section3_heading != blank -%}
+        <h2 class="bn-nosotros__section-heading">{{ section.settings.section3_heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.section3_body_1 != blank -%}
+        <p class="bn-nosotros__body-text">{{ section.settings.section3_body_1 }}</p>
+      {%- endif -%}
+      {%- if section.settings.section3_body_2 != blank -%}
+        <p class="bn-nosotros__body-text">{{ section.settings.section3_body_2 }}</p>
+      {%- endif -%}
     </div>
-  </div>
-</div>
-
-{%- comment -%} ─── ACUPUNCTURE MENTION ─── {%- endcomment -%}
-<div class="bn-nosotros__acupuncture page-width">
-  <div class="bn-nosotros__acupuncture-inner">
-    <div class="bn-nosotros__acupuncture-text">
-      <h2 class="bn-nosotros__section-heading">{{ 'pages.nosotros.acupuncture_heading' | t }}</h2>
-      <p class="bn-nosotros__body-text">{{ 'pages.nosotros.acupuncture_body' | t }}</p>
-      <a href="tel:952584736" class="button button--secondary">{{ 'pages.nosotros.acupuncture_cta' | t }}</a>
-    </div>
-    {%- if section.settings.acupuncture_image != blank -%}
-      <div class="bn-nosotros__acupuncture-image">
+    <div class="bn-nosotros__row-image">
+      {%- if section3_image != blank -%}
         {{
-          section.settings.acupuncture_image
+          section3_image
           | image_url: width: 900
           | image_tag: loading: 'lazy', widths: '450, 600, 900', class: 'bn-nosotros__photo'
         }}
-      </div>
-    {%- else -%}
-      <div class="bn-nosotros__acupuncture-image">
+      {%- else -%}
         <img
-          src="{{ 'store-waiting-room.jpg' | asset_url }}"
-          alt="{{ 'pages.nosotros.acupuncture_image_alt' | t }}"
-          width="900"
-          height="675"
-          loading="lazy"
+          src="{{ 'store-interior-2.jpg' | asset_url }}"
+          alt="Interior de El Bosque Oriental — vista amplia"
+          width="900" height="675" loading="lazy"
           class="bn-nosotros__photo"
         >
-      </div>
-    {%- endif -%}
+      {%- endif -%}
+    </div>
   </div>
-</div>
+{%- endif -%}
+
+{%- comment -%} ─── VALUES GRID ─── {%- endcomment -%}
+{%- if section.blocks.size > 0 -%}
+  <div class="bn-nosotros__values color-{{ section.settings.values_color_scheme }} gradient">
+    <div class="page-width">
+      {%- if section.settings.values_heading != blank -%}
+        <h2 class="bn-nosotros__values-heading">{{ section.settings.values_heading }}</h2>
+      {%- endif -%}
+      <div class="bn-nosotros__values-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'value' -%}
+            <div class="bn-nosotros__value-card" {{ block.shopify_attributes }}>
+              {%- if block.settings.icon != blank -%}
+                <span class="bn-nosotros__value-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+              {%- endif -%}
+              {%- if block.settings.heading != blank -%}
+                <h3 class="bn-nosotros__value-title">{{ block.settings.heading }}</h3>
+              {%- endif -%}
+              {%- if block.settings.body != blank -%}
+                <p class="bn-nosotros__value-body">{{ block.settings.body }}</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- comment -%} ─── ACUPUNCTURE MENTION ─── {%- endcomment -%}
+{%- if section.settings.acupuncture_heading != blank or section.settings.acupuncture_body != blank -%}
+  <div class="bn-nosotros__acupuncture page-width">
+    <div class="bn-nosotros__acupuncture-inner">
+      <div class="bn-nosotros__acupuncture-text">
+        {%- if section.settings.acupuncture_heading != blank -%}
+          <h2 class="bn-nosotros__section-heading">{{ section.settings.acupuncture_heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.acupuncture_body != blank -%}
+          <p class="bn-nosotros__body-text">{{ section.settings.acupuncture_body }}</p>
+        {%- endif -%}
+        {%- if section.settings.acupuncture_cta != blank and section.settings.acupuncture_phone != blank -%}
+          <a href="tel:{{ section.settings.acupuncture_phone | remove: ' ' }}" class="button button--secondary">
+            {{ section.settings.acupuncture_cta }}
+          </a>
+        {%- endif -%}
+      </div>
+      <div class="bn-nosotros__acupuncture-image">
+        {%- if section.settings.acupuncture_image != blank -%}
+          {{
+            section.settings.acupuncture_image
+            | image_url: width: 900
+            | image_tag: loading: 'lazy', widths: '450, 600, 900', class: 'bn-nosotros__photo'
+          }}
+        {%- else -%}
+          <img
+            src="{{ 'store-waiting-room.jpg' | asset_url }}"
+            alt="Sala de espera de la clínica de acupuntura de El Bosque Oriental"
+            width="900" height="675" loading="lazy"
+            class="bn-nosotros__photo"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
 
 {% schema %}
 {
@@ -197,36 +228,119 @@
   "settings": [
     {
       "type": "header",
-      "content": "Imágenes"
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Titular del hero",
+      "default": "Cuidando de ti con tradición y ciencia desde 1985."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subheading",
+      "label": "Subtítulo del hero",
+      "default": "Desde el corazón de Fuengirola, cuidando tu salud desde hace más de 40 años."
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 10,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Oscuridad del overlay (más = más oscuro)",
+      "default": 60
     },
     {
       "type": "image_picker",
       "id": "hero_image",
-      "label": "Imagen hero (fondo)"
+      "label": "Imagen de fondo del hero"
+    },
+    {
+      "type": "header",
+      "content": "Sección 1 — Historia fundacional"
+    },
+    {
+      "type": "textarea",
+      "id": "section1_body_1",
+      "label": "Párrafo 1",
+      "default": "Ubicados en el vibrante corazón de Fuengirola, nuestra historia comenzó hace más de 40 años con una convicción sencilla: el verdadero bienestar nace cuando la sabiduría ancestral se une a la ciencia moderna."
+    },
+    {
+      "type": "textarea",
+      "id": "section1_body_2",
+      "label": "Párrafo 2",
+      "default": "Lo que empezó como un pequeño proyecto familiar se ha convertido en un refugio de confianza donde Oriente encuentra Occidente. A lo largo de cuatro décadas, hemos visto crecer a niños hasta convertirse en adultos, hemos dado la bienvenida a nuevas generaciones y nos hemos tejido en el entramado del camino de salud de nuestra comunidad."
     },
     {
       "type": "image_picker",
       "id": "section1_image",
-      "label": "Imagen sección 1 — Historia fundacional"
+      "label": "Imagen — Historia fundacional"
+    },
+    {
+      "type": "header",
+      "content": "Sección 2 — Tradición e Innovación"
+    },
+    {
+      "type": "text",
+      "id": "section2_heading",
+      "label": "Título",
+      "default": "Donde la Tradición Encuentra la Innovación"
+    },
+    {
+      "type": "textarea",
+      "id": "section2_body_1",
+      "label": "Párrafo 1",
+      "default": "Nuestras estanterías cuentan una historia de selección cuidadosa. Desde pequeños productores artesanales que comparten nuestros valores hasta marcas globales de confianza que lideran la innovación científica, cada suplemento es elegido a mano con el mismo cuidado que pondríamos al elegir para nuestra propia familia."
+    },
+    {
+      "type": "textarea",
+      "id": "section2_body_2",
+      "label": "Párrafo 2",
+      "default": "En nuestra clínica de acupuntura, las prácticas milenarias de la medicina china se combinan de forma natural con los conocimientos contemporáneos sobre la salud."
     },
     {
       "type": "image_picker",
       "id": "section2_image",
-      "label": "Imagen sección 2 — Interior tienda"
+      "label": "Imagen — Interior tienda"
+    },
+    {
+      "type": "header",
+      "content": "Sección 3 — Tu Salud, Nuestra Herencia"
+    },
+    {
+      "type": "text",
+      "id": "section3_heading",
+      "label": "Título",
+      "default": "Tu Salud, Nuestra Herencia"
+    },
+    {
+      "type": "textarea",
+      "id": "section3_body_1",
+      "label": "Párrafo 1",
+      "default": "No somos solo una tienda o una clínica — somos guardianes de una filosofía: que tu camino hacia el bienestar merece tanto la sabiduría probada por el tiempo como las soluciones más avanzadas."
+    },
+    {
+      "type": "textarea",
+      "id": "section3_body_2",
+      "label": "Párrafo 2",
+      "default": "Bienvenido al lugar donde tu historia de salud se encuentra con la nuestra."
     },
     {
       "type": "image_picker",
       "id": "section3_image",
-      "label": "Imagen sección 3 — Interior amplio"
-    },
-    {
-      "type": "image_picker",
-      "id": "acupuncture_image",
-      "label": "Imagen sala de espera acupuntura"
+      "label": "Imagen — Interior amplio"
     },
     {
       "type": "header",
-      "content": "Colores y espaciado"
+      "content": "Sección de valores"
+    },
+    {
+      "type": "text",
+      "id": "values_heading",
+      "label": "Título",
+      "default": "Nuestros valores"
     },
     {
       "type": "select",
@@ -236,7 +350,44 @@
         { "value": "scheme-2", "label": "Scheme 2" }
       ],
       "default": "scheme-2",
-      "label": "Color de fondo — sección valores"
+      "label": "Color de fondo"
+    },
+    {
+      "type": "header",
+      "content": "Sección de acupuntura"
+    },
+    {
+      "type": "text",
+      "id": "acupuncture_heading",
+      "label": "Título",
+      "default": "También ofrecemos acupuntura tradicional china"
+    },
+    {
+      "type": "textarea",
+      "id": "acupuncture_body",
+      "label": "Texto",
+      "default": "Además de nuestra tienda de suplementos naturales, contamos con una clínica de acupuntura donde aplicamos técnicas milenarias de la medicina tradicional china. Para más información o citas, llámanos al 952 584 736."
+    },
+    {
+      "type": "text",
+      "id": "acupuncture_cta",
+      "label": "Texto del botón",
+      "default": "Llamar al 952 584 736"
+    },
+    {
+      "type": "text",
+      "id": "acupuncture_phone",
+      "label": "Número de teléfono",
+      "default": "952584736"
+    },
+    {
+      "type": "image_picker",
+      "id": "acupuncture_image",
+      "label": "Imagen — Sala de espera"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
     },
     {
       "type": "range",
@@ -259,9 +410,69 @@
       "default": 52
     }
   ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Valor",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icono (emoji)",
+          "default": "🌿"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Título",
+          "default": "Nuestro valor"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Descripción",
+          "default": "Descripción del valor."
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Página Nosotros"
+      "name": "Página Nosotros",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "icon": "🌿",
+            "heading": "Selección con propósito",
+            "body": "Cada producto en nuestras estanterías ha pasado por décadas de criterio experto. Si está aquí, es porque confiamos en él."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "👨‍👩‍👧",
+            "heading": "Herencia familiar",
+            "body": "Somos una familia que cuida a otras familias. Ese vínculo guía cada decisión que tomamos."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "🧭",
+            "heading": "Oriente y Occidente",
+            "body": "Combinamos lo mejor de la medicina tradicional china con los avances de la ciencia moderna para ofrecerte una visión completa de la salud."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "💬",
+            "heading": "Siempre disponibles",
+            "body": "Detrás de cada pedido hay personas reales. Llámanos, escríbenos, visítanos — siempre estamos aquí."
+          }
+        }
+      ]
     }
   ]
 }

@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -581,6 +590,10 @@
       "email_label": "Correo electrónico",
       "subject_label": "Asunto",
       "message_label": "Mensaje",
+      "name_placeholder": "Tu nombre completo",
+      "email_placeholder": "tu@email.com",
+      "subject_placeholder": "¿En qué podemos ayudarte?",
+      "message_placeholder": "Escribe tu mensaje aquí...",
       "submit_label": "Enviar mensaje",
       "success_message": "¡Gracias por tu mensaje! Te responderemos en la mayor brevedad posible. Si necesitas una respuesta urgente, llámanos al 952 584 736."
     }

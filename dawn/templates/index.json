@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "image_banner": {
@@ -24,7 +33,7 @@
             "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": false,
             "button_label_2": "Nuestra Historia",
-            "button_link_2": "shopify://pages/nosotros",
+            "button_link_2": "shopify://pages/quienes-somos",
             "button_style_secondary_2": true
           }
         }
@@ -35,35 +44,218 @@
         "button"
       ],
       "settings": {
-        "image_overlay_opacity": 40,
+        "image": "shopify://shop_images/Untitled_design_2.png",
+        "image_overlay_opacity": 10,
         "image_height": "large",
+        "image_behavior": "none",
         "desktop_content_position": "bottom-center",
-        "show_text_box": false,
         "desktop_content_alignment": "center",
+        "show_text_box": false,
         "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
         "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
         "show_text_below": false
       }
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
+        "collection": "frontpage",
+        "products_to_show": 8,
         "title": "Nuestros Productos",
         "heading_size": "h2",
-        "collection": "all",
-        "products_to_show": 8,
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
         "columns_desktop": 4,
-        "color_scheme": "scheme-1",
+        "enable_desktop_slider": false,
+        "full_width": false,
         "show_view_all": true,
-        "swipe_on_mobile": true,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-1",
         "image_ratio": "adapt",
+        "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
+        "quick_add": "none",
         "columns_mobile": "2",
+        "swipe_on_mobile": true,
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "brand_carousel": {
+      "type": "bn-brand-carousel",
+      "blocks": {
+        "solgar": {
+          "type": "brand",
+          "settings": {
+            "logo": "shopify://shop_images/epub_Solgar-logo_696x696_webp.webp",
+            "brand_name": "Solgar",
+            "link": "shopify://collections/solgar",
+            "new_tab": false,
+            "background_color": "#e8f5e8"
+          }
+        },
+        "lamberts": {
+          "type": "brand",
+          "settings": {
+            "logo": "shopify://shop_images/LH7844_Lamberts_logo_THE_PROFESSIONAL_SUPPLEMENT_RANGE_AW_2.png",
+            "brand_name": "Lamberts",
+            "link": "shopify://collections/lamberts-1",
+            "new_tab": false,
+            "background_color": "#f4e4d3"
+          }
+        },
+        "marnys": {
+          "type": "brand",
+          "settings": {
+            "logo": "shopify://shop_images/logo-Marnys.svg",
+            "brand_name": "Marnys",
+            "link": "shopify://collections/marnys",
+            "new_tab": false,
+            "background_color": "#ffe4e9"
+          }
+        },
+        "solaray": {
+          "type": "brand",
+          "settings": {
+            "logo": "shopify://shop_images/logo-Solaray.png",
+            "brand_name": "Solaray",
+            "link": "shopify://collections/solaray",
+            "new_tab": false,
+            "background_color": "#e3f2fd"
+          }
+        },
+        "soria_natural": {
+          "type": "brand",
+          "settings": {
+            "logo": "shopify://shop_images/logo-Soria-Natural.svg",
+            "brand_name": "Soria Natural",
+            "link": "shopify://collections/soria-natural",
+            "new_tab": false,
+            "background_color": "#f0e6ff"
+          }
+        },
+        "natysal": {
+          "type": "brand",
+          "settings": {
+            "logo": "shopify://shop_images/pharmanord-logo-large.png",
+            "brand_name": "Pharma Nord",
+            "link": "shopify://collections/pharma-nord",
+            "new_tab": false,
+            "background_color": "#fff9e6"
+          }
+        },
+        "equisalud": {
+          "type": "brand",
+          "settings": {
+            "logo": "shopify://shop_images/idN-56vo9C_1773692195944.png",
+            "brand_name": "Equisalud",
+            "link": "shopify://collections/equisalud",
+            "new_tab": false,
+            "background_color": "#ffe8dc"
+          }
+        },
+        "sura_vitasan": {
+          "type": "brand",
+          "settings": {
+            "logo": "shopify://shop_images/logo-Sura-Vitasan.svg",
+            "brand_name": "Sura Vitasan",
+            "link": "shopify://collections/sura-vitasan",
+            "new_tab": false,
+            "background_color": "#d4f4e8"
+          }
+        }
+      },
+      "block_order": [
+        "solgar",
+        "lamberts",
+        "marnys",
+        "solaray",
+        "soria_natural",
+        "natysal",
+        "equisalud",
+        "sura_vitasan"
+      ],
+      "settings": {
+        "title": "Nuestras Marcas de Confianza",
+        "btn_label": "Ver todas",
+        "btn_link": "",
+        "slides_desktop": 6,
+        "slides_tablet": 4,
+        "slides_mobile": 2,
+        "hover_effects": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "health_needs": {
+      "type": "health-needs",
+      "blocks": {
+        "cat-vitaminas": {
+          "type": "health_category",
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_vynr5pvynr5pvynr.jpg",
+            "title": "Vitaminas y Minerales",
+            "collection": "vitaminas-y-minerales"
+          }
+        },
+        "cat-digestion": {
+          "type": "health_category",
+          "settings": {
+            "image": "shopify://shop_images/digestion-y-microbiota_84dcf28e-4467-4f01-b437-0c192920f036.jpg",
+            "title": "Digestión y Microbiota",
+            "collection": "digestion-y-microbiota"
+          }
+        },
+        "cat-colesterol": {
+          "type": "health_category",
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_y5vsqay5vsqay5vs_4b8aea6e-20ec-4c93-ada3-df96681b44a4.png",
+            "title": "Colesterol y Corazón",
+            "collection": "colesterol-y-corazon"
+          }
+        },
+        "cat-energia": {
+          "type": "health_category",
+          "settings": {
+            "image": "shopify://shop_images/energia-estres-y-sueno_cd8dbe22-6c27-4e3d-b3a6-d1979bef4206.jpg",
+            "title": "Energía, Estrés y Sueño",
+            "collection": "energia-estres-y-sueno"
+          }
+        },
+        "cat-memoria": {
+          "type": "health_category",
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_umobxsumobxsumob.jpg",
+            "title": "Memoria y Sistema Nervioso",
+            "collection": "memoria-y-sistema-nervioso"
+          }
+        },
+        "cat-mtc": {
+          "type": "health_category",
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_xcm6irxcm6irxcm6.jpg",
+            "title": "Medicina Tradicional China",
+            "collection": "medicina-tradicional-china"
+          }
+        }
+      },
+      "block_order": [
+        "cat-vitaminas",
+        "cat-digestion",
+        "cat-colesterol",
+        "cat-energia",
+        "cat-memoria",
+        "cat-mtc"
+      ],
+      "settings": {
+        "heading": "Compra según tu necesidad",
+        "subheading": "Encuentra los suplementos ideales para tu objetivo de salud",
+        "color_scheme": "scheme-1"
       }
     },
     "brand_story": {
@@ -79,15 +271,18 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Todo empezó con una convicción sencilla: el verdadero bienestar nace cuando la sabiduría ancestral se une a la ciencia moderna. Lo que comenzó como un pequeño proyecto familiar en Fuengirola se ha convertido en un lugar de referencia para quienes buscan cuidarse de verdad. Hemos visto crecer a hijos y llegar a nietos. Somos parte de la historia de salud de nuestra comunidad.<\/p>"
+            "text": "<p>Todo empezó con una convicción sencilla: el verdadero bienestar nace cuando la sabiduría ancestral se une a la ciencia moderna. Lo que comenzó como un pequeño proyecto familiar en Fuengirola se ha convertido en un lugar de referencia para quienes buscan cuidarse de verdad. Hemos visto crecer a hijos y llegar a nietos. Somos parte de la historia de salud de nuestra comunidad.</p>"
           }
         },
         "button": {
           "type": "button",
           "settings": {
             "button_label": "Conoce Nuestra Historia",
-            "button_link": "shopify://pages/nosotros",
-            "button_style_secondary": true
+            "button_link": "shopify://pages/quienes-somos",
+            "button_style_secondary": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
           }
         }
       },
@@ -97,6 +292,8 @@
         "button"
       ],
       "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
         "color_scheme": "scheme-2",
         "full_width": true,
         "padding_top": 52,
@@ -110,7 +307,7 @@
           "type": "column",
           "settings": {
             "title": "Más de 40 años de experiencia",
-            "text": "<p>Una familia dedicada a la salud natural desde 1984.<\/p>",
+            "text": "<p>Una familia dedicada a la salud natural desde 1984.</p>",
             "link_label": "",
             "link": ""
           }
@@ -119,7 +316,7 @@
           "type": "column",
           "settings": {
             "title": "Envío gratis a partir de €50",
-            "text": "<p>Enviamos a España y toda Europa con total garantía.<\/p>",
+            "text": "<p>Enviamos a España y toda Europa con total garantía.</p>",
             "link_label": "",
             "link": ""
           }
@@ -128,7 +325,7 @@
           "type": "column",
           "settings": {
             "title": "Productos seleccionados a mano",
-            "text": "<p>Cada producto elegido con el mismo cuidado que elegiríamos para nuestra familia.<\/p>",
+            "text": "<p>Cada producto elegido con el mismo cuidado que elegiríamos para nuestra familia.</p>",
             "link_label": "",
             "link": ""
           }
@@ -137,7 +334,7 @@
           "type": "column",
           "settings": {
             "title": "Consejo experto: 952 584 736",
-            "text": "<p>Llámanos — siempre hay alguien dispuesto a ayudarte.<\/p>",
+            "text": "<p>Llámanos — siempre hay alguien dispuesto a ayudarte.</p>",
             "link_label": "",
             "link": ""
           }
@@ -154,52 +351,25 @@
         "heading_size": "h1",
         "image_width": "third",
         "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
         "columns_desktop": 4,
         "column_alignment": "center",
         "background_style": "none",
-        "button_label": "",
-        "button_link": "",
-        "swipe_on_mobile": true,
         "color_scheme": "scheme-1",
         "columns_mobile": "1",
+        "swipe_on_mobile": true,
         "padding_top": 36,
         "padding_bottom": 36
-      }
-    },
-    "brand_carousel": {
-      "type": "bn-brand-carousel",
-      "blocks": {
-        "solgar":        { "type": "brand", "settings": { "brand_name": "Solgar",        "background_color": "#E8F5E8" } },
-        "lamberts":      { "type": "brand", "settings": { "brand_name": "Lamberts",      "background_color": "#F4E4D3" } },
-        "marnys":        { "type": "brand", "settings": { "brand_name": "Marnys",        "background_color": "#FFE4E9" } },
-        "solaray":       { "type": "brand", "settings": { "brand_name": "Solaray",       "background_color": "#E3F2FD" } },
-        "soria_natural": { "type": "brand", "settings": { "brand_name": "Soria Natural", "background_color": "#F0E6FF" } },
-        "natysal":       { "type": "brand", "settings": { "brand_name": "Natysal",       "background_color": "#FFF9E6" } },
-        "equisalud":     { "type": "brand", "settings": { "brand_name": "Equisalud",     "background_color": "#FFE8DC" } },
-        "sura_vitasan":  { "type": "brand", "settings": { "brand_name": "Sura Vitasan",  "background_color": "#D4F4E8" } }
-      },
-      "block_order": [
-        "solgar", "lamberts", "marnys", "solaray",
-        "soria_natural", "natysal", "equisalud", "sura_vitasan"
-      ],
-      "settings": {
-        "title": "Nuestras Marcas de Confianza",
-        "btn_label": "Ver todas",
-        "slides_desktop": 6,
-        "slides_tablet": 4,
-        "slides_mobile": 2,
-        "hover_effects": true,
-        "color_scheme": "scheme-1",
-        "padding_top": 32,
-        "padding_bottom": 32
       }
     }
   },
   "order": [
     "image_banner",
     "featured_collection",
+    "brand_carousel",
+    "health_needs",
     "brand_story",
-    "trust_bar",
-    "brand_carousel"
+    "trust_bar"
   ]
 }

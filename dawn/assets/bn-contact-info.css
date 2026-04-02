@@ -117,19 +117,27 @@
   font-size: 1.6rem;
   font-family: var(--font-body-family);
   color: rgb(var(--color-foreground));
-  background-color: rgb(var(--color-background));
-  border: 0.1rem solid rgb(var(--color-foreground) / 0.2);
-  border-radius: 0.4rem;
+  background-color: #fafafa;
+  border: 0.15rem solid rgb(var(--color-foreground) / 0.35);
+  border-radius: 0.6rem;
   box-sizing: border-box;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   -webkit-appearance: none;
   appearance: none;
+}
+
+.bn-contact__input::placeholder,
+.bn-contact__textarea::placeholder {
+  color: rgb(var(--color-foreground) / 0.4);
+  font-size: 1.5rem;
 }
 
 .bn-contact__input:focus,
 .bn-contact__textarea:focus {
   outline: none;
   border-color: rgb(var(--color-foreground));
+  box-shadow: 0 0 0 0.3rem rgb(var(--color-foreground) / 0.08);
+  background-color: rgb(var(--color-background));
 }
 
 .bn-contact__textarea {

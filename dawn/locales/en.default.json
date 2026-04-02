@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -570,6 +579,10 @@
       "email_label": "Email",
       "subject_label": "Subject",
       "message_label": "Message",
+      "name_placeholder": "Your full name",
+      "email_placeholder": "you@email.com",
+      "subject_placeholder": "How can we help you?",
+      "message_placeholder": "Write your message here...",
       "submit_label": "Send message",
       "success_message": "Thank you for your message! We will reply as soon as possible. If you need an urgent response, call us at 952 584 736."
     }

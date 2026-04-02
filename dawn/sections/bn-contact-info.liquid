@@ -56,6 +56,7 @@
             name="contact[name]"
             autocomplete="name"
             value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+            placeholder="{{ 'pages.contact.name_placeholder' | t }}"
             class="bn-contact__input field__input"
             required
           >
@@ -71,6 +72,7 @@
             name="contact[email]"
             autocomplete="email"
             value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+            placeholder="{{ 'pages.contact.email_placeholder' | t }}"
             class="bn-contact__input field__input"
             required
           >
@@ -84,6 +86,7 @@
             type="text"
             id="ContactFormSubject"
             name="contact[subject]"
+            placeholder="{{ 'pages.contact.subject_placeholder' | t }}"
             class="bn-contact__input field__input"
           >
         </div>
@@ -96,6 +99,7 @@
             id="ContactFormMessage"
             name="contact[body]"
             rows="6"
+            placeholder="{{ 'pages.contact.message_placeholder' | t }}"
             class="bn-contact__textarea field__input"
             required
           ></textarea>
