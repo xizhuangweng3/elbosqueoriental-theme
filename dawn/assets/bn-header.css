@@ -44,3 +44,124 @@
     padding-bottom: 0.8rem;
   }
 }
+
+/* ============================================================
+   Smooth dropdown menu
+   ============================================================ */
+
+/* Fade + slide in when <details> opens */
+.header__submenu {
+  animation: bn-dropdown-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: top center;
+}
+
+@keyframes bn-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Refined panel appearance */
+.header__submenu.global-settings-popup {
+  border-radius: 0.8rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.08),
+    0 12px 28px -4px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+}
+
+/* Smooth hover on dropdown items */
+.header__submenu .header__menu-item,
+.header__submenu .list-menu__item {
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Caret rotates smoothly when open */
+.header__menu-item .icon-caret {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+  margin-left: 0.4rem;
+}
+
+details[open] > summary .icon-caret {
+  transform: rotate(180deg);
+}
+
+/* Animated underline on top-level nav links */
+a.header__menu-item,
+summary.header__menu-item {
+  position: relative;
+}
+
+a.header__menu-item::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 1px;
+}
+
+a.header__menu-item:hover::after,
+a.header__menu-item[aria-current="page"]::after {
+  width: 100%;
+}
+
+/* ============================================================
+   Smooth search modal
+   ============================================================ */
+
+/* Search bar slides in from top */
+details[open] .search-modal__content {
+  animation: bn-search-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes bn-search-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cleaner input styling */
+.search-modal .search__input,
+.search-modal input[type="search"] {
+  border-radius: 0.6rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-modal .search__input:focus,
+.search-modal input[type="search"]:focus {
+  outline: none;
+  border-color: rgb(var(--color-foreground));
+  box-shadow: 0 0 0 3px rgb(var(--color-foreground) / 0.08);
+}
+
+/* Predictive search results panel */
+predictive-search .predictive-search {
+  animation: bn-dropdown-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  border-radius: 0 0 0.8rem 0.8rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.06),
+    0 12px 28px -4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Smooth hover on search result rows */
+.predictive-search__item {
+  transition: background-color 0.15s ease;
+}

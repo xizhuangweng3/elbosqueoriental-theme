@@ -3,33 +3,98 @@
 <div class="bn-contact color-{{ section.settings.color_scheme }} gradient">
   <div class="bn-contact__inner page-width">
 
-    {%- comment -%} ─── Left: intro + details ─── {%- endcomment -%}
+    {%- comment -%} ─── Left: contact details ─── {%- endcomment -%}
     <div class="bn-contact__details">
-      <h1 class="bn-contact__heading">{{ 'pages.contact.heading' | t }}</h1>
-      <p class="bn-contact__intro">{{ 'pages.contact.intro' | t }}</p>
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="bn-contact__heading">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.intro != blank -%}
+        <p class="bn-contact__intro">{{ section.settings.intro }}</p>
+      {%- endif -%}
 
       <ul class="bn-contact__list">
-        <li class="bn-contact__item">
-          <span class="bn-contact__item-icon" aria-hidden="true">📞</span>
-          <div>
-            <span class="bn-contact__item-label">{{ 'pages.contact.phone_label' | t }}</span>
-            <a href="tel:952584736" class="bn-contact__item-value bn-contact__phone">952 584 736</a>
-          </div>
-        </li>
-        <li class="bn-contact__item">
-          <span class="bn-contact__item-icon" aria-hidden="true">📍</span>
-          <div>
-            <span class="bn-contact__item-label">{{ 'pages.contact.location_label' | t }}</span>
-            <span class="bn-contact__item-value">{{ 'pages.contact.location_value' | t }}</span>
-          </div>
-        </li>
-        <li class="bn-contact__item">
+
+        {%- comment -%} Phone {%- endcomment -%}
+        {%- if section.settings.phone != blank -%}
+          <li class="bn-contact__item">
+            <span class="bn-contact__item-icon" aria-hidden="true">📞</span>
+            <div>
+              <span class="bn-contact__item-label">{{ section.settings.phone_label | default: 'Teléfono' }}</span>
+              <a href="tel:{{ section.settings.phone | remove: ' ' }}" class="bn-contact__item-value bn-contact__phone">
+                {{ section.settings.phone }}
+              </a>
+            </div>
+          </li>
+        {%- endif -%}
+
+        {%- comment -%} Mobile {%- endcomment -%}
+        {%- if section.settings.mobile != blank -%}
+          <li class="bn-contact__item">
+            <span class="bn-contact__item-icon" aria-hidden="true">📱</span>
+            <div>
+              <span class="bn-contact__item-label">{{ section.settings.mobile_label | default: 'Móvil' }}</span>
+              <a href="tel:{{ section.settings.mobile | remove: ' ' }}" class="bn-contact__item-value bn-contact__phone">
+                {{ section.settings.mobile }}
+              </a>
+            </div>
+          </li>
+        {%- endif -%}
+
+        {%- comment -%} WhatsApp {%- endcomment -%}
+        {%- if section.settings.whatsapp != blank -%}
+          {%- assign wa_number = section.settings.whatsapp | remove: ' ' -%}
+          <li class="bn-contact__item">
+            <span class="bn-contact__item-icon bn-contact__item-icon--whatsapp" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </span>
+            <div>
+              <span class="bn-contact__item-label">{{ section.settings.whatsapp_label | default: 'WhatsApp' }}</span>
+              <a
+                href="https://wa.me/34{{ wa_number }}"
+                class="bn-contact__item-value bn-contact__whatsapp"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {{ section.settings.whatsapp }}
+              </a>
+            </div>
+          </li>
+        {%- endif -%}
+
+        {%- comment -%} Address {%- endcomment -%}
+        {%- if section.settings.address != blank -%}
+          <li class="bn-contact__item">
+            <span class="bn-contact__item-icon" aria-hidden="true">📍</span>
+            <div>
+              <span class="bn-contact__item-label">{{ section.settings.address_label | default: 'Ubicación' }}</span>
+              <span class="bn-contact__item-value">{{ section.settings.address }}</span>
+            </div>
+          </li>
+        {%- endif -%}
+
+        {%- comment -%} Hours {%- endcomment -%}
+        <li class="bn-contact__item bn-contact__item--hours">
           <span class="bn-contact__item-icon" aria-hidden="true">🕐</span>
           <div>
-            <span class="bn-contact__item-label">{{ 'pages.contact.hours_label' | t }}</span>
-            <span class="bn-contact__item-value">{{ 'pages.contact.hours_value' | t }}</span>
+            <span class="bn-contact__item-label">{{ section.settings.hours_label | default: 'Horario' }}</span>
+            {%- assign days   = 'Lunes,Martes,Miércoles,Jueves,Viernes,Sábado,Domingo' | split: ',' -%}
+            {%- assign h_keys = 'hours_mon,hours_tue,hours_wed,hours_thu,hours_fri,hours_sat,hours_sun' | split: ',' -%}
+            <dl class="bn-contact__hours">
+              {%- for day in days -%}
+                {%- assign h_val = section.settings[h_keys[forloop.index0]] | default: '—' -%}
+                <div class="bn-contact__hours-row{% if h_val == 'Cerrado' %} bn-contact__hours-row--closed{% endif %}">
+                  <dt class="bn-contact__day">{{ day }}</dt>
+                  <dd class="bn-contact__time">{{ h_val }}</dd>
+                </div>
+              {%- endfor -%}
+            </dl>
           </div>
         </li>
+
       </ul>
     </div>
 
@@ -38,7 +103,7 @@
       {%- form 'contact', id: 'BNContactForm', class: 'bn-contact__form' -%}
         {%- if form.posted_successfully? -%}
           <div class="bn-contact__success" role="status">
-            {{ 'pages.contact.success_message' | t }}
+            {{ section.settings.success_message | default: '¡Mensaje enviado! Te responderemos lo antes posible.' }}
           </div>
         {%- elsif form.errors -%}
           <div class="bn-contact__errors" role="alert">
@@ -48,7 +113,7 @@
 
         <div class="bn-contact__field">
           <label for="ContactFormName" class="bn-contact__label">
-            {{ 'pages.contact.name_label' | t }}
+            {{ section.settings.label_name | default: 'Nombre' }}
           </label>
           <input
             type="text"
@@ -56,15 +121,15 @@
             name="contact[name]"
             autocomplete="name"
             value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
-            placeholder="{{ 'pages.contact.name_placeholder' | t }}"
-            class="bn-contact__input field__input"
+            class="bn-contact__input"
+            placeholder="{{ section.settings.placeholder_name | default: 'Tu nombre completo' }}"
             required
           >
         </div>
 
         <div class="bn-contact__field">
           <label for="ContactFormEmail" class="bn-contact__label">
-            {{ 'pages.contact.email_label' | t }}
+            {{ section.settings.label_email | default: 'Correo electrónico' }}
           </label>
           <input
             type="email"
@@ -72,41 +137,41 @@
             name="contact[email]"
             autocomplete="email"
             value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
-            placeholder="{{ 'pages.contact.email_placeholder' | t }}"
-            class="bn-contact__input field__input"
+            class="bn-contact__input"
+            placeholder="{{ section.settings.placeholder_email | default: 'tucorreo@ejemplo.com' }}"
             required
           >
         </div>
 
         <div class="bn-contact__field">
           <label for="ContactFormSubject" class="bn-contact__label">
-            {{ 'pages.contact.subject_label' | t }}
+            {{ section.settings.label_subject | default: 'Asunto' }}
           </label>
           <input
             type="text"
             id="ContactFormSubject"
             name="contact[subject]"
-            placeholder="{{ 'pages.contact.subject_placeholder' | t }}"
-            class="bn-contact__input field__input"
+            class="bn-contact__input"
+            placeholder="{{ section.settings.placeholder_subject | default: '¿En qué podemos ayudarte?' }}"
           >
         </div>
 
         <div class="bn-contact__field">
           <label for="ContactFormMessage" class="bn-contact__label">
-            {{ 'pages.contact.message_label' | t }}
+            {{ section.settings.label_message | default: 'Mensaje' }}
           </label>
           <textarea
             id="ContactFormMessage"
             name="contact[body]"
             rows="6"
-            placeholder="{{ 'pages.contact.message_placeholder' | t }}"
-            class="bn-contact__textarea field__input"
+            class="bn-contact__textarea"
+            placeholder="{{ section.settings.placeholder_message | default: 'Escribe tu mensaje aquí...' }}"
             required
           ></textarea>
         </div>
 
         <button type="submit" class="button button--primary bn-contact__submit">
-          {{ 'pages.contact.submit_label' | t }}
+          {{ section.settings.submit_label | default: 'Enviar mensaje' }}
         </button>
       {%- endform -%}
     </div>
@@ -121,6 +186,206 @@
   "class": "section",
   "settings": [
     {
+      "type": "header",
+      "content": "Encabezado"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Contacto"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Texto introductorio",
+      "default": "Estamos aquí para ayudarte. Llámanos, escríbenos o visítanos en nuestra tienda de Fuengirola."
+    },
+    {
+      "type": "header",
+      "content": "Teléfono"
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Etiqueta",
+      "default": "Teléfono"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Número",
+      "default": "952 584 736"
+    },
+    {
+      "type": "header",
+      "content": "Móvil"
+    },
+    {
+      "type": "text",
+      "id": "mobile_label",
+      "label": "Etiqueta",
+      "default": "Móvil"
+    },
+    {
+      "type": "text",
+      "id": "mobile",
+      "label": "Número",
+      "default": "617 84 94 32"
+    },
+    {
+      "type": "header",
+      "content": "WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_label",
+      "label": "Etiqueta",
+      "default": "WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp",
+      "label": "Número (sin espacios ni +34)",
+      "default": "617 84 94 32"
+    },
+    {
+      "type": "header",
+      "content": "Dirección"
+    },
+    {
+      "type": "text",
+      "id": "address_label",
+      "label": "Etiqueta",
+      "default": "Ubicación"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Dirección",
+      "default": "C. Maestra Ángeles Aspiazu, 6, 29640 Fuengirola, Málaga, Spain"
+    },
+    {
+      "type": "header",
+      "content": "Horario"
+    },
+    {
+      "type": "text",
+      "id": "hours_label",
+      "label": "Etiqueta",
+      "default": "Horario"
+    },
+    {
+      "type": "text",
+      "id": "hours_mon",
+      "label": "Lunes",
+      "default": "10:30 – 13:30 · 17:30 – 19:30"
+    },
+    {
+      "type": "text",
+      "id": "hours_tue",
+      "label": "Martes",
+      "default": "10:30 – 13:30 · 17:30 – 19:30"
+    },
+    {
+      "type": "text",
+      "id": "hours_wed",
+      "label": "Miércoles",
+      "default": "10:30 – 13:30 · 17:30 – 19:30"
+    },
+    {
+      "type": "text",
+      "id": "hours_thu",
+      "label": "Jueves",
+      "default": "10:30 – 13:30 · 17:30 – 19:30"
+    },
+    {
+      "type": "text",
+      "id": "hours_fri",
+      "label": "Viernes",
+      "default": "10:30 – 13:30 · 17:30 – 19:30"
+    },
+    {
+      "type": "text",
+      "id": "hours_sat",
+      "label": "Sábado",
+      "default": "11:00 – 13:30"
+    },
+    {
+      "type": "text",
+      "id": "hours_sun",
+      "label": "Domingo",
+      "default": "Cerrado"
+    },
+    {
+      "type": "header",
+      "content": "Formulario"
+    },
+    {
+      "type": "text",
+      "id": "label_name",
+      "label": "Etiqueta — Nombre",
+      "default": "Nombre"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_name",
+      "label": "Placeholder — Nombre",
+      "default": "Tu nombre completo"
+    },
+    {
+      "type": "text",
+      "id": "label_email",
+      "label": "Etiqueta — Correo",
+      "default": "Correo electrónico"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_email",
+      "label": "Placeholder — Correo",
+      "default": "tucorreo@ejemplo.com"
+    },
+    {
+      "type": "text",
+      "id": "label_subject",
+      "label": "Etiqueta — Asunto",
+      "default": "Asunto"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_subject",
+      "label": "Placeholder — Asunto",
+      "default": "¿En qué podemos ayudarte?"
+    },
+    {
+      "type": "text",
+      "id": "label_message",
+      "label": "Etiqueta — Mensaje",
+      "default": "Mensaje"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_message",
+      "label": "Placeholder — Mensaje",
+      "default": "Escribe tu mensaje aquí..."
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Texto del botón",
+      "default": "Enviar mensaje"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Mensaje de confirmación",
+      "default": "¡Mensaje enviado! Te responderemos lo antes posible."
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
       "type": "select",
       "id": "color_scheme",
       "options": [
@@ -129,26 +394,6 @@
       ],
       "default": "scheme-1",
       "label": "Esquema de color"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding superior",
-      "default": 52
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding inferior",
-      "default": 52
     }
   ],
   "presets": [
