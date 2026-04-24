@@ -315,7 +315,7 @@
         "column2": {
           "type": "column",
           "settings": {
-            "title": "Envío gratis a partir de €50",
+            "title": "Envío gratis a partir de €30",
             "text": "<p>Enviamos a España y toda Europa con total garantía.</p>",
             "link_label": "",
             "link": ""
