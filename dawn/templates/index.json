@@ -258,6 +258,14 @@
         "color_scheme": "scheme-1"
       }
     },
+    "blog_preview": {
+      "type": "bn-blog-preview",
+      "settings": {
+        "heading": "Tu dosis diaria de bienestar",
+        "see_all_label": "Ver todos los artículos",
+        "articles_count": 3
+      }
+    },
     "brand_story": {
       "type": "rich-text",
       "blocks": {
@@ -367,8 +375,9 @@
   "order": [
     "image_banner",
     "featured_collection",
-    "brand_carousel",
     "health_needs",
+    "brand_carousel",
+    "blog_preview",
     "brand_story",
     "trust_bar"
   ]

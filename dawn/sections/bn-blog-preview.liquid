@@ -1,0 +1,274 @@
+{%- comment -%}
+  bn-blog-preview.liquid
+  Homepage blog preview — 3 latest articles in a row.
+  Figma spec: beige background #F9ECDD, 3 cards 367px wide, image 245px tall.
+{%- endcomment -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background-color: #F9ECDD;
+    padding: 56px 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding: 40px 0;
+    }
+  }
+
+  /* ── Container ── */
+  .bn-blog__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
+  }
+
+  /* ── Header row ── */
+  .bn-blog__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    gap: 1.6rem;
+  }
+
+  .bn-blog__heading {
+    font-family: var(--font-heading-family);
+    font-size: 3.6rem;
+    font-weight: 700;
+    color: #143007;
+    margin: 0;
+    line-height: 84%;
+    letter-spacing: -0.02em;
+  }
+
+  .bn-blog__see-all {
+    font-family: var(--font-body-family);
+    font-size: 1.4rem;
+    color: #143007;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .bn-blog__see-all:hover {
+    opacity: 0.7;
+  }
+
+  /* ── Cards grid ── */
+  .bn-blog__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .bn-blog__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media screen and (min-width: 600px) and (max-width: 749px) {
+    .bn-blog__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* ── Card ── */
+  .bn-blog__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  .bn-blog__card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* ── Card image ── */
+  .bn-blog__card-media {
+    position: relative;
+    width: 100%;
+    padding-top: 66.6%;
+    overflow: hidden;
+    border-radius: 4px 4px 0 0;
+    background: #e8e4dc;
+  }
+
+  .bn-blog__card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .bn-blog__card:hover .bn-blog__card-img {
+    transform: scale(1.04);
+  }
+
+  /* ── Card body ── */
+  .bn-blog__card-body {
+    padding: 16px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .bn-blog__card-meta {
+    font-family: var(--font-body-family);
+    font-size: 1.3rem;
+    color: #6C6C6C;
+    margin: 0;
+  }
+
+  .bn-blog__card-title {
+    font-family: var(--font-heading-family);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #143007;
+    margin: 0;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  .bn-blog__card-excerpt {
+    font-family: var(--font-body-family);
+    font-size: 1.5rem;
+    color: #121212;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.75;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ── Empty state ── */
+  .bn-blog__empty {
+    font-family: var(--font-body-family);
+    font-size: 1.5rem;
+    color: #143007;
+    opacity: 0.6;
+    text-align: center;
+    padding: 4rem 0;
+  }
+</style>
+
+{%- assign blog = blogs[section.settings.blog] -%}
+{%- assign articles_count = section.settings.articles_count | default: 3 -%}
+
+<div>
+  <div class="bn-blog__inner">
+
+    <div class="bn-blog__head">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="bn-blog__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.see_all_label != blank and blog != blank -%}
+        <a href="{{ blog.url }}" class="bn-blog__see-all">
+          {{ section.settings.see_all_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if blog != blank and blog.articles_count > 0 -%}
+      <ul class="bn-blog__grid" role="list">
+        {%- for article in blog.articles limit: articles_count -%}
+          <li>
+            <a href="{{ article.url }}" class="bn-blog__card">
+              <div class="bn-blog__card-media">
+                {%- if article.image != blank -%}
+                  {{
+                    article.image
+                    | image_url: width: 800
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '400, 600, 800',
+                      alt: article.image.alt | default: article.title,
+                      class: 'bn-blog__card-img'
+                  }}
+                {%- else -%}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'bn-blog__card-img' }}
+                {%- endif -%}
+              </div>
+              <div class="bn-blog__card-body">
+                <p class="bn-blog__card-meta">{{ article.published_at | date: '%d %B %Y' }}</p>
+                <h3 class="bn-blog__card-title">{{ article.title }}</h3>
+                {%- if article.excerpt_or_content != blank -%}
+                  <p class="bn-blog__card-excerpt">
+                    {{ article.excerpt_or_content | strip_html | truncate: 120 }}
+                  </p>
+                {%- endif -%}
+              </div>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      <p class="bn-blog__empty">
+        Próximamente — artículos de salud natural y bienestar.
+      </p>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Blog — Vista previa",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título de la sección",
+      "default": "Tu dosis diaria de bienestar"
+    },
+    {
+      "type": "text",
+      "id": "see_all_label",
+      "label": "Texto del enlace 'Ver todos'",
+      "default": "Ver todos los artículos"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog a mostrar"
+    },
+    {
+      "type": "range",
+      "id": "articles_count",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Número de artículos",
+      "default": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog — Vista previa",
+      "settings": {
+        "heading": "Tu dosis diaria de bienestar",
+        "see_all_label": "Ver todos los artículos",
+        "articles_count": 3
+      }
+    }
+  ]
+}
+{% endschema %}
