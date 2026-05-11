@@ -255,7 +255,9 @@
       "settings": {
         "heading": "Compra según tu necesidad",
         "subheading": "Encuentra los suplementos ideales para tu objetivo de salud",
-        "color_scheme": "scheme-1"
+        "quiz_heading": "¿No sabes por dónde empezar?",
+        "quiz_body": "Responde este breve cuestionario y te ayudamos a encontrar lo que necesitas",
+        "quiz_btn_label": "Hacer el test"
       }
     },
     "blog_preview": {
