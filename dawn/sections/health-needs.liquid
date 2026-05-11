@@ -246,8 +246,8 @@
         {%- if section.settings.quiz_body != blank -%}
           <p class="hn-quiz__body">{{ section.settings.quiz_body }}</p>
         {%- endif -%}
-        {%- if section.settings.quiz_btn_label != blank and section.settings.quiz_btn_link != blank -%}
-          <a href="{{ section.settings.quiz_btn_link }}" class="hn-quiz__btn">
+        {%- if section.settings.quiz_btn_label != blank -%}
+          <a href="{{ section.settings.quiz_btn_link | default: '#' }}" class="hn-quiz__btn">
             {{ section.settings.quiz_btn_label }}
           </a>
         {%- endif -%}
