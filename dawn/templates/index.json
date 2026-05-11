@@ -310,39 +310,22 @@
     },
     "info_bar": {
       "type": "bn-info-bar",
-      "blocks": {
-        "card-1": {
-          "type": "info_card",
-          "settings": {
-            "icon": "clock",
-            "heading": "Más de 40 años de experiencia",
-            "body": "Una familia dedicada a la salud natural desde 1984. Cada producto ha sido seleccionado con el mismo cuidado que elegiríamos para nuestra propia familia.",
-            "link_label": "Nuestra historia",
-            "link_url": "/pages/quienes-somos"
-          }
-        },
-        "card-2": {
-          "type": "info_card",
-          "settings": {
-            "icon": "delivery",
-            "heading": "Envío gratis a partir de €30",
-            "body": "Envío gratuito garantizado dentro de España y Europa cuando tu pedido supera los €30.",
-            "link_label": "Ver catálogo",
-            "link_url": "/collections/all"
-          }
-        },
-        "card-3": {
-          "type": "info_card",
-          "settings": {
-            "icon": "chat",
-            "heading": "Habla con un experto",
-            "body": "Si tienes alguna pregunta, llámanos al 952 584 736 — estaremos encantados de ayudarte.",
-            "link_label": "Contactar",
-            "link_url": "/pages/contacto"
-          }
-        }
-      },
-      "block_order": ["card-1", "card-2", "card-3"]
+      "settings": {
+        "card1_heading": "Más de 40 años de experiencia",
+        "card1_body": "Una familia dedicada a la salud natural desde 1984. Cada producto de nuestro catálogo ha sido cuidadosamente seleccionado.",
+        "card1_link_label": "Nuestra historia",
+        "card2_heading": "Envío gratis",
+        "card2_body": "Envío gratuito garantizado dentro de España y Europa cuando tu pedido supera los €30.",
+        "card2_link_label": "Ver catálogo",
+        "card3_heading": "Habla con un experto",
+        "card3_body": "Si tienes alguna pregunta, llámanos al 952 584 736 — estaremos encantados de ayudarte.",
+        "card3_link_label": "Contactar",
+        "join_heading": "Únete a nuestra comunidad",
+        "join_body": "Suscríbete para recibir un 15% de descuento en tu primer pedido y estar al día de todas las novedades y ofertas.",
+        "email_placeholder": "Tu correo electrónico",
+        "submit_label": "Suscribirme",
+        "success_msg": "¡Gracias por suscribirte!"
+      }
     }
   },
   "order": [
