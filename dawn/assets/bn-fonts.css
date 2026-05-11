@@ -1,19 +1,18 @@
 /* ============================================================
-   Bosque Natural — Typography overrides
-   bn-fonts.css
-   Fonts: Nunito (headings), Gabarito (body)
+   Bosque Natural — Typography & global style overrides
+   Fonts: Plus Jakarta Sans (headings), Inter (body)
    ============================================================ */
 
-/* Heading elements */
+/* ── Headings ── */
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: var(--font-heading-family);
   font-style: var(--font-heading-style);
-  /* Prevent typographic orphans — balances text across lines */
+  color: #143007;
   text-wrap: balance;
 }
 
-/* Body text */
+/* ── Body text ── */
 body,
 p,
 li,
@@ -22,15 +21,31 @@ figcaption,
 .rte {
   font-family: var(--font-body-family);
   font-style: var(--font-body-style);
-  font-size: 1.6rem; /* 16px — prevents iOS auto-zoom on inputs */
-  /* Prevent orphaned words at end of paragraphs */
+  font-size: 1.6rem;
   text-wrap: pretty;
 }
 
-/* Ensure inputs and buttons inherit brand font */
+/* ── Form elements inherit brand font ── */
 input,
 textarea,
 select,
 button {
   font-family: var(--font-body-family);
+}
+
+/* ── Buttons — sharp corners + shadow per Figma design ── */
+.button,
+.btn,
+button[type="submit"],
+.shopify-payment-button__button {
+  border-radius: 2px !important;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* ── Product card vendor label ── */
+.card__information .card__vendor,
+.card-information .card__vendor,
+.product-card__vendor {
+  color: #6C6C6C;
+  font-size: 1.4rem;
 }

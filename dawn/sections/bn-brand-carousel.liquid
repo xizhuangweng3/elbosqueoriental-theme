@@ -117,14 +117,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 1rem;
+    border-radius: 12px;
     padding: 1.6rem;
-    height: 14rem;
+    height: 15rem;
     width: 100%;
     box-sizing: border-box;
     text-decoration: none;
+    background: #FEFEFE;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
+  }
+
+  .bn-carousel__card--border-red {
+    border: 2px solid #D60036;
+  }
+
+  .bn-carousel__card--border-green {
+    border: 2px solid #156B2A;
   }
 
   {% if section.settings.hover_effects %}
@@ -265,17 +274,20 @@
               {%- assign bg = default_colors[color_index] -%}
             {%- endif -%}
 
+            {%- assign border_class = 'bn-carousel__card--border-red' -%}
+            {%- assign mod = forloop.index0 | modulo: 2 -%}
+            {%- if mod == 1 -%}{%- assign border_class = 'bn-carousel__card--border-green' -%}{%- endif -%}
+
             <li class="bn-carousel__slide" {{ block.shopify_attributes }}>
               {%- if block.settings.link != blank -%}
                 <a
                   href="{{ block.settings.link }}"
-                  class="bn-carousel__card"
-                  style="background-color: {{ bg }};"
+                  class="bn-carousel__card {{ border_class }}"
                   aria-label="{{ block.settings.brand_name }}"
                   {% if block.settings.new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
                 >
               {%- else -%}
-                <div class="bn-carousel__card" style="background-color: {{ bg }};">
+                <div class="bn-carousel__card {{ border_class }}">
               {%- endif -%}
 
                 <div class="bn-carousel__logo-wrap">

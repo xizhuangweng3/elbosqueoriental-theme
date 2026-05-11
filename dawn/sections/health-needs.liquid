@@ -36,11 +36,12 @@
 
   #shopify-section-{{ section.id }} .hn-heading {
     font-family: var(--font-heading-family);
-    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-size: clamp(2rem, 3.5vw, 3.6rem);
     font-weight: 700;
-    color: rgb(var(--color-foreground));
+    color: #143007;
     margin: 0 0 0.8rem;
-    line-height: 1.2;
+    line-height: 84%;
+    letter-spacing: -0.02em;
   }
 
   #shopify-section-{{ section.id }} .hn-subheading {
@@ -164,7 +165,7 @@
   }
 </style>
 
-<div class="color-{{ section.settings.color_scheme }} gradient">
+<div style="background-color: #F9ECDD;">
   <div class="hn-inner">
 
     {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
