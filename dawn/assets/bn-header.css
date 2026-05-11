@@ -46,6 +46,68 @@
 }
 
 /* ============================================================
+   Announcement bar — red background, white text
+   ============================================================ */
+
+.announcement-bar {
+  background-color: #D60036 !important;
+}
+
+.announcement-bar__message,
+.announcement-bar__message a,
+.announcement-bar .link {
+  color: #FEF9F3 !important;
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* ============================================================
+   Header nav — Inter font, #143007 colour
+   ============================================================ */
+
+.header__menu-item,
+.header__menu-item span {
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  color: #143007;
+  letter-spacing: 0.01em;
+}
+
+/* ============================================================
+   Search & cart icons — clean minimal style
+   ============================================================ */
+
+.header__icon,
+.header__icon--search,
+.header__icon--cart,
+.header__icon--account {
+  color: #143007;
+  transition: opacity 0.2s ease;
+}
+
+.header__icon:hover,
+.header__icon--search:hover,
+.header__icon--cart:hover {
+  opacity: 0.65;
+}
+
+.header__icon svg {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+/* Cart bubble count */
+.cart-count-bubble {
+  background-color: #D60036 !important;
+  color: #ffffff !important;
+  font-size: 1rem !important;
+  min-width: 1.8rem;
+  min-height: 1.8rem;
+}
+
+/* ============================================================
    Smooth dropdown menu
    ============================================================ */
 
