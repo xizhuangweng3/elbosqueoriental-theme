@@ -1,32 +1,29 @@
 {%- comment -%}
   bn-info-bar.liquid
-  Final homepage section — 3 trust/info cards.
-  Figma "Info screen": white bg, 3×248px cards, icon + heading + body + red text link.
+  Figma "Info screen" — 3 trust cards + email newsletter signup row.
+  Exact pixel match to Figma spec. All text editable in Theme Editor.
 {%- endcomment -%}
 
 <style>
   /* ── Section ── */
   #shopify-section-{{ section.id }} {
     background-color: #FEFEFE;
-    padding: 56px 0;
+    padding: 56px 0 60px;
     border-top: 1px solid rgba(0,0,0,0.07);
   }
 
-  @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }} {
-      padding: 40px 0;
-    }
-  }
-
-  /* ── Container ── */
+  /* ── Content container ── */
   .bn-info__inner {
-    max-width: 1000px;
+    max-width: 904px;
     margin: 0 auto;
     padding: 0 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
   }
 
-  /* ── Grid ── */
-  .bn-info__grid {
+  /* ── Info cards row ── */
+  .bn-info__cards {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -38,29 +35,38 @@
   }
 
   @media screen and (max-width: 749px) {
-    .bn-info__grid {
+    .bn-info__cards {
       flex-direction: column;
-      gap: 40px;
+      gap: 36px;
     }
   }
 
-  /* ── Card ── */
+  /* ── Individual card ── */
   .bn-info__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    width: 248px;
+    max-width: 248px;
+    flex-shrink: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .bn-info__card { width: 100%; max-width: 100%; }
+  }
+
+  /* Top block: icon + heading + body */
+  .bn-info__card-top {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 17px;
-    flex: 1;
-    max-width: 248px;
+    width: 100%;
   }
 
-  @media screen and (max-width: 749px) {
-    .bn-info__card {
-      max-width: 100%;
-    }
-  }
-
-  /* ── Icon ── */
+  /* Icon row */
   .bn-info__icon {
     width: 24px;
     height: 24px;
@@ -74,7 +80,7 @@
     display: block;
   }
 
-  /* ── Heading ── */
+  /* Heading */
   .bn-info__heading {
     font-family: var(--font-body-family);
     font-weight: 500;
@@ -84,23 +90,22 @@
     margin: 0;
   }
 
-  /* ── Body ── */
+  /* Body */
   .bn-info__body {
     font-family: var(--font-body-family);
     font-weight: 400;
     font-size: 1.6rem;
-    line-height: 1.5;
+    line-height: 122%;
     letter-spacing: 0.01em;
     color: #121212;
     margin: 0;
-    flex: 1;
   }
 
-  /* ── Link ── */
+  /* Link button — red text + arrow, with drop shadow */
   .bn-info__link {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     font-family: var(--font-body-family);
     font-weight: 400;
     font-size: 1.6rem;
@@ -108,95 +113,246 @@
     letter-spacing: 0.01em;
     color: #D60036;
     text-decoration: none;
-    margin-top: 4px;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 2px;
+    padding: 2px 0;
+    transition: opacity 0.2s ease;
   }
 
-  .bn-info__link:hover {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
+  .bn-info__link:hover { opacity: 0.75; }
 
-  .bn-info__link-arrow {
-    width: 16px;
-    height: 16px;
-    display: block;
+  .bn-info__link svg {
+    width: 10px;
+    height: 10px;
     flex-shrink: 0;
+  }
+
+  /* ── Newsletter join row ── */
+  .bn-info__join {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 44px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .bn-info__join {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+  }
+
+  /* Join text block */
+  .bn-info__join-text {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 317px;
+    flex-shrink: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .bn-info__join-text { width: 100%; }
+  }
+
+  .bn-info__join-heading {
+    font-family: var(--font-heading-family);
+    font-weight: 700;
+    font-size: 3.6rem;
+    line-height: 84%;
+    letter-spacing: -0.02em;
+    color: #143007;
+    margin: 0;
+  }
+
+  .bn-info__join-body {
+    font-family: var(--font-body-family);
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 122%;
+    letter-spacing: 0.01em;
+    color: #121212;
+    margin: 0;
+  }
+
+  /* Email form */
+  .bn-info__form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 498px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .bn-info__form { width: 100%; max-width: 100%; }
+  }
+
+  .bn-info__email-input {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    padding: 0 16px;
+    font-family: var(--font-body-family);
+    font-size: 1.6rem;
+    color: #121212;
+    background: #FEFEFE;
+    border: 1.5px solid rgba(0,0,0,0.2);
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .bn-info__email-input::placeholder {
+    color: rgba(18,18,18,0.4);
+    font-size: 1.5rem;
+  }
+
+  .bn-info__email-input:focus {
+    border-color: #143007;
+  }
+
+  .bn-info__submit {
+    flex-shrink: 0;
+    height: 44px;
+    padding: 0 20px;
+    background: #D60036;
+    color: #FEF9F3;
+    font-family: var(--font-body-family);
+    font-weight: 400;
+    font-size: 1.6rem;
+    letter-spacing: 0.01em;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.25);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+  }
+
+  .bn-info__submit:hover { opacity: 0.88; }
+
+  .bn-info__success {
+    font-family: var(--font-body-family);
+    font-size: 1.5rem;
+    color: #143007;
+    font-weight: 500;
   }
 </style>
 
-{%- assign icon_delivery -%}
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M3 9h13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-  <path d="M16 9l2 0 3 4v4h-5V9z"/>
-  <circle cx="7.5" cy="20" r="1.5"/><circle cx="19.5" cy="20" r="1.5"/>
-</svg>
-{%- endassign -%}
-
-{%- assign icon_star -%}
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/>
-</svg>
-{%- endassign -%}
-
-{%- assign icon_chat -%}
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-</svg>
-{%- endassign -%}
-
-{%- assign icon_leaf -%}
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M17 8C8 10 5.9 16.17 3.82 19.34L5.71 21l1-1c.51.51 1.22.83 1.99.83C13 20.83 22 16 17 8z"/>
-</svg>
-{%- endassign -%}
-
-{%- assign icon_clock -%}
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+{%- assign arrow_svg -%}
+<svg viewBox="0 0 10 10" fill="none" aria-hidden="true">
+  <path d="M1 5h8M6 2l3 3-3 3" stroke="#D60036" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 {%- endassign -%}
 
 <div>
   <div class="bn-info__inner">
-    <ul class="bn-info__grid" role="list">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'info_card' -%}
-          {%- liquid
-            case block.settings.icon
-              when 'delivery'
-                assign icon_svg = icon_delivery
-              when 'star'
-                assign icon_svg = icon_star
-              when 'chat'
-                assign icon_svg = icon_chat
-              when 'leaf'
-                assign icon_svg = icon_leaf
-              when 'clock'
-                assign icon_svg = icon_clock
-              else
-                assign icon_svg = icon_star
-            endcase
-          -%}
-          <li class="bn-info__card" {{ block.shopify_attributes }}>
-            <span class="bn-info__icon" aria-hidden="true">{{ icon_svg }}</span>
-            {%- if block.settings.heading != blank -%}
-              <h3 class="bn-info__heading">{{ block.settings.heading }}</h3>
-            {%- endif -%}
-            {%- if block.settings.body != blank -%}
-              <p class="bn-info__body">{{ block.settings.body }}</p>
-            {%- endif -%}
-            {%- if block.settings.link_label != blank and block.settings.link_url != blank -%}
-              <a href="{{ block.settings.link_url }}" class="bn-info__link">
-                {{ block.settings.link_label }}
-                <svg class="bn-info__link-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="#D60036" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
-            {%- endif -%}
-          </li>
+
+    {%- comment -%} ── Info cards ── {%- endcomment -%}
+    <ul class="bn-info__cards" role="list">
+
+      {%- comment -%} Card 1 {%- endcomment -%}
+      <li class="bn-info__card">
+        <div class="bn-info__card-top">
+          <span class="bn-info__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </span>
+          <h3 class="bn-info__heading">{{ section.settings.card1_heading }}</h3>
+          <p class="bn-info__body">{{ section.settings.card1_body }}</p>
+        </div>
+        {%- if section.settings.card1_link_label != blank and section.settings.card1_link_url != blank -%}
+          <a href="{{ section.settings.card1_link_url }}" class="bn-info__link">
+            {{ section.settings.card1_link_label }}
+            {{ arrow_svg }}
+          </a>
         {%- endif -%}
-      {%- endfor -%}
+      </li>
+
+      {%- comment -%} Card 2 {%- endcomment -%}
+      <li class="bn-info__card">
+        <div class="bn-info__card-top">
+          <span class="bn-info__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+              <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
+          </span>
+          <h3 class="bn-info__heading">{{ section.settings.card2_heading }}</h3>
+          <p class="bn-info__body">{{ section.settings.card2_body }}</p>
+        </div>
+        {%- if section.settings.card2_link_label != blank and section.settings.card2_link_url != blank -%}
+          <a href="{{ section.settings.card2_link_url }}" class="bn-info__link">
+            {{ section.settings.card2_link_label }}
+            {{ arrow_svg }}
+          </a>
+        {%- endif -%}
+      </li>
+
+      {%- comment -%} Card 3 {%- endcomment -%}
+      <li class="bn-info__card">
+        <div class="bn-info__card-top">
+          <span class="bn-info__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+          </span>
+          <h3 class="bn-info__heading">{{ section.settings.card3_heading }}</h3>
+          <p class="bn-info__body">{{ section.settings.card3_body }}</p>
+        </div>
+        {%- if section.settings.card3_link_label != blank and section.settings.card3_link_url != blank -%}
+          <a href="{{ section.settings.card3_link_url }}" class="bn-info__link">
+            {{ section.settings.card3_link_label }}
+            {{ arrow_svg }}
+          </a>
+        {%- endif -%}
+      </li>
+
     </ul>
+
+    {%- comment -%} ── Newsletter join row ── {%- endcomment -%}
+    <div class="bn-info__join">
+      <div class="bn-info__join-text">
+        {%- if section.settings.join_heading != blank -%}
+          <h2 class="bn-info__join-heading">{{ section.settings.join_heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.join_body != blank -%}
+          <p class="bn-info__join-body">{{ section.settings.join_body }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- form 'customer', id: 'BnNewsletterForm-{{ section.id }}' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="bn-info__success">{{ section.settings.success_msg | default: '¡Gracias por suscribirte!' }}</p>
+        {%- else -%}
+          <div class="bn-info__form">
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <input
+              type="email"
+              name="contact[email]"
+              id="BnNewsletterEmail-{{ section.id }}"
+              class="bn-info__email-input"
+              placeholder="{{ section.settings.email_placeholder | default: 'Tu correo electrónico' }}"
+              autocomplete="email"
+              required
+              aria-label="{{ section.settings.email_placeholder | default: 'Tu correo electrónico' }}"
+            >
+            <button type="submit" class="bn-info__submit">
+              {{ section.settings.submit_label | default: 'Suscribirme' }}
+            </button>
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
   </div>
 </div>
 
@@ -205,90 +361,131 @@
   "name": "Barra de información",
   "tag": "section",
   "class": "section",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
-  "blocks": [
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
     {
-      "type": "info_card",
-      "name": "Tarjeta de información",
-      "settings": [
-        {
-          "type": "select",
-          "id": "icon",
-          "label": "Icono",
-          "options": [
-            { "value": "delivery", "label": "Envío / Camión" },
-            { "value": "star",     "label": "Estrella / Calidad" },
-            { "value": "chat",     "label": "Chat / Soporte" },
-            { "value": "leaf",     "label": "Hoja / Natural" },
-            { "value": "clock",    "label": "Reloj / Tiempo" }
-          ],
-          "default": "star"
-        },
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Título",
-          "default": "Nuestra promesa"
-        },
-        {
-          "type": "textarea",
-          "id": "body",
-          "label": "Descripción",
-          "default": "Descripción de este beneficio o característica de la tienda."
-        },
-        {
-          "type": "text",
-          "id": "link_label",
-          "label": "Texto del enlace (opcional)",
-          "default": "Ver más"
-        },
-        {
-          "type": "url",
-          "id": "link_url",
-          "label": "Enlace"
-        }
-      ]
+      "type": "header",
+      "content": "Tarjeta 1"
+    },
+    {
+      "type": "text",
+      "id": "card1_heading",
+      "label": "Título",
+      "default": "Más de 40 años de experiencia"
+    },
+    {
+      "type": "textarea",
+      "id": "card1_body",
+      "label": "Descripción",
+      "default": "Una familia dedicada a la salud natural desde 1984. Cada producto de nuestro catálogo ha sido cuidadosamente seleccionado."
+    },
+    {
+      "type": "text",
+      "id": "card1_link_label",
+      "label": "Texto del enlace",
+      "default": "Nuestra historia"
+    },
+    {
+      "type": "url",
+      "id": "card1_link_url",
+      "label": "Enlace",
+      "default": "/pages/quienes-somos"
+    },
+    {
+      "type": "header",
+      "content": "Tarjeta 2"
+    },
+    {
+      "type": "text",
+      "id": "card2_heading",
+      "label": "Título",
+      "default": "Envío gratis"
+    },
+    {
+      "type": "textarea",
+      "id": "card2_body",
+      "label": "Descripción",
+      "default": "Envío gratuito garantizado dentro de España y Europa cuando tu pedido supera los €30."
+    },
+    {
+      "type": "text",
+      "id": "card2_link_label",
+      "label": "Texto del enlace",
+      "default": "Ver catálogo"
+    },
+    {
+      "type": "url",
+      "id": "card2_link_url",
+      "label": "Enlace",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Tarjeta 3"
+    },
+    {
+      "type": "text",
+      "id": "card3_heading",
+      "label": "Título",
+      "default": "Habla con un experto"
+    },
+    {
+      "type": "textarea",
+      "id": "card3_body",
+      "label": "Descripción",
+      "default": "Si tienes alguna pregunta, llámanos al 952 584 736 — estaremos encantados de ayudarte."
+    },
+    {
+      "type": "text",
+      "id": "card3_link_label",
+      "label": "Texto del enlace (opcional)",
+      "default": "Contactar"
+    },
+    {
+      "type": "url",
+      "id": "card3_link_url",
+      "label": "Enlace",
+      "default": "/pages/contacto"
+    },
+    {
+      "type": "header",
+      "content": "Suscripción newsletter"
+    },
+    {
+      "type": "text",
+      "id": "join_heading",
+      "label": "Título",
+      "default": "Únete a nuestra comunidad"
+    },
+    {
+      "type": "textarea",
+      "id": "join_body",
+      "label": "Descripción",
+      "default": "Suscríbete para recibir un 15% de descuento en tu primer pedido y estar al día de todas las novedades y ofertas."
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Placeholder del email",
+      "default": "Tu correo electrónico"
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Texto del botón",
+      "default": "Suscribirme"
+    },
+    {
+      "type": "text",
+      "id": "success_msg",
+      "label": "Mensaje de confirmación",
+      "default": "¡Gracias por suscribirte!"
     }
   ],
   "presets": [
     {
-      "name": "Barra de información",
-      "blocks": [
-        {
-          "type": "info_card",
-          "settings": {
-            "icon": "clock",
-            "heading": "Más de 40 años de experiencia",
-            "body": "Una familia dedicada a la salud natural desde 1984. Cada producto ha sido seleccionado con el mismo cuidado que elegiríamos para nuestra propia familia.",
-            "link_label": "Nuestra historia",
-            "link_url": "/pages/quienes-somos"
-          }
-        },
-        {
-          "type": "info_card",
-          "settings": {
-            "icon": "delivery",
-            "heading": "Envío gratis a partir de €30",
-            "body": "Envío gratuito garantizado dentro de España y Europa cuando tu pedido supera los €30.",
-            "link_label": "Ver catálogo",
-            "link_url": "/collections/all"
-          }
-        },
-        {
-          "type": "info_card",
-          "settings": {
-            "icon": "chat",
-            "heading": "Habla con un experto",
-            "body": "Si tienes alguna pregunta, llámanos al 952 584 736 — estaremos encantados de ayudarte.",
-            "link_label": "Contactar",
-            "link_url": "/pages/contacto"
-          }
-        }
-      ]
+      "name": "Barra de información"
     }
-  ],
-  "max_blocks": 4
+  ]
 }
 {% endschema %}
