@@ -46,16 +46,29 @@
 }
 
 /* ============================================================
-   Announcement bar — red background, white text
+   Announcement bar — full-width red background, white text
    ============================================================ */
 
+/* Target every possible wrapper to ensure edge-to-edge red */
+.shopify-section-group--header-group .announcement-bar-section,
+.announcement-bar-section,
+.shopify-section-group--header-group announcement-bar,
+announcement-bar,
 .announcement-bar {
   background-color: #D60036 !important;
+  background: #D60036 !important;
+}
+
+/* Remove Dawn's gradient overlay on the bar */
+.announcement-bar.gradient,
+.announcement-bar-section .gradient {
+  background: #D60036 !important;
 }
 
 .announcement-bar__message,
 .announcement-bar__message a,
-.announcement-bar .link {
+.announcement-bar .link,
+.announcement-bar p {
   color: #FEF9F3 !important;
   font-family: var(--font-body-family);
   font-size: 1.5rem;

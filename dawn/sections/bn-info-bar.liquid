@@ -1,0 +1,294 @@
+{%- comment -%}
+  bn-info-bar.liquid
+  Final homepage section — 3 trust/info cards.
+  Figma "Info screen": white bg, 3×248px cards, icon + heading + body + red text link.
+{%- endcomment -%}
+
+<style>
+  /* ── Section ── */
+  #shopify-section-{{ section.id }} {
+    background-color: #FEFEFE;
+    padding: 56px 0;
+    border-top: 1px solid rgba(0,0,0,0.07);
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding: 40px 0;
+    }
+  }
+
+  /* ── Container ── */
+  .bn-info__inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 30px;
+  }
+
+  /* ── Grid ── */
+  .bn-info__grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 44px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .bn-info__grid {
+      flex-direction: column;
+      gap: 40px;
+    }
+  }
+
+  /* ── Card ── */
+  .bn-info__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 17px;
+    flex: 1;
+    max-width: 248px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .bn-info__card {
+      max-width: 100%;
+    }
+  }
+
+  /* ── Icon ── */
+  .bn-info__icon {
+    width: 24px;
+    height: 24px;
+    color: #143007;
+    flex-shrink: 0;
+  }
+
+  .bn-info__icon svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  /* ── Heading ── */
+  .bn-info__heading {
+    font-family: var(--font-body-family);
+    font-weight: 500;
+    font-size: 2.2rem;
+    line-height: 100%;
+    color: #143007;
+    margin: 0;
+  }
+
+  /* ── Body ── */
+  .bn-info__body {
+    font-family: var(--font-body-family);
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    color: #121212;
+    margin: 0;
+    flex: 1;
+  }
+
+  /* ── Link ── */
+  .bn-info__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-body-family);
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 122%;
+    letter-spacing: 0.01em;
+    color: #D60036;
+    text-decoration: none;
+    margin-top: 4px;
+  }
+
+  .bn-info__link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .bn-info__link-arrow {
+    width: 16px;
+    height: 16px;
+    display: block;
+    flex-shrink: 0;
+  }
+</style>
+
+{%- assign icon_delivery -%}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M3 9h13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+  <path d="M16 9l2 0 3 4v4h-5V9z"/>
+  <circle cx="7.5" cy="20" r="1.5"/><circle cx="19.5" cy="20" r="1.5"/>
+</svg>
+{%- endassign -%}
+
+{%- assign icon_star -%}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/>
+</svg>
+{%- endassign -%}
+
+{%- assign icon_chat -%}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+</svg>
+{%- endassign -%}
+
+{%- assign icon_leaf -%}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M17 8C8 10 5.9 16.17 3.82 19.34L5.71 21l1-1c.51.51 1.22.83 1.99.83C13 20.83 22 16 17 8z"/>
+</svg>
+{%- endassign -%}
+
+{%- assign icon_clock -%}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+</svg>
+{%- endassign -%}
+
+<div>
+  <div class="bn-info__inner">
+    <ul class="bn-info__grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'info_card' -%}
+          {%- liquid
+            case block.settings.icon
+              when 'delivery'
+                assign icon_svg = icon_delivery
+              when 'star'
+                assign icon_svg = icon_star
+              when 'chat'
+                assign icon_svg = icon_chat
+              when 'leaf'
+                assign icon_svg = icon_leaf
+              when 'clock'
+                assign icon_svg = icon_clock
+              else
+                assign icon_svg = icon_star
+            endcase
+          -%}
+          <li class="bn-info__card" {{ block.shopify_attributes }}>
+            <span class="bn-info__icon" aria-hidden="true">{{ icon_svg }}</span>
+            {%- if block.settings.heading != blank -%}
+              <h3 class="bn-info__heading">{{ block.settings.heading }}</h3>
+            {%- endif -%}
+            {%- if block.settings.body != blank -%}
+              <p class="bn-info__body">{{ block.settings.body }}</p>
+            {%- endif -%}
+            {%- if block.settings.link_label != blank and block.settings.link_url != blank -%}
+              <a href="{{ block.settings.link_url }}" class="bn-info__link">
+                {{ block.settings.link_label }}
+                <svg class="bn-info__link-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="#D60036" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            {%- endif -%}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Barra de información",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "info_card",
+      "name": "Tarjeta de información",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icono",
+          "options": [
+            { "value": "delivery", "label": "Envío / Camión" },
+            { "value": "star",     "label": "Estrella / Calidad" },
+            { "value": "chat",     "label": "Chat / Soporte" },
+            { "value": "leaf",     "label": "Hoja / Natural" },
+            { "value": "clock",    "label": "Reloj / Tiempo" }
+          ],
+          "default": "star"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Título",
+          "default": "Nuestra promesa"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Descripción",
+          "default": "Descripción de este beneficio o característica de la tienda."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Texto del enlace (opcional)",
+          "default": "Ver más"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Enlace"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Barra de información",
+      "blocks": [
+        {
+          "type": "info_card",
+          "settings": {
+            "icon": "clock",
+            "heading": "Más de 40 años de experiencia",
+            "body": "Una familia dedicada a la salud natural desde 1984. Cada producto ha sido seleccionado con el mismo cuidado que elegiríamos para nuestra propia familia.",
+            "link_label": "Nuestra historia",
+            "link_url": "/pages/quienes-somos"
+          }
+        },
+        {
+          "type": "info_card",
+          "settings": {
+            "icon": "delivery",
+            "heading": "Envío gratis a partir de €30",
+            "body": "Envío gratuito garantizado dentro de España y Europa cuando tu pedido supera los €30.",
+            "link_label": "Ver catálogo",
+            "link_url": "/collections/all"
+          }
+        },
+        {
+          "type": "info_card",
+          "settings": {
+            "icon": "chat",
+            "heading": "Habla con un experto",
+            "body": "Si tienes alguna pregunta, llámanos al 952 584 736 — estaremos encantados de ayudarte.",
+            "link_label": "Contactar",
+            "link_url": "/pages/contacto"
+          }
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4
+}
+{% endschema %}
