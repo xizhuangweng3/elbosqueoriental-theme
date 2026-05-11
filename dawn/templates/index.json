@@ -268,48 +268,6 @@
         "articles_count": 3
       }
     },
-    "brand_story": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Cuatro décadas de dedicación, una sola familia",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Todo empezó con una convicción sencilla: el verdadero bienestar nace cuando la sabiduría ancestral se une a la ciencia moderna. Lo que comenzó como un pequeño proyecto familiar en Fuengirola se ha convertido en un lugar de referencia para quienes buscan cuidarse de verdad. Hemos visto crecer a hijos y llegar a nietos. Somos parte de la historia de salud de nuestra comunidad.</p>"
-          }
-        },
-        "button": {
-          "type": "button",
-          "settings": {
-            "button_label": "Conoce Nuestra Historia",
-            "button_link": "shopify://pages/quienes-somos",
-            "button_style_secondary": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text",
-        "button"
-      ],
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-2",
-        "full_width": true,
-        "padding_top": 52,
-        "padding_bottom": 52
-      }
-    },
     "info_bar": {
       "type": "bn-info-bar",
       "settings": {
@@ -336,7 +294,6 @@
     "health_needs",
     "brand_carousel",
     "blog_preview",
-    "brand_story",
     "info_bar"
   ]
 }

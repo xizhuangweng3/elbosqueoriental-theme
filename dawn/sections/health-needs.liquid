@@ -96,6 +96,27 @@
     transform: scale(1.03);
   }
 
+  /* Blur image on hover so label reads more clearly */
+  #shopify-section-{{ section.id }} .hn-card:hover .hn-card__img {
+    filter: blur(3px);
+    transform: scale(1.08);
+    transition: filter 0.35s ease, transform 0.35s ease;
+  }
+
+  #shopify-section-{{ section.id }} .hn-card__img {
+    transition: filter 0.35s ease, transform 0.35s ease;
+  }
+
+  /* Darken overlay on hover for extra contrast */
+  #shopify-section-{{ section.id }} .hn-card:hover .hn-card__overlay {
+    background: rgba(20, 48, 7, 0.65);
+    transition: background 0.35s ease;
+  }
+
+  #shopify-section-{{ section.id }} .hn-card__overlay {
+    transition: background 0.35s ease;
+  }
+
   /* ── Card image ── */
   #shopify-section-{{ section.id }} .hn-card__img {
     position: absolute;
