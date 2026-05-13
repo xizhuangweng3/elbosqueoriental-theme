@@ -262,10 +262,15 @@
     },
     "blog_preview": {
       "type": "bn-blog-preview",
+      "blocks": {
+        "article-1": { "type": "article_card", "settings": {} },
+        "article-2": { "type": "article_card", "settings": {} },
+        "article-3": { "type": "article_card", "settings": {} }
+      },
+      "block_order": ["article-1", "article-2", "article-3"],
       "settings": {
         "heading": "Tu dosis diaria de bienestar",
-        "see_all_label": "Ver todos los artículos",
-        "articles_count": 3
+        "see_all_label": "Ver todos los artículos"
       }
     },
     "info_bar": {

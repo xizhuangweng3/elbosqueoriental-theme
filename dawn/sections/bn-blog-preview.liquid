@@ -1,7 +1,8 @@
 {%- comment -%}
   bn-blog-preview.liquid
-  Homepage blog preview — 3 latest articles in a row.
-  Figma spec: beige background #F9ECDD, 3 cards 367px wide, image 245px tall.
+  Homepage blog preview — 3 manually-selected article blocks.
+  Each block lets you pick any article from any blog in the Theme Editor.
+  Figma: beige #F9ECDD bg, 3-column grid, image 245px + date + title + excerpt.
 {%- endcomment -%}
 
 <style>
@@ -11,20 +12,18 @@
   }
 
   @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }} {
-      padding: 40px 0;
-    }
+    #shopify-section-{{ section.id }} { padding: 40px 0; }
   }
 
   /* ── Container ── */
-  .bn-blog__inner {
+  #shopify-section-{{ section.id }} .bn-blog__inner {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 30px;
   }
 
   /* ── Header row ── */
-  .bn-blog__head {
+  #shopify-section-{{ section.id }} .bn-blog__head {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -32,7 +31,7 @@
     gap: 1.6rem;
   }
 
-  .bn-blog__heading {
+  #shopify-section-{{ section.id }} .bn-blog__heading {
     font-family: var(--font-heading-family);
     font-size: 3.6rem;
     font-weight: 700;
@@ -42,7 +41,7 @@
     letter-spacing: -0.02em;
   }
 
-  .bn-blog__see-all {
+  #shopify-section-{{ section.id }} .bn-blog__see-all {
     font-family: var(--font-body-family);
     font-size: 1.4rem;
     color: #143007;
@@ -50,14 +49,13 @@
     text-underline-offset: 3px;
     white-space: nowrap;
     flex-shrink: 0;
+    transition: opacity 0.2s ease;
   }
 
-  .bn-blog__see-all:hover {
-    opacity: 0.7;
-  }
+  #shopify-section-{{ section.id }} .bn-blog__see-all:hover { opacity: 0.65; }
 
-  /* ── Cards grid ── */
-  .bn-blog__grid {
+  /* ── 3-column grid ── */
+  #shopify-section-{{ section.id }} .bn-blog__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -67,41 +65,41 @@
   }
 
   @media screen and (max-width: 749px) {
-    .bn-blog__grid {
+    #shopify-section-{{ section.id }} .bn-blog__grid {
       grid-template-columns: 1fr;
+      gap: 32px;
     }
   }
 
   @media screen and (min-width: 600px) and (max-width: 749px) {
-    .bn-blog__grid {
+    #shopify-section-{{ section.id }} .bn-blog__grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
   /* ── Card ── */
-  .bn-blog__card {
+  #shopify-section-{{ section.id }} .bn-blog__card {
     display: flex;
     flex-direction: column;
-    gap: 0;
     text-decoration: none;
     transition: transform 0.3s ease;
   }
 
-  .bn-blog__card:hover {
+  #shopify-section-{{ section.id }} .bn-blog__card:hover {
     transform: translateY(-4px);
   }
 
-  /* ── Card image ── */
-  .bn-blog__card-media {
+  /* ── Image ── */
+  #shopify-section-{{ section.id }} .bn-blog__media {
     position: relative;
     width: 100%;
     padding-top: 66.6%;
     overflow: hidden;
     border-radius: 4px 4px 0 0;
-    background: #e8e4dc;
+    background: #d4c5b0;
   }
 
-  .bn-blog__card-img {
+  #shopify-section-{{ section.id }} .bn-blog__img {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -112,26 +110,26 @@
     transition: transform 0.4s ease;
   }
 
-  .bn-blog__card:hover .bn-blog__card-img {
+  #shopify-section-{{ section.id }} .bn-blog__card:hover .bn-blog__img {
     transform: scale(1.04);
   }
 
   /* ── Card body ── */
-  .bn-blog__card-body {
+  #shopify-section-{{ section.id }} .bn-blog__body {
     padding: 16px 0 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
 
-  .bn-blog__card-meta {
+  #shopify-section-{{ section.id }} .bn-blog__date {
     font-family: var(--font-body-family);
     font-size: 1.3rem;
     color: #6C6C6C;
     margin: 0;
   }
 
-  .bn-blog__card-title {
+  #shopify-section-{{ section.id }} .bn-blog__title {
     font-family: var(--font-heading-family);
     font-size: 1.8rem;
     font-weight: 700;
@@ -141,7 +139,7 @@
     letter-spacing: -0.01em;
   }
 
-  .bn-blog__card-excerpt {
+  #shopify-section-{{ section.id }} .bn-blog__excerpt {
     font-family: var(--font-body-family);
     font-size: 1.5rem;
     color: #121212;
@@ -154,72 +152,88 @@
     overflow: hidden;
   }
 
-  /* ── Empty state ── */
-  .bn-blog__empty {
+  /* ── Placeholder card ── */
+  #shopify-section-{{ section.id }} .bn-blog__placeholder {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .bn-blog__placeholder-img {
+    width: 100%;
+    padding-top: 66.6%;
+    background: #d4c5b0;
+    border-radius: 4px 4px 0 0;
+  }
+
+  #shopify-section-{{ section.id }} .bn-blog__placeholder-text {
     font-family: var(--font-body-family);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: #143007;
-    opacity: 0.6;
-    text-align: center;
-    padding: 4rem 0;
+    opacity: 0.5;
+    padding-top: 8px;
   }
 </style>
-
-{%- assign blog = blogs[section.settings.blog] -%}
-{%- assign articles_count = section.settings.articles_count | default: 3 -%}
 
 <div>
   <div class="bn-blog__inner">
 
-    <div class="bn-blog__head">
-      {%- if section.settings.heading != blank -%}
-        <h2 class="bn-blog__heading">{{ section.settings.heading }}</h2>
-      {%- endif -%}
-      {%- if section.settings.see_all_label != blank and blog != blank -%}
-        <a href="{{ blog.url }}" class="bn-blog__see-all">
-          {{ section.settings.see_all_label }}
-        </a>
-      {%- endif -%}
-    </div>
+    {%- if section.settings.heading != blank or section.settings.see_all_url != blank -%}
+      <div class="bn-blog__head">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="bn-blog__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.see_all_label != blank and section.settings.see_all_url != blank -%}
+          <a href="{{ section.settings.see_all_url }}" class="bn-blog__see-all">
+            {{ section.settings.see_all_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
 
-    {%- if blog != blank and blog.articles_count > 0 -%}
-      <ul class="bn-blog__grid" role="list">
-        {%- for article in blog.articles limit: articles_count -%}
-          <li>
+    <ul class="bn-blog__grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign article = block.settings.article -%}
+        {%- assign img = block.settings.image_override | default: article.image -%}
+        <li {{ block.shopify_attributes }}>
+          {%- if article != blank -%}
             <a href="{{ article.url }}" class="bn-blog__card">
-              <div class="bn-blog__card-media">
-                {%- if article.image != blank -%}
+              <div class="bn-blog__media">
+                {%- if img != blank -%}
                   {{
-                    article.image
+                    img
                     | image_url: width: 800
                     | image_tag:
                       loading: 'lazy',
                       widths: '400, 600, 800',
-                      alt: article.image.alt | default: article.title,
-                      class: 'bn-blog__card-img'
+                      alt: img.alt | default: article.title,
+                      class: 'bn-blog__img'
                   }}
                 {%- else -%}
-                  {{ 'lifestyle-1' | placeholder_svg_tag: 'bn-blog__card-img' }}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'bn-blog__img' }}
                 {%- endif -%}
               </div>
-              <div class="bn-blog__card-body">
-                <p class="bn-blog__card-meta">{{ article.published_at | date: '%d %B %Y' }}</p>
-                <h3 class="bn-blog__card-title">{{ article.title }}</h3>
+              <div class="bn-blog__body">
+                <p class="bn-blog__date">{{ article.published_at | date: '%d %B %Y' }}</p>
+                <h3 class="bn-blog__title">{{ article.title }}</h3>
                 {%- if article.excerpt_or_content != blank -%}
-                  <p class="bn-blog__card-excerpt">
+                  <p class="bn-blog__excerpt">
                     {{ article.excerpt_or_content | strip_html | truncate: 120 }}
                   </p>
                 {%- endif -%}
               </div>
             </a>
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- else -%}
-      <p class="bn-blog__empty">
-        Próximamente — artículos de salud natural y bienestar.
-      </p>
-    {%- endif -%}
+          {%- else -%}
+            <div class="bn-blog__placeholder">
+              <div class="bn-blog__placeholder-img"></div>
+              <p class="bn-blog__placeholder-text">
+                Selecciona un artículo en el editor de temas
+              </p>
+            </div>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
 
   </div>
 </div>
@@ -229,9 +243,7 @@
   "name": "Blog — Vista previa",
   "tag": "section",
   "class": "section",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
+  "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
     {
       "type": "text",
@@ -246,29 +258,40 @@
       "default": "Ver todos los artículos"
     },
     {
-      "type": "blog",
-      "id": "blog",
-      "label": "Blog a mostrar"
-    },
+      "type": "url",
+      "id": "see_all_url",
+      "label": "Enlace 'Ver todos'"
+    }
+  ],
+  "blocks": [
     {
-      "type": "range",
-      "id": "articles_count",
-      "min": 1,
-      "max": 6,
-      "step": 1,
-      "label": "Número de artículos",
-      "default": 3
+      "type": "article_card",
+      "name": "Artículo",
+      "settings": [
+        {
+          "type": "article",
+          "id": "article",
+          "label": "Artículo del blog"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_override",
+          "label": "Imagen personalizada (opcional)",
+          "info": "Sustituye la imagen del artículo si quieres usar otra diferente"
+        }
+      ]
     }
   ],
   "presets": [
     {
       "name": "Blog — Vista previa",
-      "settings": {
-        "heading": "Tu dosis diaria de bienestar",
-        "see_all_label": "Ver todos los artículos",
-        "articles_count": 3
-      }
+      "blocks": [
+        { "type": "article_card" },
+        { "type": "article_card" },
+        { "type": "article_card" }
+      ]
     }
-  ]
+  ],
+  "max_blocks": 3
 }
 {% endschema %}
