@@ -1,0 +1,463 @@
+{%- comment -%}
+  bn-hero-carousel.liquid
+  Full-width hero carousel — up to 4 slides, auto-rotates, crossfade transition.
+  Each slide: background image + heading + subheading + 1-2 buttons.
+  Figma spec: 476px height, centred text, #D60036 primary button, 2px radius.
+{%- endcomment -%}
+
+{%- assign speed = section.settings.autoplay_speed | times: 1000 -%}
+
+<style>
+  /* ── Wrapper ── */
+  #shopify-section-{{ section.id }} .bn-hero {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #111;
+  }
+
+  /* ── Slide stack ── */
+  #shopify-section-{{ section.id }} .bn-hero__slides {
+    position: relative;
+    width: 100%;
+    height: clamp(380px, 45vw, 520px);
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .bn-hero__slides {
+      height: clamp(320px, 70vw, 440px);
+    }
+  }
+
+  /* ── Individual slide ── */
+  #shopify-section-{{ section.id }} .bn-hero__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .bn-hero__slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ── Background image ── */
+  #shopify-section-{{ section.id }} .bn-hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .bn-hero__bg--placeholder {
+    background: linear-gradient(135deg, #143007 0%, #1e4a0d 100%);
+  }
+
+  /* ── Overlay ── */
+  #shopify-section-{{ section.id }} .bn-hero__overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* ── Text content ── */
+  #shopify-section-{{ section.id }} .bn-hero__content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3.2rem 2rem;
+    gap: 2.4rem;
+  }
+
+  #shopify-section-{{ section.id }} .bn-hero__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+    max-width: 680px;
+  }
+
+  #shopify-section-{{ section.id }} .bn-hero__heading {
+    font-family: var(--font-heading-family);
+    font-size: clamp(3rem, 5.5vw, 5.2rem);
+    font-weight: 700;
+    line-height: 92%;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 0;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+    text-wrap: balance;
+  }
+
+  #shopify-section-{{ section.id }} .bn-hero__subheading {
+    font-family: var(--font-body-family);
+    font-size: clamp(1.5rem, 2vw, 1.8rem);
+    font-weight: 400;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.6;
+    margin: 0;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+    max-width: 560px;
+    text-wrap: pretty;
+  }
+
+  /* ── Buttons ── */
+  #shopify-section-{{ section.id }} .bn-hero__btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .bn-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    padding: 0 24px;
+    font-family: var(--font-body-family);
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    border-radius: 2px;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.25);
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .bn-hero__btn:hover { opacity: 0.88; }
+
+  #shopify-section-{{ section.id }} .bn-hero__btn--primary {
+    background: #D60036;
+    color: #FEF9F3;
+    border: none;
+  }
+
+  #shopify-section-{{ section.id }} .bn-hero__btn--secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 1.5px solid rgba(255,255,255,0.75);
+  }
+
+  #shopify-section-{{ section.id }} .bn-hero__btn--secondary:hover {
+    background: rgba(255,255,255,0.12);
+    opacity: 1;
+  }
+
+  /* ── Dots ── */
+  #shopify-section-{{ section.id }} .bn-hero__dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+
+  #shopify-section-{{ section.id }} .bn-hero__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .bn-hero__dot.is-active {
+    background: #ffffff;
+    transform: scale(1.25);
+  }
+
+  /* ── Prev / Next arrows ── */
+  #shopify-section-{{ section.id }} .bn-hero__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.2s ease;
+    opacity: 0;
+  }
+
+  #shopify-section-{{ section.id }} .bn-hero:hover .bn-hero__arrow { opacity: 1; }
+  #shopify-section-{{ section.id }} .bn-hero__arrow:hover { background: rgba(255,255,255,0.3); }
+  #shopify-section-{{ section.id }} .bn-hero__arrow--prev { left: 16px; }
+  #shopify-section-{{ section.id }} .bn-hero__arrow--next { right: 16px; }
+  #shopify-section-{{ section.id }} .bn-hero__arrow svg { width: 16px; height: 16px; }
+</style>
+
+{%- if section.blocks.size > 0 -%}
+  <div class="bn-hero" id="BnHero-{{ section.id }}">
+
+    <div class="bn-hero__slides">
+      {%- for block in section.blocks -%}
+        <div
+          class="bn-hero__slide{% if forloop.first %} is-active{% endif %}"
+          data-slide="{{ forloop.index0 }}"
+          {{ block.shopify_attributes }}
+        >
+          {%- assign overlay_opacity = block.settings.overlay_opacity | divided_by: 100.0 -%}
+
+          {%- if block.settings.image != blank -%}
+            {{
+              block.settings.image
+              | image_url: width: 2000
+              | image_tag:
+                loading: 'eager',
+                widths: '750, 1100, 1500, 2000',
+                alt: block.settings.heading | escape,
+                class: 'bn-hero__bg'
+            }}
+          {%- else -%}
+            <div class="bn-hero__bg bn-hero__bg--placeholder"></div>
+          {%- endif -%}
+
+          <div
+            class="bn-hero__overlay"
+            style="background: rgba(0,0,0,{{ overlay_opacity }});"
+          ></div>
+
+          <div class="bn-hero__content">
+            <div class="bn-hero__text">
+              {%- if block.settings.heading != blank -%}
+                <h2 class="bn-hero__heading">{{ block.settings.heading }}</h2>
+              {%- endif -%}
+              {%- if block.settings.subheading != blank -%}
+                <p class="bn-hero__subheading">{{ block.settings.subheading }}</p>
+              {%- endif -%}
+            </div>
+
+            {%- assign has_btn1 = block.settings.btn_label | strip | size -%}
+            {%- assign has_btn2 = block.settings.btn_label_2 | strip | size -%}
+            {%- if has_btn1 > 0 or has_btn2 > 0 -%}
+              <div class="bn-hero__btns">
+                {%- if has_btn1 > 0 -%}
+                  <a
+                    href="{{ block.settings.btn_link | default: '#' }}"
+                    class="bn-hero__btn bn-hero__btn--primary"
+                  >
+                    {{ block.settings.btn_label }}
+                  </a>
+                {%- endif -%}
+                {%- if has_btn2 > 0 -%}
+                  <a
+                    href="{{ block.settings.btn_link_2 | default: '#' }}"
+                    class="bn-hero__btn bn-hero__btn--secondary"
+                  >
+                    {{ block.settings.btn_label_2 }}
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.blocks.size > 1 -%}
+      <div class="bn-hero__dots" role="tablist" aria-label="Diapositivas del banner">
+        {%- for block in section.blocks -%}
+          <button
+            class="bn-hero__dot{% if forloop.first %} is-active{% endif %}"
+            data-dot="{{ forloop.index0 }}"
+            role="tab"
+            aria-label="Diapositiva {{ forloop.index }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          ></button>
+        {%- endfor -%}
+      </div>
+
+      <button class="bn-hero__arrow bn-hero__arrow--prev" aria-label="Anterior" id="BnHeroPrev-{{ section.id }}">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="bn-hero__arrow bn-hero__arrow--next" aria-label="Siguiente" id="BnHeroNext-{{ section.id }}">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    {%- endif -%}
+
+  </div>
+
+  <script>
+  (function () {
+    var hero   = document.getElementById('BnHero-{{ section.id }}');
+    if (!hero) return;
+
+    var slides = hero.querySelectorAll('.bn-hero__slide');
+    var dots   = hero.querySelectorAll('.bn-hero__dot');
+    var prev   = document.getElementById('BnHeroPrev-{{ section.id }}');
+    var next   = document.getElementById('BnHeroNext-{{ section.id }}');
+    var total  = slides.length;
+    var current = 0;
+    var timer;
+    var speed  = {{ speed }};
+
+    function goTo(index) {
+      slides[current].classList.remove('is-active');
+      if (dots[current]) { dots[current].classList.remove('is-active'); dots[current].setAttribute('aria-selected', 'false'); }
+      current = (index + total) % total;
+      slides[current].classList.add('is-active');
+      if (dots[current]) { dots[current].classList.add('is-active'); dots[current].setAttribute('aria-selected', 'true'); }
+    }
+
+    function startTimer() {
+      timer = setInterval(function () { goTo(current + 1); }, speed);
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      startTimer();
+    }
+
+    if (next) next.addEventListener('click', function () { goTo(current + 1); resetTimer(); });
+    if (prev) prev.addEventListener('click', function () { goTo(current - 1); resetTimer(); });
+
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        goTo(parseInt(dot.dataset.dot));
+        resetTimer();
+      });
+    });
+
+    hero.addEventListener('mouseenter', function () { clearInterval(timer); });
+    hero.addEventListener('mouseleave', function () { startTimer(); });
+
+    if (total > 1) startTimer();
+  })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Hero carousel",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Velocidad de rotación",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Diapositiva",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen de fondo"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 80,
+          "step": 5,
+          "unit": "%",
+          "label": "Oscuridad del overlay",
+          "default": 35
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Título",
+          "default": "Cuatro décadas cuidando tu salud"
+        },
+        {
+          "type": "textarea",
+          "id": "subheading",
+          "label": "Subtítulo (opcional)",
+          "default": "Suplementos y vitaminas de confianza seleccionados con el mismo cuidado que elegiríamos para nuestra propia familia."
+        },
+        {
+          "type": "text",
+          "id": "btn_label",
+          "label": "Botón primario — texto",
+          "default": "Ver productos"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Botón primario — enlace"
+        },
+        {
+          "type": "text",
+          "id": "btn_label_2",
+          "label": "Botón secundario — texto (opcional)"
+        },
+        {
+          "type": "url",
+          "id": "btn_link_2",
+          "label": "Botón secundario — enlace"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero carousel",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "heading": "Cuatro décadas cuidando tu salud",
+            "subheading": "Suplementos y vitaminas de confianza seleccionados con el mismo cuidado que elegiríamos para nuestra propia familia.",
+            "btn_label": "Ver Productos",
+            "btn_label_2": "Nuestra Historia"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "heading": "Productos naturales seleccionados a mano",
+            "btn_label": "Ver Productos"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "heading": "Más de 40 años al servicio de tu salud",
+            "btn_label": "Conoce nuestra historia",
+            "btn_label_2": "Contactar"
+          }
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4
+}
+{% endschema %}

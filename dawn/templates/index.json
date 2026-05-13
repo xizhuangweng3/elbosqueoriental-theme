@@ -9,52 +9,41 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "bn-image-banner",
+    "hero_carousel": {
+      "type": "bn-hero-carousel",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "slide-1": {
+          "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/Untitled_design_2.png",
+            "overlay_opacity": 35,
             "heading": "Cuatro décadas cuidando tu salud",
-            "heading_size": "h0"
+            "subheading": "Suplementos y vitaminas de confianza seleccionados con el mismo cuidado que elegiríamos para nuestra propia familia.",
+            "btn_label": "Ver Productos",
+            "btn_label_2": "Nuestra Historia"
           }
         },
-        "text": {
-          "type": "text",
+        "slide-2": {
+          "type": "slide",
           "settings": {
-            "text": "Suplementos y vitaminas de confianza seleccionados con el mismo cuidado que elegiríamos para nuestra propia familia.",
-            "text_style": "body"
+            "overlay_opacity": 35,
+            "heading": "Productos naturales seleccionados a mano",
+            "btn_label": "Ver catálogo"
           }
         },
-        "button": {
-          "type": "buttons",
+        "slide-3": {
+          "type": "slide",
           "settings": {
-            "button_label_1": "Ver Productos",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": false,
-            "button_label_2": "Nuestra Historia",
-            "button_link_2": "shopify://pages/quienes-somos",
-            "button_style_secondary_2": true
+            "overlay_opacity": 35,
+            "heading": "Más de 40 años al servicio de tu salud",
+            "btn_label": "Conoce nuestra historia",
+            "btn_label_2": "Contactar"
           }
         }
       },
-      "block_order": [
-        "heading",
-        "text",
-        "button"
-      ],
+      "block_order": ["slide-1", "slide-2", "slide-3"],
       "settings": {
-        "image": "shopify://shop_images/Untitled_design_2.png",
-        "image_overlay_opacity": 10,
-        "image_height": "large",
-        "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "scheme-3",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false
+        "autoplay_speed": 5
       }
     },
     "featured_collection": {
@@ -294,7 +283,7 @@
     }
   },
   "order": [
-    "image_banner",
+    "hero_carousel",
     "featured_collection",
     "health_needs",
     "brand_carousel",
