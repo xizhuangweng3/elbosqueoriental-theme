@@ -220,6 +220,7 @@
           {{ block.shopify_attributes }}
         >
           {%- assign overlay_opacity = block.settings.overlay_opacity | divided_by: 100.0 -%}
+          {%- assign slide_alt = block.settings.heading | escape -%}
 
           {%- if block.settings.image != blank -%}
             {{
@@ -228,7 +229,7 @@
               | image_tag:
                 loading: 'eager',
                 widths: '750, 1100, 1500, 2000',
-                alt: block.settings.heading | escape,
+                alt: slide_alt,
                 class: 'bn-hero__bg'
             }}
           {%- else -%}
