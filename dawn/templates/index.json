@@ -20,30 +20,54 @@
             "heading": "Cuatro décadas cuidando tu salud",
             "subheading": "Suplementos y vitaminas de confianza seleccionados con el mismo cuidado que elegiríamos para nuestra propia familia.",
             "btn_label": "Ver Productos",
-            "btn_label_2": "Nuestra Historia"
+            "btn_link": "",
+            "btn_label_2": "Nuestra Historia",
+            "btn_link_2": "",
+            "text_color": "#ffffff",
+            "text_alignment": "center",
+            "text_shadow": true
           }
         },
         "slide-2": {
           "type": "slide",
           "settings": {
-            "overlay_opacity": 35,
-            "heading": "Productos naturales seleccionados a mano",
-            "btn_label": "Ver catálogo"
+            "image": "shopify://shop_images/immu_banner.png",
+            "overlay_opacity": 0,
+            "heading": "Refuerza tus defensas",
+            "subheading": "Descubre nuestra colección para el sistema inmunitario",
+            "btn_label": "Ver catálogo",
+            "btn_link": "shopify://collections/inmunidad-y-defensas",
+            "btn_label_2": "",
+            "btn_link_2": "",
+            "text_color": "#143007",
+            "text_alignment": "center",
+            "text_shadow": true
           }
         },
         "slide-3": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/e0e9d001-76ca-401f-8820-c99919844e6c.png",
             "overlay_opacity": 35,
             "heading": "Más de 40 años al servicio de tu salud",
+            "subheading": "Suplementos y vitaminas de confianza seleccionados con el mismo cuidado que elegiríamos para nuestra propia familia.",
             "btn_label": "Conoce nuestra historia",
-            "btn_label_2": "Contactar"
+            "btn_link": "",
+            "btn_label_2": "",
+            "btn_link_2": "",
+            "text_color": "#143007",
+            "text_alignment": "center",
+            "text_shadow": true
           }
         }
       },
-      "block_order": ["slide-1", "slide-2", "slide-3"],
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3"
+      ],
       "settings": {
-        "autoplay_speed": 5
+        "autoplay_speed": 7
       }
     },
     "featured_collection": {
@@ -72,6 +96,75 @@
         "swipe_on_mobile": true,
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "health_needs": {
+      "type": "health-needs",
+      "blocks": {
+        "cat-vitaminas": {
+          "type": "health_category",
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_vynr5pvynr5pvynr.jpg",
+            "title": "Vitaminas y Minerales",
+            "collection": "vitaminas-y-minerales"
+          }
+        },
+        "cat-digestion": {
+          "type": "health_category",
+          "settings": {
+            "image": "shopify://shop_images/digestion-y-microbiota_84dcf28e-4467-4f01-b437-0c192920f036.jpg",
+            "title": "Digestión y Microbiota",
+            "collection": "digestion-y-microbiota"
+          }
+        },
+        "cat-colesterol": {
+          "type": "health_category",
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_y5vsqay5vsqay5vs_4b8aea6e-20ec-4c93-ada3-df96681b44a4.png",
+            "title": "Colesterol y Corazón",
+            "collection": "colesterol-y-corazon"
+          }
+        },
+        "cat-energia": {
+          "type": "health_category",
+          "settings": {
+            "image": "shopify://shop_images/energia-estres-y-sueno_cd8dbe22-6c27-4e3d-b3a6-d1979bef4206.jpg",
+            "title": "Energía, Estrés y Sueño",
+            "collection": "energia-estres-y-sueno"
+          }
+        },
+        "cat-memoria": {
+          "type": "health_category",
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_umobxsumobxsumob.jpg",
+            "title": "Memoria y Sistema Nervioso",
+            "collection": "memoria-y-sistema-nervioso"
+          }
+        },
+        "cat-mtc": {
+          "type": "health_category",
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_xcm6irxcm6irxcm6.jpg",
+            "title": "Medicina Tradicional China",
+            "collection": "medicina-tradicional-china"
+          }
+        }
+      },
+      "block_order": [
+        "cat-vitaminas",
+        "cat-digestion",
+        "cat-colesterol",
+        "cat-energia",
+        "cat-memoria",
+        "cat-mtc"
+      ],
+      "settings": {
+        "heading": "Compra según tu necesidad",
+        "subheading": "Encuentra los suplementos ideales para tu objetivo de salud",
+        "quiz_heading": "¿No sabes por dónde empezar?",
+        "quiz_body": "Responde este breve cuestionario y te ayudamos a encontrar lo que necesitas",
+        "quiz_btn_label": "Hacer el test",
+        "quiz_btn_link": ""
       }
     },
     "brand_carousel": {
@@ -181,85 +274,37 @@
         "padding_bottom": 32
       }
     },
-    "health_needs": {
-      "type": "health-needs",
+    "blog_preview": {
+      "type": "bn-blog-preview",
       "blocks": {
-        "cat-vitaminas": {
-          "type": "health_category",
+        "article-1": {
+          "type": "article_card",
           "settings": {
-            "image": "shopify://shop_images/Gemini_Generated_Image_vynr5pvynr5pvynr.jpg",
-            "title": "Vitaminas y Minerales",
-            "collection": "vitaminas-y-minerales"
+            "article": "noticias/bisglicinato-de-magnesio-que-es-beneficios-y-como-tomarlo"
           }
         },
-        "cat-digestion": {
-          "type": "health_category",
+        "article-2": {
+          "type": "article_card",
           "settings": {
-            "image": "shopify://shop_images/digestion-y-microbiota_84dcf28e-4467-4f01-b437-0c192920f036.jpg",
-            "title": "Digestión y Microbiota",
-            "collection": "digestion-y-microbiota"
+            "article": "noticias/guia-de-nutrientes-que-necesita-tu-cuerpo-y-por-que"
           }
         },
-        "cat-colesterol": {
-          "type": "health_category",
+        "article-3": {
+          "type": "article_card",
           "settings": {
-            "image": "shopify://shop_images/Gemini_Generated_Image_y5vsqay5vsqay5vs_4b8aea6e-20ec-4c93-ada3-df96681b44a4.png",
-            "title": "Colesterol y Corazón",
-            "collection": "colesterol-y-corazon"
-          }
-        },
-        "cat-energia": {
-          "type": "health_category",
-          "settings": {
-            "image": "shopify://shop_images/energia-estres-y-sueno_cd8dbe22-6c27-4e3d-b3a6-d1979bef4206.jpg",
-            "title": "Energía, Estrés y Sueño",
-            "collection": "energia-estres-y-sueno"
-          }
-        },
-        "cat-memoria": {
-          "type": "health_category",
-          "settings": {
-            "image": "shopify://shop_images/Gemini_Generated_Image_umobxsumobxsumob.jpg",
-            "title": "Memoria y Sistema Nervioso",
-            "collection": "memoria-y-sistema-nervioso"
-          }
-        },
-        "cat-mtc": {
-          "type": "health_category",
-          "settings": {
-            "image": "shopify://shop_images/Gemini_Generated_Image_xcm6irxcm6irxcm6.jpg",
-            "title": "Medicina Tradicional China",
-            "collection": "medicina-tradicional-china"
+            "article": "noticias/ashwagandha-que-es-para-que-sirve-y-como-tomarla-correctamente"
           }
         }
       },
       "block_order": [
-        "cat-vitaminas",
-        "cat-digestion",
-        "cat-colesterol",
-        "cat-energia",
-        "cat-memoria",
-        "cat-mtc"
+        "article-1",
+        "article-2",
+        "article-3"
       ],
       "settings": {
-        "heading": "Compra según tu necesidad",
-        "subheading": "Encuentra los suplementos ideales para tu objetivo de salud",
-        "quiz_heading": "¿No sabes por dónde empezar?",
-        "quiz_body": "Responde este breve cuestionario y te ayudamos a encontrar lo que necesitas",
-        "quiz_btn_label": "Hacer el test"
-      }
-    },
-    "blog_preview": {
-      "type": "bn-blog-preview",
-      "blocks": {
-        "article-1": { "type": "article_card", "settings": {} },
-        "article-2": { "type": "article_card", "settings": {} },
-        "article-3": { "type": "article_card", "settings": {} }
-      },
-      "block_order": ["article-1", "article-2", "article-3"],
-      "settings": {
         "heading": "Tu dosis diaria de bienestar",
-        "see_all_label": "Ver todos los artículos"
+        "see_all_label": "Ver todos los artículos",
+        "see_all_url": ""
       }
     },
     "info_bar": {
@@ -268,12 +313,15 @@
         "card1_heading": "Más de 40 años de experiencia",
         "card1_body": "Una familia dedicada a la salud natural desde 1984. Cada producto de nuestro catálogo ha sido cuidadosamente seleccionado.",
         "card1_link_label": "Nuestra historia",
+        "card1_link_url": "",
         "card2_heading": "Envío gratis",
         "card2_body": "Envío gratuito garantizado dentro de España y Europa cuando tu pedido supera los €30.",
         "card2_link_label": "Ver catálogo",
+        "card2_link_url": "",
         "card3_heading": "Habla con un experto",
         "card3_body": "Si tienes alguna pregunta, llámanos al 952 584 736 — estaremos encantados de ayudarte.",
         "card3_link_label": "Contactar",
+        "card3_link_url": "",
         "join_heading": "Únete a nuestra comunidad",
         "join_body": "Suscríbete para recibir un 15% de descuento en tu primer pedido y estar al día de todas las novedades y ofertas.",
         "email_placeholder": "Tu correo electrónico",
