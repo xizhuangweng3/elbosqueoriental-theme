@@ -92,9 +92,8 @@
     font-weight: 700;
     line-height: 92%;
     letter-spacing: -0.02em;
-    color: #ffffff;
+    color: #ffffff; /* overridden per-slide via inline style */
     margin: 0;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.35);
     text-wrap: balance;
   }
 
@@ -102,10 +101,9 @@
     font-family: var(--font-body-family);
     font-size: clamp(1.5rem, 2vw, 1.8rem);
     font-weight: 400;
-    color: rgba(255,255,255,0.88);
+    color: #ffffff; /* overridden per-slide via inline style */
     line-height: 1.6;
     margin: 0;
-    text-shadow: 0 1px 6px rgba(0,0,0,0.3);
     max-width: 560px;
     text-wrap: pretty;
   }
@@ -241,13 +239,27 @@
             style="background: rgba(0,0,0,{{ overlay_opacity }});"
           ></div>
 
-          <div class="bn-hero__content">
+          {%- assign txt_color    = block.settings.text_color    | default: '#ffffff' -%}
+          {%- assign txt_align    = block.settings.text_alignment | default: 'center' -%}
+          {%- if block.settings.text_shadow -%}
+            {%- assign txt_shadow = '0 2px 16px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.35)' -%}
+          {%- else -%}
+            {%- assign txt_shadow = 'none' -%}
+          {%- endif -%}
+
+          <div class="bn-hero__content" style="text-align: {{ txt_align }}; align-items: {% if txt_align == 'left' %}flex-start{% elsif txt_align == 'right' %}flex-end{% else %}center{% endif %};">
             <div class="bn-hero__text">
               {%- if block.settings.heading != blank -%}
-                <h2 class="bn-hero__heading">{{ block.settings.heading }}</h2>
+                <h2
+                  class="bn-hero__heading"
+                  style="color: {{ txt_color }}; text-shadow: {{ txt_shadow }};"
+                >{{ block.settings.heading }}</h2>
               {%- endif -%}
               {%- if block.settings.subheading != blank -%}
-                <p class="bn-hero__subheading">{{ block.settings.subheading }}</p>
+                <p
+                  class="bn-hero__subheading"
+                  style="color: {{ txt_color }}; opacity: 0.9; text-shadow: {{ txt_shadow }};"
+                >{{ block.settings.subheading }}</p>
               {%- endif -%}
             </div>
 
@@ -424,6 +436,34 @@
           "type": "url",
           "id": "btn_link_2",
           "label": "Botón secundario — enlace"
+        },
+        {
+          "type": "header",
+          "content": "Estilo del texto"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Color del texto",
+          "default": "#ffffff"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Alineación",
+          "options": [
+            { "value": "left",   "label": "Izquierda" },
+            { "value": "center", "label": "Centro" },
+            { "value": "right",  "label": "Derecha" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "checkbox",
+          "id": "text_shadow",
+          "label": "Sombra en el texto",
+          "info": "Mejora la legibilidad sobre imágenes claras",
+          "default": true
         }
       ]
     }
