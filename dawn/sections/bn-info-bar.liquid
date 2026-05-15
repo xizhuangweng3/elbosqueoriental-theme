@@ -80,14 +80,15 @@
     display: block;
   }
 
-  /* Heading */
+  /* Heading — min-height so all 3 body texts start at same level */
   .bn-info__heading {
     font-family: var(--font-body-family);
     font-weight: 500;
     font-size: 2.2rem;
-    line-height: 100%;
+    line-height: 120%;
     color: #143007;
     margin: 0;
+    min-height: 5.5rem;
   }
 
   /* Body */
@@ -130,31 +131,20 @@
   /* ── Newsletter join row ── */
   .bn-info__join {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    gap: 44px;
-  }
-
-  @media screen and (max-width: 749px) {
-    .bn-info__join {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 24px;
-    }
+    gap: 24px;
+    text-align: center;
   }
 
   /* Join text block */
   .bn-info__join-text {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    width: 317px;
-    flex-shrink: 0;
-  }
-
-  @media screen and (max-width: 749px) {
-    .bn-info__join-text { width: 100%; }
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 560px;
   }
 
   .bn-info__join-heading {
@@ -183,12 +173,8 @@
     flex-direction: row;
     align-items: center;
     gap: 8px;
-    flex: 1;
-    max-width: 498px;
-  }
-
-  @media screen and (max-width: 749px) {
-    .bn-info__form { width: 100%; max-width: 100%; }
+    width: 100%;
+    max-width: 560px;
   }
 
   .bn-info__email-input {

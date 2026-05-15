@@ -66,6 +66,56 @@ button[type="submit"],
   color: #121212;
 }
 
+/* ── Product card hover — scale whole card, don't crop image ── */
+.card-wrapper {
+  transition: transform 0.3s ease;
+}
+
+.card-wrapper:hover {
+  transform: translateY(-3px);
+}
+
+/* Disable Dawn's built-in image zoom (causes crop) */
+.card__media .media img,
+.card__media img {
+  transition: none !important;
+}
+
+.card:hover .card__media .media img,
+.card-wrapper:hover .card__media img {
+  transform: none !important;
+}
+
+/* ── Slider arrows — all carousels use filled circles ── */
+.slider-button,
+.slider-button--prev,
+.slider-button--next {
+  width: 3.6rem !important;
+  height: 3.6rem !important;
+  border-radius: 50% !important;
+  border: 1.5px solid rgba(0, 0, 0, 0.12) !important;
+  background: var(--color-background) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.09) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  transition: background 0.2s ease, border-color 0.2s ease !important;
+}
+
+.slider-button:hover,
+.slider-button--prev:hover,
+.slider-button--next:hover {
+  background: rgb(var(--color-foreground)) !important;
+  border-color: rgb(var(--color-foreground)) !important;
+  color: rgb(var(--color-background)) !important;
+}
+
+.slider-button svg {
+  width: 1rem !important;
+  height: 1rem !important;
+}
+
 /* ── Quick-add / Add to cart button on product cards ── */
 .quick-add__submit,
 .card__footer .quick-add .button,

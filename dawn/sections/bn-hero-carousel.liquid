@@ -142,13 +142,13 @@
   }
 
   #shopify-section-{{ section.id }} .bn-hero__btn--secondary {
-    background: transparent;
-    color: #ffffff;
-    border: 1.5px solid rgba(255,255,255,0.75);
+    background: rgba(214, 0, 54, 0.75);
+    color: #FEF9F3;
+    border: none;
   }
 
   #shopify-section-{{ section.id }} .bn-hero__btn--secondary:hover {
-    background: rgba(255,255,255,0.12);
+    background: rgba(214, 0, 54, 0.9);
     opacity: 1;
   }
 
@@ -167,10 +167,11 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.6);
     border: none;
     padding: 0;
     cursor: pointer;
+    box-shadow: 0 0 0 1.5px rgba(0,0,0,0.25);
     transition: background 0.3s ease, transform 0.3s ease;
   }
 
@@ -242,7 +243,7 @@
           {%- assign txt_color    = block.settings.text_color    | default: '#ffffff' -%}
           {%- assign txt_align    = block.settings.text_alignment | default: 'center' -%}
           {%- if block.settings.text_shadow -%}
-            {%- assign txt_shadow = '0 2px 16px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.35)' -%}
+            {%- assign txt_shadow = '0 1px 6px rgba(0,0,0,0.22)' -%}
           {%- else -%}
             {%- assign txt_shadow = 'none' -%}
           {%- endif -%}

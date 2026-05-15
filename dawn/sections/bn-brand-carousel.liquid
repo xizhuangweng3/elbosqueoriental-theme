@@ -386,11 +386,11 @@
     }
 
     prev.addEventListener('click', function () {
-      animateScroll(track.scrollLeft - slideWidth(), 420);
+      animateScroll(track.scrollLeft - track.clientWidth, 420);
     });
 
     next.addEventListener('click', function () {
-      animateScroll(track.scrollLeft + slideWidth(), 420);
+      animateScroll(track.scrollLeft + track.clientWidth, 420);
     });
 
     track.addEventListener('scroll', updateArrows, { passive: true });
